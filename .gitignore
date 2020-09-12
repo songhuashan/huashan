@@ -2,3 +2,4 @@ data/
 _runtime/
 addons/theme/stv1/_static/js/webcam
 api/Youtu
+.htaccess
