@@ -1,0 +1,46 @@
+@charset "utf-8";
+@media screen and (max-width:700px){.information-box,.swiper-button-next,.swiper-button-prev{display:none}
+*{padding:0;margin:0;font-family:'Microsoft YaHei';background-repeat:no-repeat}
+.banner-box,.foot,.gooks-imgs,.integral-ma,.mor{display:none}
+.swiper-container:hover .swiper-button-prev{display:none}
+.swiper-container:hover .swiper-button-next{display:none}
+.auto{margin:auto}
+.integral-box{width:100%;margin-top:0}
+.integral{width:100%}
+.integral-name{width:100%;height:auto;border-bottom:1px solid transparent}
+.intar{width:33%;margin:auto}
+.integral-icon{width:25px;height:25px;background:url(../icon/icon_h5.png);background-position:355px 265px;float:left;margin-top:4px}
+.integral-name h4{text-align: center;width: 100%;background: #fff;font-weight:400;color:#00BED4;line-height:36px;float:left;font-size:16px}
+.integral-hoice{width:100%;float:left;overflow:hidden;overflow-x: scroll;white-space: nowrap;}
+.integral-hoice a{display:inline-block;width:38%;height:150px;background-color:#fff;margin:6px 3px 0}
+.integral-hoice a:hover{box-shadow: 0 0 0 0}
+.integral-num{width:98%;height:auto;float:left}
+.integral-num h3{width:10%;height:40px;text-align:center;line-height:40px;background-color:#26C7B6;font-weight:400;color:#fff;font-family:"宋体";float:left;font-size:14px}
+.integral-num span{width:96%;float:left;color:#333;font-size:13px;margin:0 0 0 5px;line-height:22px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.integral-num small{color:#e63900;margin:0 5px 0 5px;font-size:13px;float: right;}
+.integral-num i{color:#888;margin:0 0 0 5px;font-size:13px;font-style:normal;float: left;}
+.integral-num img{width: 80%;height: 92px;margin: 6px auto;line-height: 108px;border: 0;}
+.main{overflow:hidden;width:100%;height:162px}
+.swiper-container{width:100%;height:162px}
+.swiper-wrapper img{width:100%;height:162px}
+.swiper-pagination-bullet{width:7px;height:7px}
+.added{width:100%;float:left}
+.added a{display:block;width:15%;height:24px;border:1px solid #00bdd6;text-align:center;line-height:24px;font-size:14px;margin: 10px auto;border-radius:50px;text-decoration:none;color:#00bdd6}
+hr{display:block;width:100%;height:11px;background-color:#F2F2F2;border:none;margin-top:11px;float:left}
+.quality-name{text-align: center;font-size: 16px;color:#000;line-height:36px;background: #fff}
+.goods-box{width:100%;overflow:hidden;margin-top:0}
+.added:last-child{padding-bottom: 60px;}
+.goods{width:100%;margin:auto}
+.goods-name{height:36px;border-bottom:1px solid #00BED4;line-height:36px;color:#00BED4;background: #fff;text-align:center;position:relative;border-left:0;font-size:13px}
+.goods-exhibition{width:100%;height:auto;overflow:hidden}
+.goods-exhibition a{display:block;width:48%;height:153px;background-color:#fff;float:left;margin:6px 1% 0}
+.goods-exhibition a:hover{background-color: #fff}
+.exhibition-img{width:100%;height:90px;float:left}
+.exhibition-img img{display:block;width:100%;height:100%;margin:auto}
+.goods-per{width:94%;height:72px;float:right}
+.goods-per h3{width:100%;float:left;color:#333;font-size:14px;line-height:14px;text-align:left;font-weight:400}
+.goods-per span{float:left;line-height: 26px;}
+.goods-per i{color:#e63900;font-size:12px;font-style:normal;float:right;}
+.goods-per small{color:#656565;margin:0;font-size:12px;line-height:26px}
+.places{color:#656565;font-size:12px;float:left;line-height:0}
+}

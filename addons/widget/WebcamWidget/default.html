@@ -1,0 +1,163 @@
+<script type="text/javascript" src="__THEME__/js/webcam/jquery.webcam.min.js"></script>
+<style media="screen">
+.camera{
+	width: 870px;
+	height: 360px;
+	margin: 0px auto;
+}
+.camera .top_box{background: #343538;height: 360px;width: 100%;}
+.camera .top_box div{margin:50px auto 0 auto;width: 320px;}
+.camera .top_box .webcam_canvas{margin-left: 30px;float: left;display: none;}
+.camera .bottom_box{background: #1c1d1f;height: 50px;color: #fff;line-height: 50px;}
+.camera .bottom_box p{float: left;margin-left: 20px;color: #FFF;}
+.camera .bottom_box a{float: right;display: block;margin-right: 20px;width: 80px;height: 35px;color: #fff;background: #da4f47;border-radius: 4px;line-height: 35px;text-align: center;margin-top: 7px;}
+.camera .bottom_box #submit_webcam{display: none;}
+</style>
+<!-- 拍照 -->
+<div class="camera">
+    <div class="top_box clearfix">
+    	<div id="{$id}" class="webcam_cut"></div>
+    	<div class="webcam_canvas"></div>
+    </div>
+    <div class="bottom_box clearfix">
+        <p id="cam_status">
+            请对准摄像头,将面部置于可视区域
+        </p>
+        
+        <a href="javascript:;" id="play_cam">
+            拍照
+        </a>
+        <a href="javascript:;" id="submit_webcam">
+            提交照片
+        </a>
+    </div>
+</div>
+<script type="text/javascript">
+	var w = parseInt('{$width|default=540}'),
+		h = parseInt('{$height|default=410}');                                //摄像头配置,创建canvas
+    var pos = 0, ctx = null, saveCB, image = [],file_data,file_canvas_type;
+    var canvas = document.createElement("canvas");
+    $(".webcam_canvas").append(canvas);
+    canvas.setAttribute('width', w);
+    canvas.setAttribute('height', h);
+    ctx = canvas.getContext("2d");
+    var setCss = function(){
+    	$("#cam_status").html("拍照成功");
+    	$("#play_cam").text("重新拍照");
+    	$(".top_box .webcam_cut").animate({marginLeft:'106px'},'slow','',function(){
+    		$(".webcam_canvas,#submit_webcam").show();
+    	});
+    	$(".top_box .webcam_cut").css('float','left');
+    }
+    image = ctx.getImageData(0, 0, w, h);
+    if (canvas.toDataURL) {
+		
+	
+		saveCB = function(data) {
+			
+			var col = data.split(";");
+            var img = image;
+            for(var i = 0; i < w; i++) {
+                var tmp = parseInt(col[i]);
+                img.data[pos + 0] = (tmp >> 16) & 0xff;
+                img.data[pos + 1] = (tmp >> 8) & 0xff;
+                img.data[pos + 2] = tmp & 0xff;
+                img.data[pos + 3] = 0xff;
+                pos+= 4;
+            }
+            if (pos >= 4 * w * h) {
+            	ctx.putImageData(img, 0, 0);
+            	setCss();
+                pos = 0;
+                //Imagedata=canvas.toDataURL().substring(22);  //上传给后台的图片数据
+                file_data = canvas.toDataURL("image/png");
+                file_canvas_type = 'data';
+                
+            }
+		};
+
+	} else {
+
+		saveCB = function(data) {
+			image.push(data);
+			
+			pos+= 4 * w;
+			
+			if (pos >= 4 * w * h) {
+				//$.post("/upload.php", {type: "pixel", image: image.join('|')});
+				pos = 0;
+				setCss();
+				file_canvas_type = 'pixel';
+			}
+		};
+	}
+    $("#{$id}").webcam({
+        width: w,
+        height: h,
+        mode: "callback",                       //stream,save，回调模式,流模式和保存模式
+        swffile: "__THEME__/js/webcam/jscam_canvas_only.swf",
+        onTick: function(remain) { 
+            if (0 == remain) {
+                $("#cam_status").text("拍照成功");
+            } else {
+                $("#cam_status").text("倒计时"+remain + "秒钟...");
+            }
+        },
+        onSave:saveCB,
+        onCapture: function () {               //捕获图像
+            webcam.save();    
+        },
+        debug: function (type, string) {       //控制台信息
+            //console.log(type + ": " + string);
+        },
+        onLoad: function() {                   //flash 加载完毕执行
+            //console.log('加载完毕！')
+            //var cams = webcam.getCameraList();
+            //for(var i in cams) {
+            //    $("body").append("<p>" + cams[i] + "</p>");
+            //}
+        }
+    });  
+
+    $("#play_cam").click(function(){
+        webcam.capture(0);        //拍照，参数是倒计时
+    });
+
+    $("#submit_webcam").click(function(){
+    	var data = {
+    		type:file_canvas_type,
+    		image:file_data,
+            redirect_url:'{$redirect_url|default=''}',
+    		callback:'newperson'
+    	};
+
+    	$.post(U('widget/Webcam/saveImage'),data,function(res){
+    		if(typeof(res) != 'object'){
+		        try{
+		            var res = JSON.parse(res);
+		        }catch(e){
+		            ui.error("处理异常,请重新尝试");
+		            return false;
+		        }
+		    }
+
+		    if(res.status == 1){
+		        ui.success(res.data.info);
+                if(res.data.jumpurl != ''){
+                    setTimeout(function(){
+                        window.location.href = res.data.jumpurl;
+                    },1500);
+                }else{
+                    setTimeout(function(){
+                        window.location.reload();
+                    },1500);
+                }
+		        
+		        return true;
+		    }else{
+		        ui.error(res.message);
+		        return false;
+		    }
+    	});
+    });
+</script>

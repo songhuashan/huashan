@@ -1,0 +1,64 @@
+@charset "utf-8";
+
+*{margin:0;padding:0;background-repeat:no-repeat;font-family:'Microsoft YaHei';}
+#meid,.loadding{display:none;}
+.flashNews img{width:100%;height:200px;}
+.group-box{width: 100%;float: left;margin: 20px 0 50px;}
+.gu-pos{float:left;width:930px;}
+.group{margin:auto;width:1200px;}
+.square{float:left;width:930px;color:#656565;font-size:14px;line-height:32px;}
+.square>ul{float: left;}
+.square>span{float: left;margin: 6px 20px 0;}
+.square em{font-style:normal;}
+.square li{float:left;margin:10px 10px 0 0;padding:0 10px 0 10px;height:24px;color:#333;list-style:none;font-size:14px;line-height:24px;cursor:pointer;}
+.square li a{color:#888;}
+.square li a:hover{color: #00bdd6;}
+.square li.cate_li{border-color:#00bdd6;background-color:#00bdd6;color:#fff;border-radius: 4px;}
+.square li.cate_li a{color:#fff;}
+.min-height-wrap{overflow: hidden;}
+.group-class{top:110px;left:0;width:930px;}
+.group-name{margin-top:16px;width:930px;height:38px;}
+.group-name button:nth-child(2){border: 0;}
+.group-name button{float:left;width:73px;height:38px;outline:0;border:#f7f7f7 solid 1px;background: transparent;border-width:0 1px;color:#AFAFAF;text-align:center;font-size:14px;line-height:38px;cursor:pointer;}
+.group-name button:hover{background:#fff;color:#00BDD4;}
+.group-name button.group-btn{background-color:#fff;}
+.group-name button.group-btn a{color:#00bdd6;}
+.group-content{overflow: hidden;margin-left: -30px;}
+.group-content span{color:#555;font-size: 12px;}
+.group-content a{float:left;display:block;width:290px;background: #fff;margin-left: 30px;margin-bottom: 30px;padding: 20px 0;}
+.group-content-img{width:110px;height:110px;border-radius: 50%;position: relative;overflow: hidden;margin: 0 auto;}
+.group-content a img{width:110px;height: 110px;border-radius: 50%;}
+.group-content a .ibor span{text-align:center;font-size:12px;line-height:28px;color: #999;margin: 0px 15px;}
+.group-content a .ibor span .icon-jiatingchengyuan{font-size: 12px;color: #999;margin-right: 3px;}
+.group-content a .ibor span .icon-xiaoxi-{font-size: 12px;color: #999;margin-right: 3px;}
+.group-content a .ibor{text-align: center;}
+.group-content-per{margin: 0 20px;}
+.group-content-per h3{color:#333;text-align:center;;font-weight:400;line-height:16px;font-size: 16px;margin: 10px 0;}
+.group-content-per p{margin-top:15px;color:#656565;text-align:left;font-size:12px;line-height:22px;color: #888;margin-bottom: 10px;}
+.group-content a .btn_box span{display: block;height: 24px;width: 80px;line-height: 24px;text-align: center;color: #00bed4;font-size: 14px;border: 1px solid #00bed4;border-radius: 4px;margin: 0 auto;}
+.group-content a .btn_box span.no_join{border-color: #888;color: #888;}
+.group-content a .btn_box span.join_on{border-color: rgba(0, 128, 0, 0.71);color: rgba(0, 128, 0, 0.71);}
+.g-type{overflow: hidden;background: #fff;}
+.ipos{float:right!important;}
+.order{float:left;margin-top:30px;}
+.advertisement-box{float:right;width:240px;}
+.adver-img{width:240px;height:210px;}
+.advertisement-box div.shenq_div{margin-bottom:30px;width:240px;height:58px;border-top:solid 2px #00BDD6;background-color:#fff;}
+.advertisement-box div.shenq_div a{float: left;}
+.advertisement-box div.shenq_div span{margin-top:17px;float: left;}
+.advertisement-box div.shenq_div .block_a{width:148px;padding-right:20px;color:rgba(51,51,51,.82);float: right;}
+.advertisement-box div.shenq_div .block_a .sapan_icon{display: inline-block;margin: 14px 5px 0 0;width: 28px;float: left;height: 28px;background: url(../icon/icon.png);background-position: -192px -48px;}
+.recommend-group{margin: 35px 0;width: 240px;background: #fff;}
+.recommend-group h4{border-bottom:1px solid #f2f2f2;color:#333;text-align:left;font-weight:400;line-height:50px;text-indent: 20px;}
+.recommend-group li{height:49px;list-style:none;margin: 0 20px;padding: 10px 0;border-bottom: 1px solid #e5e5e5;}
+.recommend-group li:hover p{color:#00bdd6;}
+.recommend-group li img{float:left;width:49px;height:49px;}
+.recommend-group li:last-child{border: 0;}
+.recommend{}
+a{text-decoration:none;}
+.recommend p{overflow:hidden;color:#333;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:16px;}
+.recommend .person span{display: inline-block;color:#888;font-style:normal;font-size:12px;margin-right: 20px;}
+.recommend .person span i{font-size: 12px;color: #999;margin-right: 3px;}
+.recommend .person{height: 40px;line-height: 40px;float: left;}
+.recommend a{float:right;color:#00bdd6;font-size:12px;line-height:40px;}
+.com-btns span{display:none;}

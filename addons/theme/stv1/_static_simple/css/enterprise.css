@@ -1,0 +1,75 @@
+@charset "utf-8";
+.content{width: 100%;background: transparent;}
+.main{width: 1200px;margin: 0 auto;}
+.nav_list{overflow: hidden;}
+.nav_list dl{margin: 70px 0 40px 0;float: left;}
+.nav_list p{float: right;margin-top: 70px;margin-right: 18px;}
+.nav_list p a{color: #888;font-size: 14px;}
+.nav_list p a .icon-youjiantou{display: inline-block;margin-right: 10px;margin-left: 5px;}
+.nav_list dl dd{float: left;margin-right: 30px;height: 30px;line-height: 27px;}
+.nav_list dl dd:hover{border-bottom: 2px solid #00BED4}
+.nav_list dl dd:hover a{color: #00BED4;}
+.nav_list dl dd a{font-size: 16px;color: #888;}
+.nav_list dl dt{float: left;margin-right: 30px;}
+.nav_list dl dt a{font-size: 20px;color: #333;}
+.nav_list dl .on{border-bottom: 2px solid #00BED4;}
+.nav_list dl .on a{color: #00BED4;}
+.course{overflow: hidden;background: #f7fafa;}
+.content_box::after{content: "";width: 1px;height: 1px;display: block;clear: both;}
+.course .left_box{width:300px;float: left;margin-top: 10px;height: 540px;}
+.course .left_box .pub_box{width: 270px;padding: 10px 10px 0 10px;height: 520px;margin: 0 auto;}
+.course .left_box .pub_box:hover{width: 280px;background: #fff;height: 530px;box-shadow: 0 0 10px 0 rgba(107,113,131,0.2)}
+.course .left_box .pub_box:hover a{height: 440px;}
+.course .left_box a{display: block;width: 100%;height: 432px;}
+.course .left_box a img{width: 100%;height:100%;}
+.text .name{font-size: 14px;margin: 10px 0;}
+.text .school,.text .seen{font-size: 12px;color: #888;margin-bottom: 10px;}
+.text .seen{float: left;}
+.text .money{float: right;color: #ff4000;}
+.text i{display: inline-block;width: 20px;height: 20px;}
+.text .icon-pinglun2{margin-left: 30px;}
+.course .right_box{float: right;width: 900px;}
+.course .right_box ul{width: 100%;padding-top: 10px;height: 550px;}
+.course .right_box ul li{width: 300px;float: left;height: 270px;}
+.course .right_box ul li:nth-child(3n){margin-right: 0px;}
+.course .right_box ul li .div_box{width: 270px;height: 240px;padding: 10px 10px 0 10px;;display: block;margin: 0 auto;}
+.course .right_box ul li:hover .div_box{background: #fff;height: 260px;width: 280px;margin-bottom: -20px;}
+.course .right_box ul li:hover{box-shadow: 0 0 10px 0 rgba(107,113,131,0.2)}
+.course .right_box ul li .div_box:hover .money{margin-bottom: -10px;}
+.course .right_box ul li .div_box:hover img{height: 168px;}
+.course .right_box ul li .div_box img{width:100%;height: 150px;}
+.famous_teacher,.hot_group{background:#f7fafa; }
+.famous_list ul{width: 100%;;margin-top: 50px;}
+.famous_list ul::after{content: "";width: 1px;height: 1px;clear: both;display: block;}
+.famous_list ul li{width: 33.33333%;float: left;}
+.famous_list ul li .div_box{display: block;margin: 0 30px 30px 0;border: 1px solid #dcdcdc;height: 160px;}
+.famous_list ul li .div_box:hover{border: 1px solid #00BED4}
+.famous_list li .div_box a{display: block;float: left;}
+.famous_list li .div_box .fl{float: left;margin-left: 133px;width: 100%;}
+.famous_list li .div_box .fl .school{font-size: 14px;color: #888;margin-bottom: 10px;}
+.famous_list li .div_box .fl .name{font-size: 16px;margin: 10px 0;}
+.famous_list li .div_box a img{width: 100px;height: 100px;border-radius: 50%;position: absolute;left: 20px;top: -50px;}
+.famous_list li .div_box .pub_box{position: relative;}
+.famous_list li .div_box .text{margin: 10px;font-size: 14px;color: #888;}
+.famous_list li .div_box .pub_box::after{content: "";width: 1px;height: 1px;clear: both;display: block;}
+.information_list ul{width: 100%;overflow: hidden;margin-bottom: 40px;}
+.information_list ul li{width: 50%;float: left;margin-bottom: 20px;}
+.information_list ul li .div_box{margin: 0 30px 30px 0;display: block;}
+.information_list li .div_box .img_p{float: left;width: 170px;height: 120px;}
+.information_list li .div_box .img_p img{width: 100%;height: 100%;}
+.information_list li .div_box .content{float: left;width: 66%;padding-left: 20px;min-width: 20px;}
+.information_list li .div_box .content a{font-size: 17px;color: #333;}
+.information_list li .div_box .content a:hover{color: #00bdd6;}
+.information_list li .div_box .content .say{display: inline-block;margin-left: 10px;}
+.information_list li .div_box .content p{font-size: 15px;color: #888;margin: 15px 0 22px 0;height: 40px;}
+.information_list li .div_box .content .time{width: 110px;font-size: 13px;color: #888;display: inline-block;border-right: 1px solid #dcdcdc;margin-right: 20px;}
+.information_list li .div_box .content .seen{font-size: 13px;color: #888;}
+.hot_list ul{width: 100%;overflow: hidden;padding-bottom: 100px;}
+.hot_list ul li{width: 20%;float: left;}
+.hot_list ul li .div_box{display: block;margin: 0 40px 30px 0;}
+.hot_list ul li .div_box a img{width: 200px;height: 200px;}
+.hot_list ul li .div_box .text span{font-size: 16px;display: block;margin: 10px 0;}
+.hot_list ul li .div_box .text p{font-size: 14px;color: #888;}
+.hot_list ul li .div_box .submit{display: block;width: 200px;height: 30px;color: #00BED4;border: 1px solid #00BED4;text-align: center;line-height: 30px;margin-top: 10px;}
+.hot_list ul li .div_box .submit:hover{background:#00BED4;color: #fff;}
+.content_box{display: none;}

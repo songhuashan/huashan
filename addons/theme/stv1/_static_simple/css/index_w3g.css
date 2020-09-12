@@ -1,0 +1,84 @@
+@charset "utf-8";
+hr{height:10px;background-color:#f0f0f2;float:left;width:100%;border:0}
+.device{width:100%;height:155px;position:relative}
+.swiper-container{height:155px;width:100%}
+.content-slide{padding:20px;color:#fff}
+.title{font-size:25px;margin-bottom:10px}
+.pagination{position:absolute;left:0;text-align:center;bottom:5px;width:100%;z-index:100}
+.swiper-pagination-switch{display:inline-block;width:7px;height:7px;border-radius:10px;background:rgba(255,255,255,.6);margin:0 5px;cursor:pointer}
+.swiper-active-switch{background:#00BED4;width:7px;height:7px}
+.swiper-slide img{width:100%;height:155px}
+section{margin: 0 10px;}
+.specific ul{margin-left: -10px;margin-top: 10px;overflow: hidden;margin-bottom: 20px;}
+.specific ul li{float: left;width: 33.333333%;}
+.specific ul li .div_box{border-radius: 2px;margin: 0 0 0px 10px;display: block;height:58px;position: relative;}
+.specific ul li .div_box .introduce{border-radius: 2px;position: absolute;left: 0;top: 0;background: rgba(0,0,0,.5);width: 100%;height: 100%;color: #fff;text-align: center;}
+.specific ul li .div_box .introduce .course_name{font-size: 12px;margin: 21px 0; text-align: center;overflow: hidden;white-space: nowrap;}
+.specific ul li .div_box .introduce .course_one{font-size: 10px;}
+.specific ul li .div_box .img_box img{width: 100%;height: 100%;border-radius: 2px;}
+.specific ul li .div_box .img_box{height: 100%;width: 100%;}
+section .recommend_title{text-align: center;margin: 0 auto;}
+.first_p{font-size: 18px;color: #333;text-align: center;}
+.second_p{font-size: 12px;color: #888;margin: 10px 0 15px 0;text-align: center;}
+.classify_list{overflow: auto;white-space: nowrap;}
+section .classify_list a{padding: 0 5px;margin-right: 10px;border: 1px solid #dcdcdc;border-radius: 2px;color: #333;display: inline-block;font-size: 12px;height: 28px;line-height: 28px;}
+section .classify_list a:hover{background: #00BED4;color: #fff;}
+.classify ul{margin-left: -10px;margin-top: 25px;display: none;overflow: hidden;}
+.classify .on{display: block;}
+.classify ul li{width: 50%;float: left;}
+.classify ul li .div_box {margin: 0 0 15px 10px;display: block;height: 160px;background: #fff;}
+.classify ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.classify ul li .div_box a{display: block;height: 100px;}
+.classify ul li .div_box a img{width: 100%;height: 100%;}
+.classify ul li .div_box .pub_box{margin-left: 5px;}
+.classify ul li .div_box .pub_box p{margin: 7px 0 7px 0;font-size: 14px;color: #333;overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
+.classify ul li .div_box .pub_box .content{color: #aaaab2;font-size: 12px;}
+.classify ul li .div_box .pub_box .icon-pinglun2{margin-left: 6px;display: inline-block;font-size: 12px;color: #aaaab2;}
+.classify ul li .div_box .pub_box .icon-yanjing3{font-size: 12px;color: #aaaab2;}
+.classify ul li .div_box .pub_box .fl{float: left;}
+.classify ul li .div_box .pub_box .fr{float: left;float: right;color: #ff4000;font-size: 14px;margin-right: 5px;}
+.see_more{width: 100%;margin: 10px 0 25px 0;}
+.see_more a{display: block;margin: 0 auto;width: 120px;height: 30px;background: #00BED4;color: #fff;font-size: 12px;border-radius: 2px;line-height: 30px;text-align: center;border-radius: 2px;}
+.lately_live ul{width: 100%;overflow: hidden;}
+.lately_live ul li .div_box{display: block;margin: 0 0 20px 0px;background: #fff;}
+.lately_live ul li .div_box::after{content: "";width: 0;height: 0;display: block;clear: both;}
+.lately_live ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3);}
+.lately_live li .div_box .img_box{float: left;width: 40%;position: relative;}
+.lately_live li .div_box .img_box img{width: 100%;height: 100%;display: block;}
+.lately_live li .div_box .text_box{float: left;width: 53%;padding:10px 10px 0 10px;position: relative;}
+.lately_live li .div_box .text_box .title{font-size: 14px;color: #333;margin-bottom: 5px;display: block;}
+.lately_live li .div_box .text_box .content{font-size: 12px;color: #888;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;}
+.lately_live li .div_box .text_box .students{position: absolute;bottom: 0px;left: 0px;margin-top: 4px;font-size: 12px;color: #656565;margin-bottom: 8px;display: inline-block;margin-left: 10px;}
+.lately_live li .div_box .text_box .teachers{position: absolute;right: 0px;bottom: 0px;font-size: 12px;color: #656565;margin-bottom: 8px;display: inline-block;margin-right: 20%;}
+.lately_live li .div_box .time{position: absolute;left: 0;bottom: 0px;background: rgba(0,0,0,.4);font-size: 12px;color: #fff;line-height: 20px;width: 100%;text-align: center;}
+.teacher_recommend .teacher_list ul{margin-left: -10px;overflow: hidden;}
+.teacher_recommend .teacher_list ul li{width: 33.333333%;float: left;height: 120px;margin-top: 50px;margin-bottom: 20px;}
+.teacher_recommend .teacher_list ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.teacher_recommend .teacher_list ul li .div_box{position: relative;margin: 0 0 10px 10px;display: block;background: #fff;text-align: center;height: 120px;}
+.teacher_recommend .teacher_list li .div_box img{width:90px;border-radius: 50%;height:90px;}
+.teacher_recommend .teacher_list li .div_box a{position: absolute;left: 0;top: -45px;right: 0px;bottom: 0px;margin: auto;display: block;}
+.teacher_recommend .teacher_list li .div_box .name{padding-top: 54px;font-size: 14px;color: #333;}
+.teacher_recommend .teacher_list li .div_box .btm{border-bottom: 2px solid #333;width: 30px;height: 2px;margin: 0 auto;margin-top: 6px;margin-bottom:9px;}
+.teacher_recommend .teacher_list li .div_box .shcool{font-size: 12px;color: #888;}
+.hot{margin-top: 20px;height: 240px;background: #434343;}
+.hot .first_p{color: #fff;padding-top: 20px;}
+.hot ul{margin-top: 20px;}
+.hot .hot_list ul li{width: 100%;margin-bottom: 20px;}
+.hot .hot_list ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.hot .hot_list ul li .div_box{display: block;background: #fff;}
+.hot .hot_list li .div_box img{width: 100%;height: 150px;}
+.hot .hot_list .content{padding: 15px;}
+.hot .hot_list .content .title{font-size: 16px;color: #333;}
+.hot .hot_list .content .time{font-size: 12px;color: #dbdbdb;margin: 6px 0 10px 0;}
+.hot .hot_list .content .text{font-size: 12px;color: #888;margin-bottom: 10px;}
+
+.education ul{width: 100%;margin-bottom: 20px;}
+.education ul::after{content: "";width: 0;height: 0;display: block;clear: both;}
+.education ul li{height: 95px;margin-bottom: 20px;}
+.education ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.education ul li .div_box{display: block;background: #fff;overflow: hidden;padding: 9px 10px;}
+.education ul li .div_box .img_title img{width: 70px;height: 70px;border-radius: 50%;}
+.education ul li .div_box .img_title{float: left;display: block;width: 70px;height: 70px;margin-left: 10px;}
+.education ul li .div_box .content{float: left;display: block;width: 71%;}
+.education ul li .div_box .content .name{margin-left: 20px;color: #333;font-size: 14px;}
+.education ul li .div_box .content .text{margin-left: 20px;color: #9e9e9e;font-size: 12px;margin-top: 6px;}

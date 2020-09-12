@@ -1,0 +1,140 @@
+<script type="text/javascript" src="__THEME__/js/webuploader/webuploader.js"></script>
+<input type="hidden" name="attach_ids" value="" >
+<php>
+set_time_limit(0);
+$attach_config = model('Xdata')->get('admin_Config:attach');
+if($attach_config){
+	$extension = explode(',',$attach_config['attach_allow_extension']);
+	$extension = array_map(create_function('&$v','return "*.".$v;'),$extension);
+	$extension = implode(';',$extension);
+}else{
+	$extension = '*.mp4;*.mp3;*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.pdf;*.txt;*.flv;*.avi';
+}
+</php>
+	<link rel="stylesheet" href="__THEME__/js/webuploader/webuploader.css">
+	
+	<script type="text/javascript">
+	var uploader,now_uploadFile;
+	var qiniu_post_params = {};
+	var upload_url = U("widget/Upload/save");
+	<present name="uptoken">
+		upload_url = 'https://up.qbox.me';
+		qiniu_post_params.token = '<?php echo $uptoken ?>';
+		qiniu_post_params.key = '<?php echo $filename ?>';
+	</present>
+	</script>
+	<script type="text/javascript">
+	var uploader = WebUploader.create({
+		//自动上传
+		auto:true,
+
+		// swf文件路径
+		swf:'__THEME__/js/webuploader/Uploader.swf',
+
+		// 文件接收服务端。
+		server: upload_url,
+
+		// 选择文件的按钮。可选。
+		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+		pick: {
+		    id:'#spanButtonPlaceHolder',
+		    innerHTML:'<span class="selectFile">选择文件</span>',
+		    multiple:false,
+		    name:''
+		},
+		// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+		resize: false,
+		fileNumLimit:1
+	});
+    uploader.option('formData',qiniu_post_params);
+    <notpresent name="uptoken">
+    uploader.option('chunked',true);// 开启切片上传功能,此功能为后续做断点续传,目前仅有切片上传的功能,无断点续传
+    uploader.option('chunkSize',4*1024*1024);// 每片大小 默认4M
+    uploader.option('threads',1);// 并发请求数,默认1,可以根据自己的需要更改该值
+    </notpresent>
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var progressBox = $('#fsUploadProgress');
+
+        var item = '<div class="progressWrapper" id="progress_'+file.id+'"><div class="progressContainer green">';
+        	item +='<div class="progressName">'+file.name+'</div>';
+        	item +='<div class="progressBarStatus">等待上传</div>';
+        	item +='<div class="progressBarInProgress" style="width: 0%;"></div></div></div>';
+       	progressBox.html(item);
+       	$("input[name='attach_ids'],input[name='videokey']").val('');
+        if(uploader.options.fileNumLimit == 1){
+            $('#spanButtonPlaceHolder').hide();
+        }
+        
+    });
+    // 进度条
+	uploader.on( 'uploadProgress', function( file, percentage ) {
+		var percentageInt = Math.floor(percentage * 100);
+		$('#progress_'+file.id+' .progressBarStatus').text('正在上传...'+percentageInt+'%');
+		$('#progress_'+file.id+' .progressBarInProgress').css('width',percentage * 100 + '%');
+		$("#btnCancel").show();
+		// 设置取消按钮可以点击
+		$("#btnCancel").prop('disabled',false);
+		now_uploadFile = file;
+	});
+	uploader.on( 'uploadSuccess', function( file ,res) {
+		var res = getResponseData(res._raw);
+		<notpresent name="uptoken">
+			if(res.status == 1){
+				$('#progress_'+file.id+' .progressBarStatus').text('上传成功');
+				$('#progress_'+file.id+' .progressBarInProgress').addClass('progressBarComplete');
+				//var attach_ids = $("input[name='attach_ids']").val().replace(/\b(0+)|^,/gi,"");
+		        //   	attach_ids = attach_ids+','+res.data.attach_id
+		        //$("input[name='attach_ids']").val(attach_ids.replace(/\b(0+)|^,/gi,""));
+		        $("input[name='attach_ids']").val(res.data.attach_id);
+			}else{
+				$('#progress_'+file.id+' .progressBarStatus').text(res.data);
+				$('#progress_'+file.id+' .progressBarInProgress').addClass('progressBarError');
+			    uploader.removeFile(file.id);
+			    $('#spanButtonPlaceHolder').show();
+			}
+		</notpresent>
+
+		<present name="uptoken">
+			if(typeof(res.key) != 'undefined'){
+				$("input[name='attach_ids'],input[name='videokey']").val(res.key);
+				$('#progress_'+file.id+' .progressBarStatus').text('上传成功');
+				$('#progress_'+file.id+' .progressBarInProgress').addClass('progressBarComplete');
+			}else{
+				$('#progress_'+file.id+' .progressBarStatus').text('上传出错,请重新上传');
+				$('#progress_'+file.id+' .progressBarInProgress').addClass('progressBarError');
+			    uploader.removeFile(file.id);
+			    $('#spanButtonPlaceHolder').show();
+			}
+		</present>
+
+		$("#btnCancel").hide();
+		$("#btnCancel").prop('disabled',true);
+		now_uploadFile = null;
+	    
+	});
+
+	uploader.on( 'uploadError', function( file ) {
+	    $('#progress_'+file.id+' .progressBarStatus').text('上传出错,请重新上传');
+	    $('#progress_'+file.id+' .progressBarInProgress').addClass('progressBarError');
+	    $("#btnCancel").hide();
+	    uploader.removeFile(file.id);
+	    $('#spanButtonPlaceHolder').show();
+	    $("#btnCancel").prop('disabled',true);
+	    now_uploadFile = null;
+	});
+
+	$("#btnCancel").click(function(){
+		if(now_uploadFile){
+			uploader.cancelFile(now_uploadFile);
+			// 重新显示上传按钮
+			$('#progress_'+now_uploadFile.id+' .progressBarStatus').text('取消上传');
+			$('#progress_'+now_uploadFile.id+' .progressBarInProgress').addClass('progressBarError');
+			$('#progress_'+now_uploadFile.id+' .progressBarInProgress').css('width', '100%');
+			$('#spanButtonPlaceHolder').show();
+			$("#btnCancel").hide();
+			$("#btnCancel").prop('disabled',true);
+		}
+	});
+	</script>

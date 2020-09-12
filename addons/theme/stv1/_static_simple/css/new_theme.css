@@ -1,0 +1,83 @@
+@charset "utf-8";
+.content_box{width: 100%;}
+.clear{clear: both;}
+.main{width: 1200px;margin: 0 auto;}
+.bg_img{height: 420px;width: 100%;}
+.bg_img img{width: 100%;height: 100%;}
+.specific ul{width: 100%;margin-left: -30px;margin-top: 30px;overflow: hidden;}
+.specific ul li{float: left;width: 25%;}
+.specific ul li .div_box{margin: 0 0 50px 30px;display: block;height:150px;position: relative;}
+.specific ul li .div_box img{width: 270px;height: 150px;}
+.specific ul li .div_box .introduce{position: absolute;left: 0;top: 0;background: rgba(0,0,0,.3);width: 100%;height: 100%;color: #fff;}
+.specific ul li .div_box .introduce .course_name{font-size: 24px;margin: 60px 0; text-align: center;color: #fff;}
+.specific ul li .div_box .introduce .course_one{font-size: 14px;margin-left: 20px;color: #fff;}
+.recommend .recommend_title{text-align: center;margin: 0 auto;}
+.first_p{font-size: 36px;color: #333;text-align: center;}
+.second_p{font-size: 16px;color: #888;margin: 20px 0 30px 0;text-align: center;}
+.recommend .classify_list a{margin-right: 5px;border: 1px solid #dcdcdc;border-radius: 2px;color: #333;display: inline-block;font-size: 16px;height: 32px;line-height: 32px;padding: 0 8px;}
+.recommend .classify_list a:hover{background: #00BED4;color: #fff;}
+.classify ul{margin-left: -30px;margin-top: 40px;display: none;height: 360px;}
+.classify ul li{width: 33.333333%;float: left;}
+.classify ul li .div_box {margin: 0 0 40px 30px;display: block;height: 320px;background: #fff;}
+.classify ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.classify ul li .div_box a img{width: 100%;}
+.classify ul li .div_box .pub_box{margin-left: 20px;}
+.classify ul li .div_box .pub_box p{margin: 15px 0 15px 0;font-size: 18px;color: #333;}
+.classify ul li .div_box .pub_box .content_box{color: #888;font-size: 14px;}
+.classify ul li .div_box .pub_box .icon-pinglun2{margin-left: 10px;display: inline-block;}
+.more_d{width: 100%;height: 44px;margin-bottom: 30px;}
+.more_d .more_a{width: 210px;height: 44px;display: block;margin: 0 auto;border-radius: 4px;color: #fff;background: #00BED4;text-align: center;line-height: 44px;margin-bottom: 50px;}
+.settled .bg_all img{width: 100%;height: 200px;}
+.settled{position: relative;margin-bottom: 50px;margin-top: 40px;overflow: hidden;}
+.settled ul{position: absolute;left: 0;top: 90px;width: 1200px;bottom: 0;right: 0;margin: auto;}
+.settled ul li{height: 80px;float: left;width: 24.9%;border-right: 1px solid #dcdcdc;text-align: center;color: #fff;}
+.settled ul li p{font-size: 40px;}
+.settled ul li span{font-size: 14px;}
+.settled ul .none_bd{border-right: 0px;}
+.lately_live{overflow: hidden;margin-top: 30px;}
+.lately_live ul{margin-left: -15px;width: 100%;margin-bottom: 40px;}
+.lately_live ul::after{content: "";width: 0;height: 0;display: block;clear: both;}
+.lately_live ul li{float: left;width: 50%;}
+.lately_live ul li .div_box{display: block;margin: 0 0 40px 30px;background: #fff;height: 132px;}
+.lately_live ul li .div_box::after{content: "";width: 0;height: 0;display: block;clear: both;}
+.lately_live ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3);}
+.lately_live li .div_box .img_box{float: left;width: 240px;height: 132px;position: relative;}
+.lately_live li .div_box .img_box img{width: 100%;height: 100%;}
+.lately_live li .div_box .text_box{float: left;width: 290px;padding:0 20px;}
+.lately_live li .div_box .text_box .title{font-size: 20px;color: #333;margin-bottom: 10px;display: block;}
+.lately_live li .div_box .text_box .content_box{font-size: 12px;color: #888;}
+.lately_live li .div_box .text_box .students{font-size: 14px;color: #656565;margin:13px 0;}
+.lately_live li .div_box .text_box .teachers{font-size: 14px;color: #656565;}
+.lately_live li .div_box .time{position: absolute;left: 0;bottom: 0px;background: rgba(0,0,0,.3);font-size: 14px;color: #fff;height:40px;line-height: 40px;width: 100%;text-align: center;}
+.teacher_recommend .teacher_list_box ul{margin-left: -30px;margin-bottom: 40px;}
+.teacher_recommend .teacher_list_box ul li{width: 16.66666%;float: left;height: 240px;margin-top: 100px;}
+.teacher_recommend .teacher_list_box ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.teacher_recommend .teacher_list_box ul li .div_box{height: 200px;position: relative;margin: 0 0 40px 30px;display: block;background: #fff;text-align: center;}
+.teacher_recommend .teacher_list_box li .div_box img{width: 170px;border-radius: 50%;height: 170px;}
+.teacher_recommend .teacher_list_box li .div_box a{position: absolute;left: 0;top: -85px;display: block;}
+.teacher_recommend .teacher_list_box li .div_box .name{padding-top: 104px;font-size: 24px;color: #333;}
+.teacher_recommend .teacher_list_box li .div_box .btm{border-bottom: 2px solid #333;width: 60px;height: 2px;margin: 0 auto;margin-top: 12px;margin-bottom: 18px;}
+.teacher_recommend .teacher_list_box li .div_box .shcool{font-size: 14px;color: #888;}
+.hot-box{height: 700px;}
+.hot{margin-top: 40px;height: 400px;background: #434343;}
+.hot .first_p{color: #fff;padding-top: 50px;}
+.hot ul{margin-left: -30px;margin-top: 42px;}
+.hot .hot_list ul li{width: 33.33333%;float: left;}
+.hot .hot_list ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.hot .hot_list ul li .div_box{margin: 0px 0 40px 30px;display: block;background: #fff;height: 400px;}
+.hot .hot_list li .div_box img{width: 100%;height: 220px;}
+.hot .hot_list .content_box{padding: 14px 20px 20px 24px;width: 90%}
+.hot .hot_list .content_box .title{font-size: 18px;color: #333;}
+.hot .hot_list .content_box .time{font-size: 12px;color: #dbdbdb;margin: 14px 0 20px 0;}
+.hot .hot_list .content_box .text{font-size: 14px;color: #888;}
+.education{margin-top: 30px;margin-bottom: 100px;}
+.education ul{margin-left: -30px;margin-bottom: 20px;}
+.education ul::after{content: "";width: 0;height: 0;display: block;clear: both;}
+.education ul li{width: 33.3333333%;height: 100px;float: left;margin-bottom: 30px;}
+.education ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.education ul li .div_box{display: block;margin: 0px 0 30px 30px;background: #fff;overflow: hidden;padding: 18px 20px;}
+.education ul li .div_box .img_title img{width: 72px;height: 72px;border-radius: 50%;}
+.education ul li .div_box .img_title{float: left;display: block;width: 20%;}
+.education ul li .div_box .content_box{float: left;display: block;width:80%;}
+.education ul li .div_box .content_box .name{margin-left: 20px;color: #333;font-size: 16px;}
+.education ul li .div_box .content_box .text{margin-left: 20px;color: #9e9e9e;font-size: 12px;margin-top: 12px;}
