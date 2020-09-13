@@ -110,20 +110,23 @@
                                         <div class="lu-ms-tim block">
                                             <php>
                                                 $content = $answerData['content'][$question['exams_question_id']];
+                                                $postion = strpos($content,",");
+                                                if($postion){
+                                                    $content = str_replace(",","",$content);
+                                                }
                                             </php>
 
                                             <em class="bgco">您的答案<strong><php>if(!$content){</php>未作答<php>}</php>
-                                                
-                                                            
-                                                       <php>if($options_type['question_type'] == 1 ){</php>
-                                                <php>echo  $answerData['content'][$question['exams_question_id']][0];</php>
-                                                <php>}else{</php>
-                                                    <volist name="answerData['content'][$question['exams_question_id']]" id="vo">
-                                                        {$vo}
+                                            
+                                                <php>
+                                                    if(is_array($content)){
+                                                        echo implode("",$content);
+                                                    }else{
+                                                        echo $content;
+                                                    }   
 
-                                                    </volist>
-
-                                                <php>}</php>  
+                                                </php>
+                                               
                                                 
                                                 </strong></em>
                                             <em>正确答案<strong><volist name="question.answer_true_option" id="answer_true">{$answer_true}</volist></strong></strong></em>

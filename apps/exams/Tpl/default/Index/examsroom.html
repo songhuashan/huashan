@@ -93,7 +93,7 @@
 
                                             <volist name="question.answer_options" id="answer">
                                                 <php>$key_new = $key;</php>
-                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question['exams_question_id']}]" value="{$key},{$question_num}"
+                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question['exams_question_id']}]" value="{$key}"
                                                 
                                                 <volist name="tempData['content']" id="va">
                                                     <php>if($va[0].$va[1] == $key_new.$question_num){echo "checked='checked'";}</php>
@@ -103,7 +103,7 @@
                                             <php>}</php>
                                             <php>if(!$tempData){</php>
                                             <volist name="question.answer_options" id="answer">
-                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question['exams_question_id']}]" value="{$key},{$question_num}"
+                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question['exams_question_id']}]" value="{$key}"
                                                         >{$key}</label></li>
                                             </volist>
                                             <php>}</php>
@@ -142,14 +142,13 @@
                                     <div class="choice">
                                         <ul>
                                             <php>
-                                                if($tempData['content'][$question_num]){
-                                                    $content = $tempData['content'][$question_num][0];                                      }else{
+                                                if($tempData['content'][$question['exams_question_id']]){
+                                                    $content = $tempData['content'][$question['exams_question_id']][0];                                      }else{
                                                     $content = [];
                                                 }
-                                                
                                             </php>
                                             <volist name="question.answer_options" key="k" id="answer">
-                                                <li><label><input class="anserItem" type="checkbox"  <php>if(!empty($content) && strstr($content,$key)){</php>checked="checked"<php>}</php> name="user_answer[{$question['exams_question_id']}][{$k}][]" value="{$key}">{$key}</label></li>
+                                                <li><label><input class="anserItem" type="checkbox"  <php>if(!empty($content) && strstr($content,$key)){</php>checked="checked"<php>}</php> name="user_answer[{$question['exams_question_id']}][]" value="{$key}">{$key}</label></li>
                                                 
                                             </volist>
                                         </ul>

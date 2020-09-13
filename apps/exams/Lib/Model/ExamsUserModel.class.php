@@ -85,56 +85,17 @@ class ExamsUserModel extends Model
         $logs            = []; // 保存记录信息
         $status          = 1;
         // 是否错题练习
-        // dump($questions); 
         $is_wrongexams = isset($data['is_wrongexams']);
         $answer_0 = [];
         foreach ($questions as $question_id => $answer) {
             // 统一转换为数组处理
-            // if (is_string($answer) && stripos($answer, ',') !== false) {
-            //     $answer = explode(',', $answer);
-            // } elseif (is_string($answer)) {
-            //     $answer = [$answer];
-            // }
-
-            if (is_string($answer) && stripos($answer, ',') !== false) {
-                $answer = explode(',', $answer);
-                // if(is_array($answer)){
-                    $answer_0 = $answer;
-                // }else{
-                    // $answer_0[0] = $answer;
-                // }
-                // dump($answer);
+            
                 $questions[$question_id] = $answer;
-                // dump($answer_0);
-                // echo "-----1-----";
-            } else {
-                // dump($answer);
-                $answer_1 = [];
-                // if(!is_array($answer)){
-                //     $answer_0[0] = $answer;
-                // }else{
-                    // foreach ($answer as $key => $value) {
-                    //     $questions[$question_id][0] .= $value[0];
-                    //     $questions[$question_id][1] = $question_id;
-                    //     // array_push($answer_1, $value[0]);
-                    //     // dump($value);
-                    // }
-                    $answer_0[0] = $answer;
-                    // asort($questions[$question_id]);
-                    // dump($answer_0);
-                    // echo "-----2----";
-                    // $questions[$question_id] = array_slice($questions[$question_id],0,2);
-                // }
-                
-            }
-            // dump($questions);die;
+              
             array_push($question_answer, $question_id);
             // 获取试题信息
-            // echo "-------------------------------------1----------------------------------------";
-            // dump($question_id);
             $question_info = D("ExamsQuestion", 'exams')->getQuestionById($question_id);
             
-            // dump($question_info);
             $is_right      = 0;
             switch ($question_info['type_info']['question_type_key']) {
                 case 'radio':
@@ -143,11 +104,13 @@ class ExamsUserModel extends Model
                 case 'completion':
                     // 检测正误
                     $answer_true_option = $question_info['answer_true_option'];
-                    // dump($answer_true_option);
-                    // echo "---------------------------------------2--------------------------------------";
-                    // dump($answer_0);
-                    // dump(count(array_diff($answer_true_option, $answer_0)));
-                    if ($answer && count(array_diff($answer_true_option, $answer_0)) === 0) {
+                    if(is_array($answer_true_option)){
+                        $answer_true_option =  implode(",", $answer_true_option);
+                    }
+                    if(is_array($answer)){
+                        $answer = implode(",", $answer);
+                    }
+                    if ($answer && $answer_true_option == $answer ) {
                         $right_count += 1;
                         // 累计分数
                         $score += $scoreConfig[$question_info['exams_question_type_id']];
@@ -162,12 +125,9 @@ class ExamsUserModel extends Model
                     $wrong_count += 1;
                     break;
             }
-            // dump($question_id);
             array_push($logs, ['exams_paper_id' => $paper_id, 'exams_question_id' => $question_id, 'is_right' => $is_right]);
-            // echo "------------------------------3------------------------------";
 
         }
-            // dump($logs);die;
         $all_question_ids = [];
         $end_questions    = array_keys($questions);
         // 检测未填题

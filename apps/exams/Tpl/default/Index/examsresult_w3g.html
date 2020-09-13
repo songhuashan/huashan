@@ -113,7 +113,11 @@
                             <div class="operation">
                                 <!--答案解析-->
                                 <php>
-                                    $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : [];
+                                    $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : "";
+                                    $postion = strpos($content,",");
+                                    if($postion){
+                                        $content = str_replace(",","",$content);
+                                    }
                                 </php>
                                 <div class="analysis">
                                     <table class="analysis-pic">
@@ -124,16 +128,14 @@
                                        
                                         <td>
                                             <h6>我的答案</h6>
-                                            <em><php>if(!$content){</php>未作答<php>}else if($options_type['question_type'] == 1){</php>
-                                                <php>echo  $answerData['content'][$question['exams_question_id']][0];</php>
-                                                   <php>}else if($options_type['question_type'] == 2){</php>
-                                                    
-                                                   <volist name="answerData['content'][$question['exams_question_id']]" id="vo">
-                                                       {$vo}
-                                                   </volist>
-
-
-                                                   <php>}</php>
+                                            <em><php>if(!$content){</php>未作答<php>}</php>
+                                                <php>
+                                                if(is_array($content)){
+                                                        echo implode("",$content);
+                                                    }else{
+                                                        echo $content;
+                                                    }   
+                                                </php>
                                                 </em>
                                         </td>
                                     </table>

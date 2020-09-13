@@ -108,12 +108,10 @@ class IndexAction extends CommonAction
         }else{
             $selCate = showCatetreeForHtml($selCate, $config, 'id', $cateId);
         }
-            // dump($selCate);
             $this->assign('selcate', $selCate);
         } else {
             $cateData = model('CategoryTree')->setTable('exams_subject')->getNetworkList(0);
             $array_new = array();
-            // dump($cateData);
             $exams_subject_id = "";
             foreach ($cateData as $ke => $ve) {
                     foreach ($string as $ky => $vy) {
@@ -126,15 +124,11 @@ class IndexAction extends CommonAction
                     }
                 }
             }
-            // dump($string);
-            // dump($array_new);
             if(!in_array($mid,[1,4274,9281,9282,9287,9431,9432,9433])){ 
                 $this->assign('cateData', $array_new);
             }else{
                 $this->assign('cateData', $cateData);
             }
-            // dump($array_new);//(($cid !== null) ? $cid:$v['id']) 
-            // dump($cateData);
         }
         // 试题难度
         $level = $_GET['level'] ? ['in', $_GET['level']] : '';
@@ -152,10 +146,7 @@ class IndexAction extends CommonAction
             
         }
         
-        // if(!in_array($mid,[1,4274,9281,9282,9431,9432,9433]) || ){
-            // $where['exams_subject_id'] = ['in', $ids];
-            // $where['exams_subject_id'] = ['in',$ids];
-        // }else if($cateId){
+        
          if(in_array($mid,[1,4274,9281,9282,9287,9431,9432,9433])){
             if(!empty($ids)){
                 $where['exams_subject_id'] = ['in',$ids];
@@ -170,10 +161,9 @@ class IndexAction extends CommonAction
          }
 
             
-        // }
         $level && $where['level']          = $level;
         
-        //$where['_string']                  = '(`start_time` <= ' . time() . ' OR `start_time` = 0) AND (`end_time` >= ' . time() . ' OR `end_time` = 0)';
+    
         
         $list                              = D('ExamsPaper', 'exams')->getPaperPageList($where, 100, $order);
         // echo M()->getLastSql();
