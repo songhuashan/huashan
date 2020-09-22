@@ -1170,7 +1170,6 @@ $this->onload[] = "admin.departDefault('".implode(',', $_POST['_parent_dept_id']
         $oldUname      = $user->where('uid=' . $uid)->getField('uname');
         
         $vmap['uname'] = t($_POST['uname']);
-
         if ($oldUname != $vmap['uname']) {
             $isExist = $user->where($vmap)->count();
             if ($isExist > 0) {
