@@ -765,6 +765,7 @@ class AdminLiveAction extends AdministratorAction
     }
 
     public function ccLiveRoom2(){
+        header('Access-Control-Allow-Origin:*'); 
         $_REQUEST['tabHash'] = 'ccLiveRoom';
 
         $live_id = intval($_GET['id']);
