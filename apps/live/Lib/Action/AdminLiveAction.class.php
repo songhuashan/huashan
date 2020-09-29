@@ -816,20 +816,27 @@ class AdminLiveAction extends AdministratorAction
     }
     
 
-    //新增课程
+    //克隆课程
     public function addCourse(){
         $post = $_POST;
+
         if(!empty($_POST)){
-            $categoryid = $post['categoryid'];
+            $id = $post['categoryid'];
             $courseid = $post['courseid'];
-            $courseInfo = M("zy_live_thirdparty")->where("id=".$courseid)->find();
-            $categoryInfo = M("zy_live_thirdparty")->where("categoryid=".$categoryid)->find();
+            $live_category = M("zy_live_category");
+            $courseInfo = $live_category->where("id=".$id)->find();
+            $categoryid = $courseInfo['videoid'];
             unset($courseInfo['id']);
-            unset($courseInfo['type']);
-            unset($courseInfo['type']);
-            $courseInfo['type'] = $categoryInfo['type'];
-            $courseInfo['categoryid'] = $categoryid;
-            $courseInfo['live_id'] = $categoryInfo['live_id'];
+            $courseInfo['videoid'] = $courseid;
+            $getAddId = $live_category->add($courseInfo);
+            $live_thirdparty = M("zy_live_thirdparty");
+            $categoryInfo = $live_thirdparty->where("categoryid=".$categoryid)->select();
+            foreach($categoryInfo as $key => $value){
+                unset($value['id']);
+                $value['live_id'] = $courseid;
+                $value['categoryid'] = $getAddId;
+            }
+
             $insertLiveThtirdparty = M("zy_live_thirdparty")->add($courseInfo); 
             if(!empty($insertLiveThtirdparty)){
                 echo  json_encode(['msg'=>1]); 

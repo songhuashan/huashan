@@ -9,6 +9,7 @@
          * 全局变量
          */
         var SITE_URL  = 'https://www.qiluzhibo.com';
+        
         var THEME_URL = 'https://www.qiluzhibo.com/addons/theme/stv1/_static';
         var APPNAME   = 'classroom';
         var UPLOAD_URL ='https://www.qiluzhibo.com/data/upload';
@@ -66,7 +67,7 @@
     <!-- START TOOLBAR -->
     <div class="Toolbar_inbox">
         <a href="javascript:void(0);" class="btn_a" onclick="admin.addTreeCategory(0,{$live_id});"><span>添加</span></a>
-        <button type="button" class="layui-btn layui-btn-normal" onclick="addCurriculum()">新增课程</button>
+        <button type="button" class="layui-btn layui-btn-normal" onclick="addCurriculum()">克隆科目</button>
 
     </div>
     <!-- END TOOLBAR -->
@@ -198,9 +199,9 @@
             +'</div>'
 
             +'<div class="layui-form-item">'
-            +'<label class="layui-form-label">课程ID：</label>'
+            +'<label class="layui-form-label">专业ID：</label>'
             +'<div class="layui-input-inline">'
-            +'<input type="text" name="courseid" id="courseid"  placeholder="请输入课程ID" autocomplete="off" class="layui-input">'
+            +'<input type="text" name="courseid" id="courseid"  placeholder="请输入克隆专业的ID" autocomplete="off" class="layui-input">'
             +'</div>'
             +'</div>'
             +'<div class="layui-form-item">'
@@ -233,10 +234,10 @@
                 function(data){
                     if(data.msg == 1){
                         $(".layui-layer").hide();
-                        alert("新增课程成功！");
+                        alert("克隆课程成功！");
 
                     }else{
-                        alert("新增课程失败！");
+                        alert("克隆课程失败！");
                     }
                 },"json");
         });
