@@ -199,6 +199,7 @@ class IndexAction extends CommonAction
         $paper_id = intval($_GET['paper_id']);
         // 获取试卷信息
         $paper = D("ExamsPaper", 'exams')->getPaperById($paper_id);
+        
         //设置seo详情
         $this->seo = model('Seo')->installSeo(['_title' => $paper['exams_paper_title'], '_keywords' => $paper['exam_describe']], $this->seo);
 

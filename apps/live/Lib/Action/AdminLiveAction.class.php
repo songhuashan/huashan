@@ -804,7 +804,7 @@ class AdminLiveAction extends AdministratorAction
 
         $this->searchPostUrl = U('live/AdminLive/ccLiveRoom',['id'=>$live_id]);
 
-        $list = $this->_getCcLiveList('ccLiveRoom',1000,$order,$map,0);
+        $list = $this->_getCcLiveList('ccLiveRoom2',1000,$order,$map,0);
         
         // echo '<pre>';
         // print_r($list['data']);die;
@@ -2047,7 +2047,12 @@ class AdminLiveAction extends AdministratorAction
                 //     echo model('Live')->getDbError();die;
                 // }
                 if(!$result){$this->error('编辑失败!');}
-                $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>intval($_REQUEST['live_id']))) );
+                if("ccLiveRoom" == $_REQUEST['url']){
+                    $url = 'live/AdminLive/ccLiveRoom';
+                }else{
+                    $url = 'live/AdminLive/ccLiveRoom2';
+                }
+                $this->assign( 'jumpUrl', U($url,array('id'=>intval($_REQUEST['live_id']))) );
                 $this->success('编辑成功');
 
         } else {
@@ -3629,7 +3634,7 @@ class AdminLiveAction extends AdministratorAction
             $val['startDate']       = date('Y-m-d H:i' , $val['startDate']);
             $val['invalidDate']     = date('Y-m-d H:i' , $val['invalidDate']);
 
-            $val['DOACTION']        = '<a href="'.U('live/AdminLive/editCcLiveRoom',array('tabHash'=>'editCcLiveRoom','id'=>$val['id'],'live_id'=>intval($_GET['id']))).'">编辑</a> | ';
+            $val['DOACTION']        = '<a href="'.U('live/AdminLive/editCcLiveRoom',array('tabHash'=>'editCcLiveRoom','id'=>$val['id'],'live_id'=>intval($_GET['id']),"type"=>$type)).'">编辑</a> | ';
             if ($val['is_del'] == 0) {
                 $val['DOACTION'] .= '<a href="javascript:void(0)" onclick="admin.doaction('.$val['id'].',\'ColseLive\''.',4)">禁用</a> | ';
             } else {
