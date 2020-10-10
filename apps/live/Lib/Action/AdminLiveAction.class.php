@@ -2047,7 +2047,6 @@ class AdminLiveAction extends AdministratorAction
                 //     echo model('Live')->getDbError();die;
                 // }
                 if(!$result){$this->error('编辑失败!');}
-            
                 if("ccLiveRoom" == $_REQUEST['url']){
                     $url = 'live/AdminLive/ccLiveRoom';
                 }else{
