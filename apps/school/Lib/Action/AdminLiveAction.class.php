@@ -1453,7 +1453,7 @@ class AdminLiveAction extends AdministratorAction
                 $query_map['foreignpublish']    = urlencode(t($_POST['webJoin']));
             }
             $query_map['userid']            = urlencode($this->cc_config['user_id']);
-            $query_map['openlowdelaymode']  = urlencode(1);
+            // $query_map['openlowdelaymode']  = urlencode(1);
 
             $url    = $url.createHashedQueryString($query_map)[1].'&time='.time().'&hash='.createHashedQueryString($query_map)[0];
             $res   = getDataByUrl($url);
