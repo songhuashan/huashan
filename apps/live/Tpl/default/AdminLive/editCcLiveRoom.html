@@ -12,7 +12,8 @@
         </ul>
     </div>
     <php>endif;</php>
-    <form method="POST" action="{:U('live/AdminLive/editCcLiveRoom')}" id="detail_form" name="detail_form"  enctype="multipart/form-data">
+    <form method="POST" action="{:U('live/AdminLive/editCcLiveRoom/')}" id="detail_form" name="detail_form"  enctype="multipart/form-data">
+        <input type="hidden" name="url" value=<php>echo "'".$_REQUEST['type']."'";</php>>
         <input type="hidden" name="pageTitle" value="添加课程" class="s-txt">
         <input type="hidden" name="id" value="{$live['id']}" />
         <div class="form2">
@@ -169,6 +170,8 @@
 </div>
 
 <script type="text/javascript">
+
+
 
     statusss()
 
