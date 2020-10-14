@@ -830,14 +830,15 @@ class AdminLiveAction extends AdministratorAction
             $courseInfo['videoid'] = $courseid;
             $getAddId = $live_category->add($courseInfo);
             $live_thirdparty = M("zy_live_thirdparty");
-            $categoryInfo = $live_thirdparty->where("categoryid=".$categoryid)->select();
+            $categoryInfo = $live_thirdparty->where("categoryid=".$id)->select();
+            // dump($categoryInfo);
             foreach($categoryInfo as $key => $value){
-                unset($value['id']);
-                $value['live_id'] = $courseid;
-                $value['categoryid'] = $getAddId;
+                unset($categoryInfo[$key]['id']);
+                $categoryInfo[$key]['live_id'] = $courseid;
+                $categoryInfo[$key]['categoryid'] = $getAddId;
+                $insertLiveThtirdparty = M("zy_live_thirdparty")->add($categoryInfo[$key]); 
             }
-
-            $insertLiveThtirdparty = M("zy_live_thirdparty")->add($courseInfo); 
+            // dump($categoryInfo);
             if(!empty($insertLiveThtirdparty)){
                 echo  json_encode(['msg'=>1]); 
             }else{
