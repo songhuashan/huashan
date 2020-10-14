@@ -216,17 +216,17 @@ class IndexAction extends CommonAction
         }
 
         // 如果是PC
-        if ($this->is_pc && ($this->youtu_status === 1) && $_GET['joinType'] == 2) {
-            // 检测是否开启了人脸功能
-            $youtuscene = model('Xdata')->get('admin_Config:youtuscene');
-            if ($youtuscene && isset($youtuscene['scene']) && in_array('exams', $youtuscene['scene']) && !session('face_exams_verify')) {
-                $redirect_params = $_GET;
-                unset($redirect_params['app'], $redirect_params['mod'], $redirect_params['act']);
-                redirect(U('public/Passport/faceVerify', ['verified_module' => 'exams', 'redirect_url' => urlencode(U('exams/Index/examsroom', $redirect_params))]));
-            }
-            // 清理本次人脸验证数据
-            session('face_exams_verify', null);
-        }
+        // if ($this->is_pc && ($this->youtu_status === 1) && $_GET['joinType'] == 2) {
+        //     // 检测是否开启了人脸功能
+        //     $youtuscene = model('Xdata')->get('admin_Config:youtuscene');
+        //     if ($youtuscene && isset($youtuscene['scene']) && in_array('exams', $youtuscene['scene']) && !session('face_exams_verify')) {
+        //         $redirect_params = $_GET;
+        //         unset($redirect_params['app'], $redirect_params['mod'], $redirect_params['act']);
+        //         redirect(U('public/Passport/faceVerify', ['verified_module' => 'exams', 'redirect_url' => urlencode(U('exams/Index/examsroom', $redirect_params))]));
+        //     }
+        //     // 清理本次人脸验证数据
+        //     session('face_exams_verify', null);
+        // }
 
         // 获取试卷试题等信息
         $paper_options = D('ExamsPaperOptions', 'exmas')->getPaperOptionsById($paper_id);
