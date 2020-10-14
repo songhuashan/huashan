@@ -54,6 +54,7 @@ class UserAction extends CommonAction
 
     public function index()
     {
+
         $uid   = $this->mid;
         $limit = 6;
         //拼接两个表名
@@ -113,13 +114,26 @@ class UserAction extends CommonAction
             }
 
         }
-   
+        
 
+        $user_group = M("user_group")->field("user_group_id")->where("user_group_id = 82 or pid = 82")->select();   
+        foreach ($user_group as $key => $value) {
+            $user_group[$key] = $value['user_group_id'];
+        }
+        $where = [];
+        $where['uid'] = $this->mid;
+        $where['user_group_id'] = array("in",$user_group);
+        $user_group_link = M("user_group_link")->where($where)->select();
+        if($user_group_link){
+            $this->assign("health",$user_group_link);
+        }
+        
         $videocont = D("zy_order_course")->where(array('uid' => $this->mid, 'is_del' => 0, 'pay_status' => 3))->count() ?: 0; //加载我的课程总数
         $this->assign('video_data', $video_data);
         $this->assign('live_data', $live_data);
         $this->assign('videocont', $videocont);
         $this->assign('time',time());
+     
         $this->display();
     }
 

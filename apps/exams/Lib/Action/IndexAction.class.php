@@ -10,6 +10,9 @@ tsload(APPS_PATH . '/classroom/Lib/Action/CommonAction.class.php');
 class IndexAction extends CommonAction
 {
 
+    private $start;
+    private $end;
+    private $spend;
     /**
      * 考试系统首页
      * @Author MartinSun<syh@sunyonghong.com>
@@ -196,12 +199,15 @@ class IndexAction extends CommonAction
     public function examsroom()
     {
         // 获取试卷ID
+       
+        
         $paper_id = intval($_GET['paper_id']);
         // 获取试卷信息
         $paper = D("ExamsPaper", 'exams')->getPaperById($paper_id);
         
+        // dump($paper);
         //设置seo详情
-        $this->seo = model('Seo')->installSeo(['_title' => $paper['exams_paper_title'], '_keywords' => $paper['exam_describe']], $this->seo);
+        // $this->seo = model('Seo')->installSeo(['_title' => $paper['exams_paper_title'], '_keywords' => $paper['exam_describe']], $this->seo);
 
         if (!$paper) {
             $this->error('试卷不存在或被删除,请重新选择');
@@ -230,7 +236,7 @@ class IndexAction extends CommonAction
 
         // 获取试卷试题等信息
         $paper_options = D('ExamsPaperOptions', 'exmas')->getPaperOptionsById($paper_id);
-
+        
         $this->assign('paper', $paper);
         // 是否练习模式
         $this->assign('isPractice', ($_GET['joinType'] == 1) ? 1 : 2);
@@ -273,6 +279,7 @@ class IndexAction extends CommonAction
        // dump($paper_options);
         $this->assign('paper_options', $paper_options);
         $this->assign('tempData', $tempData);
+        
         // dump($tempData);
         // dump('111');
         $this->display();

@@ -41,6 +41,25 @@ class HomeAction extends UserAction
     }
 
     /**
+     * 考前押题
+     */
+
+    public function exam_predictions()
+    {
+
+        
+
+
+
+
+
+
+
+        $this->display();
+    }
+
+
+    /**
      * 会员中心问题--列表处理
      * @return void
      */
