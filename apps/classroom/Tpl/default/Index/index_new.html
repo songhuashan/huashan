@@ -1,26 +1,19 @@
-<include file="__THEME__/public_header" />
-
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/icon/iconfont.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/public2.0.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/slick.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/swiper_02.min.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/idangerous.swiper.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/banner2.0.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/style2.0.css">
-<link rel="stylesheet" type="text/css" href="__THEME__/../layui/css/layui.css">
-<script src="__THEME__/../_static_new/js/jquery-1.8.3.min.js"></script>
-<script src="__THEME__/../_static_new/js/swiper.min.js"></script>
-<script src="__THEME__/../_static_new/js/jquery.SuperSlide.2.1.1.js"></script>
-<script src="__THEME__/../_static_new/js/countUp.min.js"></script>
-<script src="__THEME__/../_static_new/js/idangerous.swiper.min.js"></script>
-<script src="__THEME__/../_static_new/js/index_2.0.js"></script>
-<script src="__THEME__/../_static_new/js/slick.js"></script>
-<script src="__THEME__/../layui/layui.js" charset="utf-8"></script>
-<style>
-    .header_sider_ulbox{ display: block!important; }
-    .full-course ul{height:420px;background-color: rgba(0,0,0,0.5);}
-</style>
-<script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$seo['_title']}</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="__THEME__/../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/index/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/index/css/reset.css"/>
+    <link rel="stylesheet" href="__THEME__/../_static_new/index/css/swiper.min.css">
+    <script src="__THEME__/../_static_new/index/js/swiper.min.js"></script>
+    <script src="__THEME__/../_static_new/index/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__THEME__/../layui/layui.js" charset="utf-8"></script>
+</head>
+<script type="text/javascript">
+    
     layui.use('layer', function(){ //独立版的layer无需执行这一句
      layer.open({
         type: 1
@@ -34,414 +27,411 @@
         ,moveType: 1 //拖拽模式，0或者1
         
         ,content: '<div style="padding: 40px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div style="text-align:center; font-size:20px">通知：</div><br>2020年健康管理师考试准考证打印时间已出，考生可于10月16-24日登陆中国卫生人才网（www.21wecan.com）在“考生入口”栏，点击“准考证打印”。<br>于疫情原因各地区严格控制考场数量和人数的情况，录取人数有变动。如学员当期没有查询到信息可延期到下期继续报考，由于16日-24日老师需要查询准备所有学员报考通知，未报考成功如有疑问请于本月24日之后联系您的负责老师进行详细咨询。<br>2020年全国学历自学考试于10月17、18日举行。已网报考试科目学员登录报考网站自行打印准考证。按考试要求准备好考试所需物品及防疫物品准时参加考试。有问题可联系各自教务老师。祝大家考试顺利。<br>2009期国内营养师/心理咨询师成绩查询时间为10.15-10.20，登录考试网址点击考试记录即可查询成绩。<br><br><div style="text-align:center; font-size:20px">关于观看直播流程，请参考网站栏目中“使用说明”！</div></div>'
-        // ,content: '<div style="padding: 40px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div style="text-align:center; font-size:20px">通知：</div><div style="padding: 40px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div style="text-align:center; font-size:20px">关于观看直播流程，请参考网站栏目中“使用说明”！</div></div>'
         ,success: function(layero){
           
    
         }
-      });
+      })
 
-
-});
-    $(function(){
-//示范一个公告层
-
-     
-
-
-
-        $(".direction a").on("click",function(){
-            $("#search_cate").val($(this).attr("attr"));
-            var search_cate = $("search_cate").val();
-        });
-        $('#btn_search_site').click(function(){
-            var search_cate = $('#search_cate').val();
-            var search_combo_input = $('#search_combo_input').val();
-            if(search_combo_input != ''){
-                if(search_cate == 'video'){
-                    window.open("{:U('classroom/Video/index')}"+"?search="+search_combo_input);
-                }else if(search_cate == 'school'){
-                    window.open("{:U('school/Index/index')}"+"?search="+search_combo_input);
-                }else if(search_cate == 'teacher'){
-                    window.open("{:U('classroom/Teacher/index')}"+"?search="+search_combo_input);
-                }
-            }
-        });
-        $('.search_hot a').click(function(){
-            var cateId = $(this).attr('attr');
-            var search_cate = $('#search_cate').val();
-            if(search_cate == 'video'){
-                window.open("{:U('classroom/Video/index')}"+"?search="+cateId);
-            }else if(search_cate == 'school'){
-                window.open("{:U('school/Index/index')}"+"&search="+cateId);
-            }else if(search_cate == 'teacher'){
-                window.open("{:U('classroom/Teacher/index')}"+"?search="+cateId);
-            }
-        });
     })
 </script>
+<script>
+        //全局变量
+        var MID       = '<php> echo $mid;</php>';
+        var UID       = '<php> echo $uid;</php>';
+        var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
+        //退出登录
+        var LOGINOUT_ADDRESS="{:U('public/Passport/logout')}";
 
-        <!--banner start-->
-        <section>
+        function closeMsg(obj){
+            $(".news-msg").remove();
+        }
+
+        /**
+         * 退出成功
+         */
+        function logout(){
+            $.ajax({
+                type: "POST",
+                async:false,
+                url:LOGINOUT_ADDRESS,
+                dataType:"json",
+                success:function(data){
+                    ui.success("退出成功！");
+                    location.reload();
+                }
+            });
+        }
+
+        $(function(){
+            $('.backtop').click(function(){
+                $('body,html').animate({scrollTop:0},300);
+                return false;
+            });
+            $('.full-course').hover(function(){
+                $(this).addClass('hover');
+            },function(){
+                $(this).removeClass('hover');
+            });
+
+        });
+
+        $(window).scroll(function(){
+            if($(window).scrollTop()>300){
+                $('.backtop').fadeIn(300);
+            }else{
+                $('.backtop').fadeOut(200);
+            }
+        });
+
+        if(navigator.userAgent.match(/(iPhone|Android|ios)/i)) {
+            $(window).load(function () {
+                $('.modular,.logos,.window-box').show();
+                $('.users').attr('style','display:block');
+            });
+        }
+
+    </script>
+<body>
+    <div class="index">
+        <!--轮播开始-->
+        <div class="banner">
+            <div class="banner-top">
+
+                    <div class="banner-tople">
+                        <a href="" title="{$site['site_keyword']}在线教育系统">
+                        <img src="__THEME__/../_static_new/index/img/logo.png"/></a>
+                    </div>
+               
+                <div class="banner-topmid">
+                    <ul>
+                       <!--  <li><a>首页</a></li>
+                        <li><a>课程</a></li>
+                        <li><a>题库</a></li>
+                        <li><a>名师</a></li>
+                        <li><a>教研报告</a></li>
+                        <li><a>关于我们</a></li> -->
+                        <volist name="site_top_nav" id="vo" key="k" offset="0" length="3">
+                    <li <php>if(ACTION_NAME == $vo['app_name'] ){echo "class='active'";}</php>>
+                    <a style="color: white;" href="{$vo['url']}" target="{$vo['target']}">{$vo['navi_name']} <if condition="$vo['app_name'] eq 'Video'"><i class="course_logo_img"></i></if></a>
+                    <if condition="$vo['app_name'] eq 'Video'">
+                        <div class="menu_item_box">
+                            <div class="menu_item_auto">
+                                <volist name="currency_category" id="cycy">
+                                    <dl>
+                                        <dt><h4>{$cycy.title}</h4></dt>
+                                        <dd>
+                                            <ul>
+                                                <volist name="cycy.child" id="ccnt">
+                                                    <li><a href="{:U('classroom/Video/index',array('cateId'=>$cycy['zy_currency_category_id'].','.$ccnt['zy_currency_category_id']))}" target="_blank">{$ccnt.title}</a></li>
+                                                </volist>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </volist>
+                            </div>
+                        </div>
+                    </if>
+                    <if condition="$vo.child neq ''">
+                                <span class="course-class" style="display: none;">
+                                <volist name="vo.child" id="child" key="k" offset="0" length="20">
+                                    <a href="{$child['url']}" target="{$child['target']}">{$child['navi_name']}</a>
+                                </volist>
+                                </span>
+                    </if>
+                    </li>
+                </volist>
+                    </ul>
+                </div>
+                <div class="banner-topright">
+                    <img src="__THEME__/../_static_new/index/img/dl.png"/>
+                    <a href="{:U('public/Passport/login_g')}" style="color: white;">登录</a>/<a style="color: white;" href="{:U('public/Passport/reg')}">注册</a>
+                </div>
+                <div class="banner-toprig">
+                    <input type="text" name="sous" id="sous" placeholder="搜索课程/讲师"/>
+                </div>
+            </div>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <volist name="ad_list" id="adlt">
-                        <div class="swiper-slide">
-                            <a href="{$adlt['bannerurl']}" title="{$adlt['banner_title']}">
-                                <img src="{:getCover($adlt['banner'],1920,420)}" alt="{$adlt['banner_title']}" >
-                            </a>
-                        </div>
-                    </volist>
+                    <div class="swiper-slide"><img src="__THEME__/../_static_new/index/img/banner1.jpg"/></div>
+                    <div class="swiper-slide"><img src="__THEME__/../_static_new/index/img/banner2.jpg"/></div>
+                    <div class="swiper-slide"><img src="__THEME__/../_static_new/index/img/banner3.jpg"/></div>
                 </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination swiper-pagination-white"></div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next icon icon-rightarrow"></div>
-                <div class="swiper-button-prev icon icon-leftarrow"></div>
+                <div class="swiper-pagination"></div>  
             </div>
-        </section>
-        <!--banner end-->
-
-    <!-- 首页模块 -->
-    <volist name="config_index.item" id="item_name">
-        <eq name="item_name" value="billboard">
-            <!--APP下载、创建小组、入驻机构-->
-            <div class="body01" style="margin:0 auto">
-                <ul class="my-server">
-                    <li>
-                        <a href="{$site['download_url']}">
-                            <i class="icon icon-app"></i>
-                            <span>
-                                <h3>APP下载</h3>
-                                <small>海量课程随身携带</small>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a <if condition="$_SESSION['mid'] eq ''">
-                            href="javascript:;" onClick="login_box();"
-                            <else/> href="{:U('classroom/User/setInfo')}" target="_blank"
-                        </if> >
-                            <i class="icon icon-laoshi"></i>
-                            <span>
-                                <h3>认证讲师</h3>
-                                <small>寻找更多志同道合的人</small>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="border-none">
-
-                        <a <if condition="$_SESSION['mid'] eq ''">
-                            href="javascript:;" onClick="login_box();"
-                            <else/>
-                            href="{:U('school/User/setInfo')}" target="_blank"
-                        </if> >
-                            <i class="icon icon-jigou1"></i>
-                                <span>
-                                    <h3>入驻机构</h3>
-                                    <small>打造专属的在线课堂</small>
-                                </span>
-                        </a>
-                    </li>
-                </ul>
-
-                <!--热门资讯-->
-               <!-- <div class="hot-news">
-                    <h4>热门资讯：</h4>
+        </div>
+        <!--精选课程开始-->
+        <div class="jxkc ind">
+            <div class="jxkc-top ind-top">
+                <p>精选课程</p>
+                <a href="https://www.qiluzhibo.com/course.html?vtype=2">更多课程>>></a>
+            </div>
+            <div class="jxkc-mid">
+                <div class="jxkc-left">
+                    <a href="https://www.qiluzhibo.com/course.html?vtype=2&cateId=8"><img src="__THEME__/../_static_new/index/img/kc1.png"/></a>
+                </div>
+                <div class="jxkc-rig">
                     <ul>
-                        <volist name="topic" id="tpc">
-                            <li><i class="icon icon-dian"></i><a href="{:U('classroom/Topic/view',array('id'=>$tpc['id']))}">{$tpc['title']|msubstr=0,18,'utf-8',true}</a></li>
-                        </volist>
-                    </ul>
-                </div>-->
-            </div>
-        </eq>
-
-        <eq name="item_name" value="live">
-            <!--直播预告 start-->
-            <div class="body01 Trailer">
-                <h1>直播预告</h1>
-                <div class="slideTxtBox">
-                    <a class="prev icon icon-zuojiantou"></a>
-                    <div class="bd">
-                        <volist name="live_list" id="le" offset="0" length='4'>
-                            <ul>
-                                <volist name="le" id="vo" offset="0" length='4'>
-                                    <li>
-                                        <div class="pic">
-                                            <a href="{:U('live/Index/view',array('id'=>$vo['id']))}">
-                                                <img src="{:cutImg($vo['cover'] ,250 , 140 )}" />
-                                            </a>
-                                        </div>
-                                        <div class="title">
-                                            <h5><a href="{:U('live/Index/view',array('id'=>$vo['id']))}">{:limitNumber($vo['video_title'],12)}</a></h5>
-                                            <b><i><a href="{$vo['school']['domain']}">{:limitNumber($vo['school']['title'],16)}</a></i></b>
-                                            <span>
-                                            <!-- <strong><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></strong> -->
-                                            <small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人在学</small></span>
-                                        </div>
-                                    </li>
-                                </volist>
-                            </ul>
-                        </volist>
-                    </div>
-                    <!-- 前/后按钮 -->
-                    <span class="arrow">
-                        <a class="next icon icon-youjiantou"></a>
-                    </span>
-                    <div class="hd">
-                        <ul>
-                            <volist name="live_ctime" id="time" offset="0" length='4'>
-                                <li><em class="icon icon-yuandian"></em><p>{:date('m',$time)}月{:date('d',$time)}日</p></li>
-                            </volist>
-                            <!--<li><em class="icon icon-yuandian"></em><p>{:date('m',$live_ctime['time'])}月{:date('d',$live_ctime['time'])}日</p></li>-->
-                            <!--<li><em class="icon icon-yuandian"></em><p>{:date('m',$live_ctime['atTime'])}月{:date('d',$live_ctime['atTime'])}日</p></li>-->
-                            <!--<li><em class="icon icon-yuandian"></em><p>{:date('m',$live_ctime['tdlTime'])}月{:date('d',$live_ctime['tdlTime'])}日</p></li>-->
-                            <!--<li><em class="icon icon-yuandian"></em><p>{:date('m',$live_ctime['thdlTime'])}月{:date('d',$live_ctime['thdlTime'])}日</p></li>-->
-                        </ul>
-                    </div>
-                </div>
-                <!--查看更多-->
-                <div class="all-buy">
-                    <a href="{:U('classroom/Video/index', array('vtype'=>2))}"  class="look-all">查看更多</a>
-                </div>
-            </div>
-        </eq>
-
-        <eq name="item_name" value="bestCourse">
-        <!--热门资讯 start-->
-        <!-- <div class="body01"> -->
-        <img src="__THEME__/../_static_new/image/fuwu.jpg" style="width: 100%">
-            <!-- <h1>热门资讯</h1> -->
-            <!-- <div class="information-new">
-                <div class="information-banner">
-                    <div class="content">
-                        <div class="slider single-item">
-                            <volist name="topic" id="pic" offset="0" length="4">
-                                <div>
-                                    <a href="{:U('classroom/Topic/view',array('id'=>$pic['id']))}"><img src="{:getCover($pic['image'],570,360)}"></a>
-                                    <span><p>{:msubstr(t($pic['title']),0,20,'utf-8',true)}</p></span>
-                                </div>
-                            </volist>
-                        </div>
-                    </div>
-                </div>
-                <div class="information-imgtxt">
-                    <ul>
-                        <volist name="topic" id="pic" offset="4" length="3">
-                            <li>
-                                <a href="{:U('classroom/Topic/view',array('id'=>$pic['id']))}">
-                                <span>
-                                    <img src="{:getCover($pic['image'],170,108)}">
-                                </span>
-                                    <div class="information-content">
-                                        <h3>{:msubstr(t($pic['title']),0,15,'utf-8',true)}</h3>
-                                        <p>{:msubstr(t($pic['desc']),0,50,'utf-8',true)}</p>
-                                        <h5>
-                                            <small>{:date('m-d H:i',$pic['dateline'])}</small>
-                                            <i>|</i>
-                                            <small>{$pic.readcount}次浏览</small>
-                                        </h5>
-                                    </div>
-                                </a>
-                            </li>
-                        </volist>
+                        <li><a href="https://www.qiluzhibo.com/live/94.html"><img src="__THEME__/../_static_new/index/img/kc2.png"/></a></li>
+                        <li><a href="https://www.qiluzhibo.com/live/110.html"><img src="__THEME__/../_static_new/index/img/kc3.png"/></a></li>
+                        <li><a href="https://www.qiluzhibo.com/live/146.html"><img src="__THEME__/../_static_new/index/img/kc4.png"/></a></li>
+                        <li><a href="https://www.qiluzhibo.com/live/145.html"><img src="__THEME__/../_static_new/index/img/kc5.png"/></a></li>
+                        <li><a href="https://www.qiluzhibo.com/live/117.html"><img src="__THEME__/../_static_new/index/img/kc6.png"/></a></li>
+                        <li><a href="https://www.qiluzhibo.com/live/112.html"><img src="__THEME__/../_static_new/index/img/kc7.png"/></a></li>
                     </ul>
                 </div>
-            </div> -->
-            <!--查看更多-->
-            <!-- <div class="all-buy">
-                <a href="{:U('classroom/Topic/index')}" class="look-all">查看更多</a>
-            </div> -->
-        <!-- </div> -->
-        <!--热门资讯 end-->
-        </eq>
-
-        <eq name="item_name" value="newCourse">
-        <!--最新课程 start-->
-        <div class="body01">
-            <h1>最新课程</h1>
-            <div class="body01-content">
+            </div>
+        </div>
+        <!--vip开始-->
+        <div class="vip ind">
+            <div class="vip-top ind-top">
+                <p>VIP课程</p>
+                <!-- <a>更多课程>>></a> -->
+            </div>
+            <div class="vip-mid">
                 <ul>
-                    <volist name="video" id="vo" offset="0" length='8'>
+                    <li><a href="https://www.qiluzhibo.com/live/136.html"><img src="__THEME__/../_static_new/index/img/vip1.png"/></a></li>
+                    <li><a href="https://www.qiluzhibo.com/live/102.html"><img src="__THEME__/../_static_new/index/img/vip2.png"/></a></li>
+                    <li><a href="https://www.qiluzhibo.com/live/117.html"><img src="__THEME__/../_static_new/index/img/vip3.png"/></a></li>
+                    <li><a href="https://www.qiluzhibo.com/live/145.html"><img src="__THEME__/../_static_new/index/img/vip4.png"/></a></li>
+                    <li style="margin-right: 0;"><a href="https://www.qiluzhibo.com/live/159.html"><img src="__THEME__/../_static_new/index/img/vip5.png"/></a></li>
+                    <li><a href="https://www.qiluzhibo.com/live/140.html"><img src="__THEME__/../_static_new/index/img/vip6.png"/></a></li>
+                    <li><a href="https://www.qiluzhibo.com/live/142.html"><img src="__THEME__/../_static_new/index/img/vip7.png"/></a></li>
+                    <li><a href="https://www.qiluzhibo.com/live/141.html"><img src="__THEME__/../_static_new/index/img/vip8.png"/></a></li>
+                </ul>
+            </div>
+        </div>
+        <!--老师开始-->
+        <div id="certify">
+            <div class="ms-top">
+                <p>名师导航</p>
+                <a href="https://www.qiluzhibo.com/teacher.html">查看全部>>></a>
+            </div>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><a href="https://www.qiluzhibo.com/teacher/about/60.html"><img src="__THEME__/../_static_new/index/img/ms1.png" /></a></div>
+                    <div class="swiper-slide"><a href="https://www.qiluzhibo.com/teacher/about/61.html"><img src="__THEME__/../_static_new/index/img/ms2.png" /></a></div>
+                    <div class="swiper-slide"><a href="https://www.qiluzhibo.com/teacher/about/62.html"><img src="__THEME__/../_static_new/index/img/ms3.png" /></a></div>
+                    <div class="swiper-slide"><a href="https://www.qiluzhibo.com/teacher/about/64.html"><img src="__THEME__/../_static_new/index/img/ms4.png" /></a></div>
+                    <div class="swiper-slide"><a href="qiluzhibo.com/teacher/about/63.html"><img src="__THEME__/../_static_new/index/img/ms5.png" /></a></div>
+                    <div class="swiper-slide"><a href="https://www.qiluzhibo.com/teacher/about/65.html"><img src="__THEME__/../_static_new/index/img/ms6.png" /></a></div>
+                    <div class="swiper-slide"><a href="https://www.qiluzhibo.com/teacher/about/67.html"><img src="__THEME__/../_static_new/index/img/ms7.png" /></a></div>
+                </div>
+            </div>
+        </div>
+        <!--教研报告开始-->
+        <div class="jybg ind">
+            <div class="jybg-top ind-top">
+                <p>教研报告</p>
+            </div>
+            <div class="jybg-mid"> 
+                <div class="jybg-left" style="height: 145px;" >
+                    <img src="__THEME__/../_static_new/index/img/jy1.jpg" height="145" />
+                    <img src="__THEME__/../_static_new/index/img/jy2.jpg" height="145" />
+                </div>
+                <div class="jybg-rig">
+                    <ul>
+                        <a href="https://www.qiluzhibo.com/news/31.html">
                         <li>
-                            <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
-                                <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="" />
-                            </a>
-                            <div class="title">
-                                <h5><a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>{$vo.video_title|msubstr=0,12,'utf-8',true}</a></h5>
-                                <b><i><a href="{$vo['school']['domain']}">{:limitNumber($vo['school']['title'],16)}</a></i></b>
-                                <span>
-                                <!-- <strong><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></strong> -->
-                                <small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人购买</small></span>
-                            </div>
+
+                            <p>水平评价类技能人员&nbsp;&nbsp;&nbsp;职业资格退出目录</p>
+                            <img src="__THEME__/../_static_new/index/img/hx.png"/>
+                            <span>人力资源社会保障部办公厅关于对水平评价类技能人员职业资格退出目录有关安排进行公示的公告</span>
                         </li>
-                    </volist>
-                </ul>
-            </div>
-            <!--查看更多-->
-            <div class="all-buy">
-                <a href="{:U('classroom/Video/index',array('orderBy'=>'new'))}"  class="look-all">查看更多</a>
-            </div>
-        </div>
-        <!--最新课程 end-->
-        </eq>
-
-        <eq name="item_name" value="counts">
-        <!--分享 start-->
-        <div class="body01" style="width:100%;background: #F5F8FA;height: 350px;overflow: hidden">
-            <h1>让知识更好的分享</h1>
-            <div class="share-date">
-                <ul>
-                    <li class="co1 jumbo">
-                        <php>if($count['course_count'] > 10000){</php>
-                            <strong>10000</strong><em>+</em>
-                        <php>}else {</php>
-                            <strong>{$count.course_count}</strong>
-                        <php>}</php>
-                        <small>/个</small><p>在线课程</p>
-                    </li>
-                    <li class="co2 jumbo">
-                        <php>if($count['school_count'] > 10000){</php>
-                            <strong>10000</strong><em>+</em>
-                        <php>}else {</php>
-                            <strong>{$count.school_count}</strong>
-                        <php>}</php>
-                        <small>/个</small><p>入驻机构</p>
-                    </li>
-                    <li class="co3 jumbo">
-                        <php>if($count['teacher_count'] > 10000){</php>
-                            <strong>10000</strong><em>+</em>
-                        <php>}else {</php>
-                            <strong>{$count.teacher_count}</strong>
-                        <php>}</php>
-                        <small>/个</small><p>入驻老师</p>
-                    </li>
-                    <li class="co4 jumbo">
-                        <php>if($count['user'] > 10000){</php>
-                            <strong>10000</strong><em>+</em>
-                        <php>}else {</php>
-                            <strong>{$count.user_count}</strong>
-                        <php>}</php>
-                        <small>/个</small><p>平台用户</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!--分享 end-->
-        </eq>
-
-        <eq name="item_name" value="teacher">
-        <!--讲师团队 start-->
-        <div class="body01">
-            <h1>讲师团队</h1>
-            <div class="teacher-team">
-                <ul>
-                    <volist name="teacher" id="tea">
-                        <li>
-                            <a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}">
-                            <span>
-                                <img src="{:getCover($tea['head_id'])}">
-                            </span>
-                                <h5>{:msubstr(t($tea['name']),0,10,'utf-8',true)}</h5>
-                                <small>{$tea.graduate_school|default='暂无院校信息'}</small>
-                                <p>{:msubstr(t($tea['inro']),0,40,'utf-8',true)}</p>
-                            </a>
-                        </li>
-                    </volist>
-                </ul>
-            </div>
-            <!--查看更多-->
-            <div class="all-buy">
-                <a href="{:U('classroom/Teacher/index')}" class="look-all">查看更多</a>
-            </div>
-        </div>
-        <!--讲师团队 end-->
-        </eq>
-
-        <eq name="item_name" value="school">
-        <!--入驻机构 strat-->
-        <div class="body01">
-            <h1>入驻机构</h1>
-            <div class="settled-shcool">
-                <ul>
-                    <volist name="school" id="mhm">
-                        <li>
-                            <a href="{$mhm.domain}">
-                                <img src="{:getCover($mhm['logo'],140,140)}">
-                                <p>{:msubstr(t($mhm['title']),0,10,'utf-8',true)}</p>
-                            </a>
-                        </li>
-                    </volist>
-                </ul>
-            </div>
-            <!--查看更多-->
-            <div class="all-buy">
-                <a href="{:U('school/Index/index')}" class="look-all">查看更多</a>
-            </div>
-        </div>
-        <!--入驻机构 end-->
-        </eq>
-
-        <eq name="item_name" value="group">
-        <!--推荐小组 strat-->
-        <div class="body01">
-            <h1>推荐小组</h1>
-            <div class="group-news">
-                <ul>
-                    <volist name="group" id="group">
-                        <li>
-                            <a href="{:U('group/Index/view',array('gid'=>$group['id']))}">
-                            <span>
-                                <img src="{$group.logo}">
-                            </span>
-                                <div class="group-content">
-                                    <h4>{:msubstr(t($group['name']),0,7,'utf-8',true)}</h4>
-                                    <p>{:msubstr(t($group['intro']),0,40,'utf-8',true)}</p>
-                                    <h5><small>{$group.membercount}个成员</small><i>●</i><small>{$group.threadcount}条帖子</small></h5>
-                                </div>
-                            </a>
-                        </li>
-                    </volist>
-                </ul>
-            </div>
-            <!--查看更多-->
-            <div class="all-buy">
-                <a href="{:U('group/Index/index')}" class="look-all">查看更多</a>
-            </div>
-        </div>
-        <!--推荐小组 end-->
-        </eq>
-
-        <eq name="item_name" value="hotTopic">
-        <!--精选课程 start-->
-        <div class="body01">
-            <h1>精选课程</h1>
-            <div class="body01-content">
-                <ul>
-                    <volist name="bestVideo" id="vo" offset="0" length='8'>
-                    <li>
-                        <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
-                            <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="" />
                         </a>
-                        <div class="title">
-                            <h5><a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>{$vo.video_title|msubstr=0,12,'utf-8',true}</a></h5>
-                            <b><i><a href="{$vo['school']['domain']}">{:limitNumber($vo['school']['title'],16)}</a></i></b>
-                            <span>
-                            <!-- <strong><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></strong> -->
-                            <small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人购买</small></span>
+                        <a href="https://www.qiluzhibo.com/news/16.html">
+                        <li>
+                            <p>营养师的发展趋势</p>
+                            <img src="__THEME__/../_static_new/index/img/hx.png"/>
+                            <span>营养学在国内发展的时间相对比较晩，同时发展的过程比较曲折复杂，并且进入国内的方式也并不正统（通过保健品行业的介入而兴起）。随着逐步对国外营养学了解的加深，加之现行趋势</span>
+                        </li>
+                        </a>
+                        <a href="https://www.qiluzhibo.com/news/15.html">
+                        <li>
+                            <p>原来厉害的同事，是这样处理人际关系的······</p>
+                            <img src="__THEME__/../_static_new/index/img/hx.png"/>
+                            <span>职场上我们要获得良好的口碑不是一朝一夕的事，但却可以因为一件事稍不注意就落得名声败坏。</span>
+                        </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--关于我们开始-->
+        <div class="about ind">
+            <div class="about-top ind-top">
+                <p>关于我们</p>
+            </div>
+            <div class="about-mid">
+                <div class="about-left">
+                    <img src="__THEME__/../_static_new/index/img/logo1.png"/>
+                </div>
+                <a href="https://www.qiluzhibo.com/single/1.html">
+                <div class="about-rig">
+                    <p>起陆教育注册于2016年09月06号，注册资金200万。学校性质：职业技能培训及职业资格证书的报考工作。 主要致力于提高学员职场竞争力，提高广大劳动者的职业技能，加快地区经济发展贡献力为目标，教学1v1内容涵盖职业资格认证，职业技........>>></p>
+                </div>
+            </a>
+            </div>
+        </div>
+        <!--分享知识开始-->
+        <div class="fxzs">
+            <div class="fxzs-top">
+                <p>让知识更好的分享</p>
+            </div>
+            <div class="fxzs-mid">
+                <ul>
+                    <li class="aa">
+                        <div class="fxzs-mid1">
+                            <p>45</p><span>/个</span>
+                        </div>
+                        <div class="fxzs-mid2">
+                            <p>在线课程</p>
                         </div>
                     </li>
-                    </volist>
+                    <li class="bb">
+                        <div class="fxzs-mid1">
+                            <p>1</p><span>/个</span>
+                        </div>
+                        <div class="fxzs-mid2">
+                            <p>入驻机构</p>
+                        </div>
+                    </li>
+                    <li class="cc">
+                        <div class="fxzs-mid1">
+                            <p>35</p><span>/个</span>
+                        </div>
+                        <div class="fxzs-mid2">
+                            <p>入驻名师</p>
+                        </div>
+                    </li>
+                    <li class="dd">
+                        <div class="fxzs-mid1">
+                            <p>14547</p><span>/个</span>
+                        </div>
+                        <div class="fxzs-mid2">
+                            <p>平台用户</p>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <!--查看更多-->
-            <div class="all-buy">
-                <a href="{:U('classroom/Video/index',array('best'=>1))}"  class="look-all">查看更多</a>
+        </div>
+        <!--foot开始-->
+        <div class="foot">
+            <div class="foot-top">
+                <div class="foot-left">
+                    <ul>
+                        <li>
+                            <a href="https://www.qiluzhibo.com/single/1.html">关于我们</a>
+                            <a href="https://www.qiluzhibo.com/single/1.html">起陆简介</a>
+                            <a href="https://www.qiluzhibo.com/single/11.html">联系我们</a>
+                            <a href="https://www.qiluzhibo.com/single/13.html">加入我们</a>
+                            <a href="https://www.qiluzhibo.com/single/12.html">合作加盟</a>
+                        </li>
+                        <div class="xian"></div>
+                        <li>
+                            <a>学员指导</a>
+                            <a href="https://www.qiluzhibo.com/single/2.html">学员注册</a>
+                            <a href="https://www.qiluzhibo.com/single/3.html">购买流程</a>
+                            <a>常见问题</a>
+                        </li>
+                        <div class="xian"></div>
+                        <li>
+                            <a>法律声明</a>
+                            <a href="https://www.qiluzhibo.com/single/9.html">隐私条款</a>
+                            <a>保障服务</a>
+                        </li>
+                        <div class="xian"></div>
+                        <li>
+                            <a href="https://www.qiluzhibo.com/single/7.html">帮助中心</a>
+                            <a>客服服务</a>
+                            <a>在线答疑</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="foot-rig">
+                    <ul>
+                        <li>
+                            <img src="__THEME__/../_static_new/index/img/wx.jpg"/>
+                            <p>起陆官方公众号</p>
+                        </li>
+                        <li>
+                            <img src="__THEME__/../_static_new/index/img/x.jpg"/>
+                            <p>起陆官方微博</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-bot">
+                <p>Copyright 2017 起陆教育 All Rights Reserved | 京ICP备18016600号-4</p>
             </div>
         </div>
-        <!--精选课程 end-->
+    </div>
+    <script>  
         
-        </eq>
-    </volist>
-    <include file="__THEME__/public_footer" />
+        var mySwiper = new Swiper ('.banner .swiper-container', {
+            direction: 'horizontal', // 垂直切换选项
+            autoplay: { disableOnInteraction: false },
+            loop: true, // 循环模式选项
+            paginationClickable: true,
+            // 如果需要分页器
+            pagination: {
+                clickable:true,
+              el: '.swiper-pagination',
+            },
+        })  
+        mySwiper.el.onmouseover=function(){
+            mySwiper.autoplay.stop();
+        }
+        mySwiper.el.onmouseleave=function(){
+            mySwiper.autoplay.start();
+        }
+    </script>  
+    <script>
+            
+        
+//      $('#certify .swiper-container').hover(function(){
+//          swiper.autoplay.stop();
+//      },function(){
+//          swiper.autoplay.start();
+//      })
+        var certifySwiper = new Swiper('#certify .swiper-container', {
+            watchSlidesProgress: true,
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            loop: true,
+            loopedSlides: 5,
+            autoplay: { disableOnInteraction: false },
+            on: {
+                progress: function (progress) {
+                    for (i = 0; i < this.slides.length; i++) {
+                        var slide = this.slides.eq(i);
+                        var slideProgress = this.slides[i].progress;
+                        modify = 1;
+                        if (Math.abs(slideProgress) > 1) {
+                            modify = (Math.abs(slideProgress) - 1) * 0.3 + 1;
+                        }
+                        translate = slideProgress * modify * 100 + 'px';
+                        scale = 1 - Math.abs(slideProgress) / 5;
+                        zIndex = 999 - Math.abs(Math.round(10 * slideProgress));
+                        slide.transform('translateX(' + translate + ') scale(' + scale + ')');
+                        slide.css('zIndex', zIndex);
+                        slide.css('opacity', 1);
+                        if (Math.abs(slideProgress) > 3) {
+                            slide.css('opacity', 0);
+                        }
+                    }
+                },
+                setTransition: function (transition) {
+                    for (var i = 0; i < this.slides.length; i++) {
+                        var slide = this.slides.eq(i)
+                        slide.transition(transition);
+                    }
+ 
+                }
+            }
+            
+        })
+    </script>
+    
+</body>
+</html>

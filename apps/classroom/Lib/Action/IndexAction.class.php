@@ -13,7 +13,7 @@ class IndexAction extends CommonAction
      * @return void
      */
     public function index() {
-
+        
 	 /*    $mid=$_SESSION['mid'];
 		
 			$userinfo=M('user')->find($mid);	
