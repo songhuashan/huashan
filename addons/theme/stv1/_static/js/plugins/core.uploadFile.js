@@ -97,6 +97,7 @@ core.uploadFile = {
 		},
 		//api for js public
 		upload:function(obj,callback,type,flag,allowType){
+			console.log("上传文件");
 			　var _this = this;
 			 core.loadFile(THEME_URL+'/js/jquery.form.js',function(){
 				core.uploadFile.init(obj,callback,type,flag,allowType);

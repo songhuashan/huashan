@@ -121,12 +121,12 @@
                     <ul class="classlist clearfix">
                     <php>if($listData){</php>
                         <volist name="listData" id="vo">
-                            <li>
-                                <div class="pic">
+                            <li >
+                                <div class="pic" style="width: 295;height: 160px;">
                                     <php>if($vo['type'] == 1){</php>
-                                    <a href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"><img src="{:cutImg($vo['cover'],275,150)}" alt=""></a>
+                                    <a href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"><img src="{:cutImg($vo['cover'],295,160)}" alt=""></a>
                                     <php>}else{</php>
-                                    <a href="{:U('live/Index/view',array('id'=>$vo['id']))}"><img src="{:cutImg($vo['cover'],275,150)}" alt=""></a>
+                                    <a href="{:U('live/Index/view',array('id'=>$vo['id']))}"><img src="{:cutImg($vo['cover'],295,160)}" alt=""></a>
                                     <php>}</php>
                                     <php>if($vo['type'] == 2){</php>
                                     <div class="txt">
@@ -196,12 +196,12 @@
             <h3 class="guess_like_tit">猜你喜欢</h3>
             <ul class="classlist02 clearfix">
                 <volist name="datas" id="val" offset="0" length='5'>
-                    <li>
-                        <div class="pic">
+                    <li >
+                        <div class="pic" style="width: 295px;height: 160px;">
                             <php>if($val['type'] == 1){</php>
-                            <a href="{:U('classroom/Video/view',array('id'=>$val['id']))}"><img src="{:cutImg($val['cover'],275,150)}" alt=""></a>
+                            <a href="{:U('classroom/Video/view',array('id'=>$val['id']))}"><img src="{:cutImg($val['cover'],295,160)}" alt=""></a>
                             <php>}else{</php>
-                            <a href="{:U('live/Index/view',array('id'=>$val['id']))}"><img src="{:cutImg($val['cover'],275,150)}" alt=""></a>
+                            <a href="{:U('live/Index/view',array('id'=>$val['id']))}"><img src="{:cutImg($val['cover'],295,160)}" alt=""></a>
                             <php>}</php>
                             <php>if($val['type'] == 2){</php>
                             <div class="txt">

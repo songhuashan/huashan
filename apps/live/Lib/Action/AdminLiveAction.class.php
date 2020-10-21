@@ -422,7 +422,6 @@ class AdminLiveAction extends AdministratorAction
             $data['video_category']     = $category == '0' ? array_pop($fullcategorypath) : $category;
 
             $video_info = M('zy_video')->where('id ='.intval($_POST['id'])) ->field('teacher_id,live_course_id,live_type') ->find();
-
             //classin
             if($video_info['live_type'] == 7){
                 $time = time();
@@ -563,22 +562,22 @@ class AdminLiveAction extends AdministratorAction
                 $this->error("编辑失败");
             }
         } else {
-        if (t($_GET['id'])) {
-            $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
-            
-            $teacher=explode(',',$data['teacher_id']);
-            $this->assign('teacher', $teacher);
-            $this->assign($data);
-            $this->assign('data', $data);
-            //查询讲师列表
-            $trlist = $this->teacherList($data['mhm_id']);
-            $this->assign('trlist', $trlist);
-        } else {
-            $this->assign("listingtime", time());
-            $this->assign("uctime", time() + 604800);
-            $this->assign("video_intro", "");
-            $this->assign("is_mount", 1);
-        }
+            if (t($_GET['id'])) {
+                $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
+                
+                $teacher=explode(',',$data['teacher_id']);
+                $this->assign('teacher', $teacher);
+                $this->assign($data);
+                $this->assign('data', $data);
+                //查询讲师列表
+                $trlist = $this->teacherList($data['mhm_id']);
+                $this->assign('trlist', $trlist);
+            } else {
+                $this->assign("listingtime", time());
+                $this->assign("uctime", time() + 604800);
+                $this->assign("video_intro", "");
+                $this->assign("is_mount", 1);
+            }
 
         //获取会员等级
         $vip_levels = M('user_vip')->where('is_del=0')->order('sort desc')->getField('id,title');
