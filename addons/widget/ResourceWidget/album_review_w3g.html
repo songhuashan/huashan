@@ -1,0 +1,427 @@
+<style media="screen">
+    .indo-mess .big{overflow: hidden;}
+    .indo-mess .big div{float: left;}
+    #video_comment,#video_note,#video_question{display:none;padding-bottom: 30px;}
+    .star{color:#888;}
+    .star small{font-size:18px;color:#ff9000;margin-right: 10px;}
+    .big .star{margin:0 20px;color:#666768;font-size:16px;}
+    .star span{display:inline-block;margin:-6px 2px 0;width:16px;height:16px;background-position:-107px -218px;vertical-align:middle;}
+    .star span.no{background-position:-127px -218px;}
+    .big .star span{margin:-2px 2px 0;width:25px;height:23px;background-position:-13px -214px;}
+    .big .star span.no{background-position:-63px -214px;}
+    .big{overflow:hidden;margin:20px 0 0; font-size:14px;/* border-bottom: 1px solid #eee; */}
+    .big div{float:left;}
+    .back a.edit {font-size: 15px;line-height: 20px;margin-right: 10px;}
+    .back .icon-note{margin-right: 3px;width: 29px;height: 22px;background: url('__THEME__/icon/icon.png');background-position: -108px -513px;}
+    .indo-mess,.big,.review_con{margin: 0 10px;}
+    .icon-zan{margin-right:3px;width:21px;height:24px;background: url(__THEME__/image/ico.png) no-repeat -22px -315px;}
+    .review_con{width: 100%;margin: auto;overflow: hidden;padding: 0 10px;}
+    .classmain_con{margin-top: 20px;}
+    .teacher-dp{overflow:hidden;padding-left:45px;min-height:85px;font-size:14px;line-height:24px;}
+    .teacher-dp dt{position:absolute;overflow:hidden;margin-left:-48px;width:75px;}
+    .teacher-dp .pic{overflow:hidden;width:40px;height:40px;border-radius:50%;}
+    .teacher-dp .name a{color:#333;line-height: 14px;}
+    .teacher-dp dd{padding-bottom:20px;}
+    .teacher-dp dd .tit{overflow:hidden;margin: 2px 0 0;line-height: 14px;}
+    .teacher-dp dd .tit .name{float: left;margin-right: 10px;}
+    .teacher-dp dd .star{float:left;margin:2px 20px 0 0;}
+    .teacher-dp dd .txt{color:#656565;word-wrap: break-word;}
+    .icon-pl{float: left;margin-right:3px;width:29px;height:22px;background: url(__THEME__/image/ico.png) no-repeat 7px -315px;}
+    .teacher-dp dd .replymegfooter{width: 96%;margin-top: 8px;}
+    .videoInfo{padding: 0 10px;}
+    #star_ul{margin-right: 10px;}
+    .star span{background-image:url('__THEME__/icon/icon.png');display: inline-block;vertical-align: middle;}
+    .wenda-time,.keyword-list{float:left;color: #888}
+    .qa-comment-addon-r { float: right; }
+    .qa-reply-iwrap .qa-reply-iarea textarea {margin-bottom: 10px;width:100%;border: 1px solid #e3e5e5;  padding:0 7px;  resize: none;height: 40px;line-height: 40px; font-size: 12px;  background-color: #fff;}
+    .qa-total-reply {  margin-right: 10px;  cursor: pointer;}
+    .qa-ci-wrap{ width:100%; background:none;color:#999999; font-size:12px;}
+    .video-review .reply-star{ width:100%; float:left;line-height: 30px}
+    .form-label{float:left;padding-right:5px;text-align:right;font-weight:400;}
+    .form-checkbox,.form-label,.form-radio,.form-static{padding:6px 0;line-height:1.57142857;}
+    .star_ul li{width:11px; height:10px; font-size:1px; overflow:hidden; background-image:url(__THEME__/image/ico.png); background-repeat:no-repeat; float:left;margin: 10px 7px 0 0;}
+    .grade-back-set{width:11px; height:10px; font-size:1px; overflow:hidden; display:inline-block; background-image:url(__THEME__/image/ico.png); background-repeat:no-repeat;background-position:-105px -4px; width:15px; height:20px}
+    .grade-back-default{width:11px; height:10px; font-size:1px; overflow:hidden; display:inline-block; background-image:url(__THEME__/image/ico.png); background-repeat:no-repeat; background-position:-83px -3px; width:15px; height:20px}
+    .color_hui{color:#999}
+    .qa-ci-iarea{border: 1px solid #eeeeee;width:97.5%;margin:10px 0; border-radius: 4px;height:80px; padding:1%; color:#888; font-size:14px}
+    .quesdetail .qa-ci-iarea{ padding: 12px 13px; width: 746px;vertical-align: middle;background:none; border:#eeeeee 1px solid; color:#999999; font-size:12px; margin:0;}
+    .qa-ci-wrap{ width:100%; background:none;color:#999999; font-size:12px;}
+    .qa-reply-footright { width: 163px;margin-top: 10px;margin: 0 auto;}
+    .qa-reply-c {  position: relative; background: #f7f7f7;}
+    .qa-reply-c:last-child{border:0;}
+    .qa-reply-loading {  position: absolute;  top: -30px;  left: 50%;  margin-left: -20px;  text-align: center;}
+    .qa-reply-item {position: relative;border-bottom: 1px solid #e3e5e5;overflow: hidden;}
+    .qa-reply-item:last-child{border-bottom:0}
+    .qa-reply-item-author img {border-radius: 50%;}
+    .qa-reply-item-inner {  font-size: 12px;  padding: 7px 0px;float: left;margin-left: 10px;}
+    .q-reply-item-c {  color: #656565;  font-size: 12px;  line-height: 1.7em;  padding-top: 3px;  word-break: break-all;  word-wrap: break-word;  overflow: hidden;}
+    .user-reply { font-weight:bold; color:#65addd;}
+    .wenda-listcon {margin: 0 0 20px;overflow: hidden; width:100%; float:left;border-bottom: solid 1px #ebebeb;}
+    .qa-tips {  font-size: 12px;  line-height: 29px;  color: #666;}
+    .qa-tips-error {  background: url(/static/img/wenda-sprite.png?1) no-repeat -5px -182px;  padding-left: 16px;}
+    .qa-tips-ok {  background: url(/static/img/wenda-sprite.png?1) no-repeat -5px -158px;  color: #3ab94e;  padding-left: 16px;}
+    .btn-mc-light {background-color: #AAAAAA;  border: 1px solid #fff;  display: inline-block;  margin-right:5px;line-height:28px;padding: 0 23px;  text-align: center;  cursor: pointer;  font-size: 12px; border-radius: 3px; color: #fff;  *overflow: visible;  /*IE 7 button width bug fixed*/
+        *display: inline;  /* IE7 inline-block hack */  *zoom: 1;  transition: border-color 0.25s;  -webkit-transition: border-color 0.25s;  -moz-transition: border-color 0.25s;  -o-transition: border-color 0.25s;}
+    .btn-mini{cursor:pointer; background: #00BED4;border:none;color: #ffffff;font-size: 12px; line-height:28px; padding:0 23px;border-radius: 3px;}
+    .classmain-bd form{border: none!important;}
+    #dpmsg{display: block;margin-top: 46px}
+    .qa-replies {margin-bottom: -1px;width: 100%;overflow: hidden;}
+    .qa-replies .wenda-listcon{background-color: #f7f7f7;padding: 0 14px;}
+    .qa-replies .teacher-dp{margin-left:-10px;margin-top: 10px;padding-bottom: 0}
+    .qa-replies .teacher-dp .name a{color:#00BED4;}
+    .qa-replies .pic{width:26px;height: 26px;}
+    .qa-replies .tit{margin: 10px 0 8px;margin-top: 13px;}
+    .qa-replies dt{margin-left:-35px;}
+    .qa-replies .teacher-dp dd .star {margin: 0px 20px 0 0}
+    .qa-reply-nick {  font-size: 12px;}
+    .qa-reply-nick:link,.qa-reply-nick:visited {color: #2388C0;display: inline-block;}
+    .qa-reply-nick:hover {  text-decoration: underline;}
+    .qa-reply-item-author {width:26px;height: 26px;line-height: 1em;float: left;padding-top: 5px;margin-left: 5px;}
+    .qa-reply-item-foot {  color: #888;  font-size: 12px;margin-top: 8px;}
+    .sabrosus {color: #999999;float: left;line-height:normal;overflow: hidden;text-align: center;width: 100%;}
+    .sabrosus a{display: inline-block;margin: 0 5px;}
+    .space-visitors li { height: 40px;margin: 15px 0 20px;padding: 0 0 0 50px;position: relative;}
+    .space-visitors .avatar {border-radius: 20px;display: block; height: 40px;left: 0;overflow: hidden;position: absolute;top: 0;width: 40px;}
+    .space-visitors .nickname { position: relative;top: -4px; margin:0;}
+    .space-visitors li p { font-size: 12px;height: 14px;line-height: 14px; margin-top: -5px;}
+    .space-visitors { padding: 15px 20px 10px 20px;}
+</style>
+<div class="indo-mess"></div>
+
+<!-- 点评开始 -->
+<div class="title back">
+
+    <php> if($switch ==0) {  </php>
+    <a type="review" href="javascript:;" class="fr edit"><i class="icon-note"></i>写点评</a></d>
+    <php> } else {  </php>
+    <a type="review" href="javascript:;" ></a>
+    <php>}  </php>
+</div>
+
+<div  class="video-review back review_con">
+    <!--点评 默认隐藏-->
+    <div id="review-comments" style="display:none;padding: 10px 0 0 0; height:auto;position: relative;" class="clearfix">
+        <div class="qa-ci-wrap">
+            <form id="review_form" onsubmit="return false;">
+                <div class="reply-star clearfix">
+                    <label class="form-label  fl f3" for="score">评分：</label>
+                    <ul id="star_ul" class="star_ul fl">
+                        <li class="grade-back-default"></li>
+                        <li class="grade-back-default"></li>
+                        <li class="grade-back-default"></li>
+                        <li class="grade-back-default"></li>
+                        <li class="grade-back-default"></li>
+                    </ul>
+                    <span class="color_hui" id="how-score"></span>
+                    <p class="fl font12 f9">&nbsp;（请根据课程质量打分）</p>
+                </div>
+                <input type="hidden" name="score"  id="course_score"/>
+                <textarea id="review_con" class="qa-ci-iarea js-reply-ipt-default" placeholder="点评可以是你对该课程质量和难度的感受、学习建议，以及可能内容是否符合自己的期望等。..."></textarea>
+                <div class="qa-reply-footright fr"> <span class="qa-tips"></span>
+                    <button type="review" class="btn-mc-light js-ipt-cancel">取消</button>
+                    <button onclick="doDianpin()" class="btn-mc btn-mini btn-mc-green">确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--点评循环-->
+</div>
+
+
+
+<script type="text/javascript">
+    var review_kztype = '{$kztype}';//数据分类 1:课程;2:班级3;线下课;
+    var review_kzid   = '{$kzid}';//课程或者班级ID
+    var review_type   = '{$type}';//分类类型 1:提问,2:点评,3:笔记
+    var review_page   = 0;       //当前分页
+    var review_uid    = '{$mid}';
+    var review_limit  = 10;
+    var id = '{$mid}';
+    var type = '课程';
+    startype = '{$startype}';
+
+    //点赞
+    function zan(){
+        var zan_this = $(this);
+        var kzid = $(this).attr('kzid');
+        $.post("{:U('classroom/Public/doreviewvote')}",{kztype:5,kzid:kzid,type:0},function(txt){
+            if(txt.status==0){
+                alert(txt.info);
+                return false;
+            }else {
+                alert(txt.info);
+            }
+            $(zan_this).addClass('zan');
+            $(zan_this).removeClass('qa-icon');
+
+        },'json');
+    };
+    //取消点赞
+    function quxiao(){
+        var zan_this = $(this);
+        var kzid = $(this).attr('kzid');
+        $.post("{:U('classroom/Public/doreviewvote')}",{kztype:5,kzid:kzid,type:1},function(txt){
+            if(txt.status==0){
+                alert(txt.info);
+                return false;
+            }else {
+                alert(txt.info);
+            }
+            $(zan_this).addClass('qa-icon');
+            $(zan_this).removeClass('zan');
+        });
+    };
+    $(function(){
+        getReview(review_page);
+        //星星评分
+        score('star_ul');
+
+        //分页操作
+        $('.reviewPage a').on('click',function(){
+            var p = $(this).attr('p');
+            if(typeof(p) == 'undefined') return false;
+            getReview(p);
+            return false;
+        });
+    });
+
+
+    //写点评
+    function doDianpin(){
+        if(review_uid <=0){
+            reg_login();
+            return false;
+        }
+        var score = $('#course_score').val();
+
+        if(score == 0){
+            //ui.error('请给课程打分!');
+            if(review_kztype == 1){
+                type = '课程';
+            }else if(review_kztype == 2){
+                type = '班级';
+            }else if(review_kztype == 3){
+                type = '线下课';
+            }
+            alert('请给'+type+'打分!');
+            return false;
+        }
+        var content = $('#review_con').val();
+        content = content.replace(/&nbsp;/ig, "");
+        content = content.replace(/[ ]/g,"");//去除空格
+        content = content.replace(/<[^>].*?>/g,"");//去html标签
+        if(content == ""){
+            //ui.error('请输入评价内容!');
+            alert('请输入评价内容!');
+            return false;
+        }
+        for(var i=0; i<arr.length; i++)
+        {
+            if(content.indexOf(arr[i])>-1)
+            {
+                alert('评价内容不得包含敏感词!');
+
+                return false;
+            }
+        }
+        ajaxPinjia(score,content);
+    }
+    //提交点评
+    function ajaxPinjia(score,content){
+
+        $.ajax({
+            type: "POST",
+            url:U('classroom/Review/add'),
+            data: "score="+score+'&content='+content+'&id='+review_kzid+'&kztype='+review_kztype,
+            async:false,
+            dataType:"JSON",
+            success: function(xMLHttpRequest){
+                if(xMLHttpRequest.status == 1){
+                    //$('#course_score').val('0');
+                    $('#review_form')[0].reset();
+                    $('#review-comments').hide();
+                    $("#dpmsg").remove();
+                    getReview(1);
+                }else{
+                    alert(xMLHttpRequest.info);
+                }
+            },
+            error:function(xhr){
+                alert(xhr.info);
+            }
+        });
+
+    }
+    //获取点评
+    function getReview(page){
+        var url = "{:U('widget/Resource/getList')}";
+        var html = '';
+        var html_list = '';
+        $.post(url,{limit:review_limit,kztype:review_kztype,kzid:review_kzid,type:review_type,p:page,startype:startype},function(data){
+            if(data.data==""){
+                if($('#dpmsg').text() == "对不起，暂时没有点评，快来坐沙发！"){
+                }
+                else {
+                    html += '<span id="dpmsg">对不起，暂时没有点评，快来坐沙发！</span>';
+                }
+            }else{
+                $('#dpmsg').hide();
+                /*  html += ' <div class="classmain-bd">';*/
+                /*html += '  <div class="classmain_con">';*/
+                html_list += '<div class="big">';
+                html_list += '<div>综合评分</div>';
+                html_list += ' <div>（'+data.count+'人）</div>';
+                html_list += '</div>';
+                html_list += ' <div class="star"><small>'+data.total_star+'.0</small><span class="'+(data.total_star>=1?'':'no')+'"></span><span class="'+(data.total_star>=2?'':'no')+'"></span><span class="'+(data.total_star>=3?'':'no')+'"></span><span class="'+(data.total_star>=4?'':'no')+'"></span><span class="'+(data.total_star>=5?'':'no')+'"></span></div>';
+                /* html += '</div>';*/
+                /* html += '</div>';*/
+                $.each(data.data,function(i,k){
+                    html += '<div class="review_con wenda-listcon clearfix">';
+                    /*html += '<div class="headslider fl">';
+                     html += '<a href="'+k.user_src+'" class="wenda-head" target="_blank" title="'+k.username+'"><img width="60" height="60" src="'+k.userface+'"></a>';
+                     html += '<a href="'+k.user_src+'" target="_blank" title="'+k.username+'" class="wenda-nickname">'+k.username+'</a>';
+                     html += '</div>';*/
+                    /* html += ' <div class="classmain-bd">';*/
+                    html += '  <div class="classmain_con">';
+
+                    html += '<dl class="teacher-dp">';
+                    html += ' <dt>';
+                    html += ' <div class="pic"><a href="'+k.user_src+'"><img src="'+k.userface+'" class="lazyloading"></a></div>';
+                    /* html += ' <div class="name"><a href="'+k.user_src+'">'+k.username+'</a></div>';*/
+                    html += ' </dt>';
+                    html += '<dd>';
+                    html += '<div class="tit"><div class="name"><a href="'+k.user_src+'">'+k.username+'</a></div><div class="star"><span class="'+(k.star>=1?'':'no')+'"></span><span class="'+(k.star>=2?'':'no')+'"></span><span class="'+(k.star>=3?'':'no')+'"></span><span class="'+(k.star>=4?'':'no')+'"></span><span class="'+(k.star>=5?'':'no')+'"></span></div><!--专业水平：5分授课技巧：5分教学态度：5分--></div>';
+                    html += '<div class="txt">'+k.review_description+'</div>';
+                    html += '<div class="replymegfooter">';
+
+                    html += '<div class="replymegfooter">';
+                    html += '<div class="wenda-time"> '+k.strtime+'<em></em> </div>';
+
+                    html += '<div class="qa-comment-addon-r fr">';
+                    html += '<span class="qa-total-reply">';
+                    html += '<span show_id="'+k.id+'" type="review" class="js-qa-tr-num review"><i class="icon-pl"></i><span class="com_num">'+k.review_comment_count;
+                    html += '<span cancel_id="'+k.id+'" type="review" class="qa-tr-up "><b><i></i></b></span>';
+                    html += '</span>';
+                    html += '</span>';
+
+
+
+                    html += '<span  class="js-qa-comment-support qa-comment-support  js-qacom-supported-user">'
+//                html += '<i kzid="'+k.id+'" onclick="'+(k.isvote ?'quxiao();':'zan();')+'" class="'+(k.isvote ?'zan':'qa-icon')+'"></i></span>';
+                    html += '<span t_id="'+k.id+'" type="review" class="js-qa-comment-support qa-comment-support  js-qacom-supported-user tongwenreview"><i class="icon-zan"></i><span><span class="t_num">'+k.yong+'</span></span>';
+                    html += '</div></div>';
+                    html += ' </dd>';
+                    html += '</dl>';
+                    html += '</div>';
+                    /*html += ' </div>';*/
+
+//                html += '<div class="wendaslider fl position-rt">';
+                    //星级点评
+                    /* html += '<div class="reply-star">';
+                     html += '<label class="form-label color_hui  fl" for="score">评分：</label>';
+                     html += '<ul class="star_ul fl">';
+                     html += '<li class="'+(k.star>=1?'grade-back-set':'grade-back-default')+'"></li>';
+                     html += '<li class="'+(k.star>=2?'grade-back-set':'grade-back-default')+'"></li>';
+                     html += '<li class="'+(k.star>=3?'grade-back-set':'grade-back-default')+'"></li>';
+                     html += '<li class="'+(k.star>=4?'grade-back-set':'grade-back-default')+'"></li>';
+                     html += '<li class="'+(k.star>=5?'grade-back-set':'grade-back-default')+'"></li>';
+                     html += '</ul>';
+                     html += '</div>';*/
+//                html += '<div class="replycont clearfix">'+k.review_description+'</div>';
+                    /* html += '<div class="replymegfooter">';
+                     //                html += '<div class="wenda-time"> <em>提问时间：'+k.strtime+'</em> </div>';
+                     html += '<div class="qa-comment-addon-r fr">';
+                     html += '<span class="qa-total-reply">';
+                     html += '<span show_id="'+k.id+'" type="review" class="js-qa-tr-num review"><i class="qa-icon"></i><span class="com_num">'+k.review_comment_count+'</span> 条评论</span>';
+                     html += '<span cancel_id="'+k.id+'" type="review" class="qa-tr-up ">收起评论<b><i></i></b></span>';
+                     html += '</span>';
+                     html += '<span  class="js-qa-comment-support qa-comment-support  js-qacom-supported-user">'
+                     html += '<i kzid="'+k.id+'" class="'+(k.isvote ?'zan':'qa-icon')+'"></i></span>';
+                     html += '</div></div>*/
+                    html += '</div>';
+                    //回复部分
+                    html +='<div id="review_'+k.id+'" style=" display:none" class="qa-replies width-wd">';
+                    html +='<div class="qa-reply-c"></div>';
+                    html +='<div  class=" qa-reply-ibox clearfix">';
+                    /*     html +='<div class="qa-reply-iavator fl"> <a href="'+data.user_src+'" title="'+data.username+'"> <img width="40" height="40" src="'+data.userface+'"> </a> </div>';*/
+                    html +='<div class="qa-reply-iwrap">';
+                    html +='<div class="qa-reply-iarea">';
+                    html +='<input type="hidden" class="reply_uid" value="0"/>';
+                    html +='<textarea name="review_comment" id="reviewf_'+k.id+'" rid="'+k.id+'" class="js-reply-ipt-default" placeholder="写下你的评论..."></textarea>';
+                    html +='</div>';
+                    html +='<div class="qa-reply-footright fr"> <span class="qa-tips"></span>';
+                    html +='<button class="btn-mc-light js-ipt-cancel note_cancel">取消</button>';
+                    html +='<button sub_id="'+k.id+'" type="review" class="btn-mc btn-mini btn-mc-green  js-ipt-submit note_sub">提交</button>';
+                    html +='</div>';
+                    html +='</div>';
+                    html +='</div>';
+                    html +='</div>'; //内容结束
+                }); //each
+            }
+            //分页  if(data.totalPages > 1)
+            if(data.totalPages > 1) html += '<div class="reviewPage sabrosus">'+data.html+'</div>';
+            if($('.video-review .review_con').size() <=0){
+                //综合评分
+                $(".indo-mess").append(html_list);
+                //点评内容
+                $('.video-review').append(html);
+            }else{
+                $(".review_con").children().not('#review-comments').remove();
+                $(".review_con").append(html);
+                $(".indo-mess").html('');
+                $(".indo-mess").append(html_list);
+                $('#review-comments').hide();
+            }
+        },'json'); //post
+    }
+
+
+    //星星评分
+    function score(id)
+    {
+        var oStarUl=document.getElementById(id);
+        var aLi=oStarUl.children;
+        for(var i=0; i<aLi.length; i++)
+        {
+            //aLi[i].style.backgroundPosition=i%2?'-12px 0':'0 0';
+            aLi[i].index=i;
+            //鼠标移入
+            aLi[i].onclick=function ()
+            {
+                for (var i=0; i<aLi.length; i++)
+                {
+                    aLi[i].className="grade-back-default";
+                }
+
+                for (var i=0; i<this.index+1; i++)
+                {
+                    aLi[i].className="grade-back-set";
+                }
+                $("#course_score").val(this.index+1);
+                $('#how-score').text('评分:'+(this.index+1)+'分');
+            };
+            // aLi[i].onclick=function ()
+            // {
+            //     $("#course_score").val(this.index+1);
+            //     $('#how-score').text('评分:'+(this.index+1)+'分');
+            // };
+        }
+    }
+
+    $('.tongwenreview').live('click',function(){
+        var t_id = $(this).attr('t_id');
+        var t_type = $(this).attr('type');
+        var _this = $(this);
+        eval('var tw_type='+t_type+'_type');//分类类型 1:提问,2:点评,3:笔记
+        $.post("{:U('classroom/Index/tongwen')}",{rid:t_id,type:tw_type},function(txt){
+            if(txt.status == 1){
+                var num = parseInt(_this.find('.t_num').text())+1;
+                _this.find('.t_num').text(num);
+            }else{
+                alert(txt.info);
+            }
+        },'json');
+    });
+
+</script>
+<!-- 点评结束 -->

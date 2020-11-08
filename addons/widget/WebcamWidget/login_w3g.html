@@ -1,0 +1,215 @@
+<style media="screen">
+    .webcam_canvas canvas{display: none;}
+    .camera input{display: none;width: 0;height:0;}
+    .webcam_canvas{height:200px;width: 200px;margin: 0 auto;margin-top: 40%;overflow: hidden;border-radius: 50%;background: url("__THEME__/images/face.png");background-size: 200px 200px;}
+    #play_cam_webcam{width: 280px;height: 44px;color: #fff;background:#00BED4;border:0;outline: 0;margin: 0 auto;display: block;margin-top: 100px;border-radius: 44px;font-size: 16px;}
+    .modle_fixed{display: none;position: fixed;top: 0;left: 0;height: 100%;width: 100%;background: rgba(0,0,0,.5)}
+    .modle_fixed span{color: #fff;font-size: 16px;position: absolute;left: 0;top: 0;bottom: 0;right: 0;margin: auto;width: 120px;height: 40px;}
+</style>
+<!-- 拍照 -->
+<div class="camera">
+    <p>
+        <input type="file" capture="user" accept="image/*" id="{$id}">
+    </p>
+    <div class="webcam_canvas">
+    </div>
+    <p>
+        <button id="play_cam_{$id}">
+            拍照
+        </button>
+    </p>
+</div>
+<div class="modle_fixed">
+    <span>正在上传头像...</span>
+</div>
+<script src="__THEME__/js/exif/exif.js"></script>
+<script type="text/javascript">
+    var file_data,file_canvas_type;
+    var canvas = document.createElement("canvas");
+    $(".webcam_canvas").append(canvas);
+    $("#play_cam_{$id}").click(function(){
+        $("#{$id}").click();
+    });
+    document.getElementById('{$id}').addEventListener('change', function() {
+        $(".modle_fixed").show();
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var dataURL = e.target.result;
+			//var col = dataURL.split(";");
+            img = new Image();
+            img.onload = function() {
+                var imgData = this;
+                var width = imgData.width;
+                var height = imgData.height;
+                var orient = 1;
+                EXIF.getData(imgData, function () {
+                    orient = EXIF.getTag(this, 'Orientation');
+                });
+                var initSize = imgData.src.length;
+                
+                //如果图片大于一百万像素，计算压缩比并将大小压至100万以下
+                var ratio;
+                if ((ratio = width * height / 800000) > 1) {
+                    ratio = Math.sqrt(ratio);
+                    //width /= ratio;
+                    //height /= ratio;
+                } else {
+                    ratio = 1;
+                }
+                var sw = parseFloat(width / ratio);
+                var sh = parseFloat(height / ratio);
+                canvas.width = sw;
+                canvas.height = sh;
+                var context = canvas.getContext('2d');
+                context.clearRect(0, 0, sw, sh);
+                // 铺底色
+                context.fillStyle = "#fff";
+                // 绘制首次处理的图片
+                context.drawImage(imgData, 0, 0, width,height,0, 0, sw, sh);
+                var newCanvas = document.createElement('canvas');
+                var newContent = newCanvas.getContext('2d');
+                // 图片压缩与处理
+                drawToFinal(canvas,newCanvas,newContent,sw,sh,orient);
+                //进行最小压缩
+                file_data = newCanvas.toDataURL('image/png',0.1);
+                file_canvas_type = 'data';
+                var data = {
+                    type:file_canvas_type,
+                    image:file_data,
+                    callback:'login',
+                };
+
+                $.post('{:U("widget/Webcam/saveImage")}',data,function(res){
+                    $(".modle_fixed").hide();
+                    if(typeof(res) != 'object'){
+                        try{
+                            var res = JSON.parse(res);
+                        }catch(e){
+                            alert("处理异常,请重新尝试");
+                            return false;
+                        }
+                    }
+
+                    if(res.status == 1){
+                        alert(res.data.info);
+                        if(res.data.jumpurl != ''){
+                            setTimeout(function(){
+                                window.location.href = res.data.jumpurl;
+                            },1500);
+                        }else{
+                            setTimeout(function(){
+                                window.location.reload();
+                            },1500);
+                        }
+                        
+                        return true;
+                    }else{
+                        alert(res.message);
+                        return false;
+                    }
+                });
+            };
+            img.src = dataURL;
+        };
+        reader.readAsDataURL(this.files[0]);
+    }, false);
+    /*
+     *使用的canvas  本canvas 本context  源cawidth 源caheight 角度   回调
+     */
+    function drawToFinal(_sourceCanvas, _drawCanvas, _drawContext, _sw, _sh, _Orientation) {
+        var _Orientation = parseInt(_Orientation);
+        switch (_Orientation) {
+            case 6:
+                //图片需要x轴右方  y轴的左方旋转90deg;  原本的宽现在成高了原本的高成宽了
+                _drawCanvas.width = _sh;
+                _drawCanvas.height = _sw;
+                var tSetting = {
+                    dx: 0,
+                    dy: 0,
+                    dw: 0,
+                    dh: 0,
+                    transX: 0,
+                    transY: 0
+                };
+                if(_sw > _sh){
+                    
+                    tSetting.dw = _sh; //显示在canvas上的宽
+                    var scale2 = _sw / _sh;
+                    tSetting.dh = parseFloat(tSetting.dw / scale2); //算出显示在canvas上的高
+                    tSetting.dy = (_sw - tSetting.dh) / 2; //显示在canvas上的y
+                }else{
+                    tSetting.dh = _sw; //显示在canvas上的高
+                    var scale2 = _sh / _sw;
+                    tSetting.dw = parseFloat(tSetting.dh / scale2); //算出显示在canvas上的高
+                    tSetting.dx = (_sh - tSetting.dw) / 2; //显示在canvas上的y
+                }
+                tSetting.transY = _sw / 2;
+                tSetting.transX = _sh / 2;
+                _drawContext.translate(tSetting.transX, tSetting.transY); //先平衡 宽高一半
+                _drawContext.rotate(0.5 * Math.PI); //旋转90
+                _drawContext.scale(scale2, scale2); //缩放
+                //原canvas 图像截取0 0 截取 w h 显示的x  显示的y  显示出来的w  h
+                _drawContext.drawImage(_sourceCanvas,tSetting.dx - tSetting.transX, tSetting.dy - tSetting.transY, tSetting.dw, tSetting.dh);
+                break;
+            case 8:
+                //图片需要x轴左方  y轴的右方旋转90deg  
+                _drawCanvas.width = _sh;
+                _drawCanvas.height = _sw;
+                var tSetting = {
+                    dx: 0,
+                    dy: 0,
+                    dw: 0,
+                    dh: 0,
+                    transX: 0,
+                    transY: 0
+                };
+                tSetting.dw = _sh;
+                var scale2 = _sw / _sh;
+                tSetting.dh = parseFloat(tSetting.dw / scale2);
+                tSetting.dy = (_sw - tSetting.dh) / 2;
+                tSetting.transY = _sw / 2;
+                tSetting.transX = _sh / 2;
+                _drawContext.translate(tSetting.transX, tSetting.transY);
+                _drawContext.rotate(-0.5 * Math.PI);
+                _drawContext.scale(scale2, scale2);
+                _drawContext.drawImage(_sourceCanvas, 0, 0, _sw, _sh, tSetting.dx - tSetting.transX, tSetting.dy - tSetting.transY, tSetting.dw, tSetting.dh);
+                break;
+            case 3:
+                //180向左旋转 (右旋转也可以。)  
+                _drawCanvas.width = _sw;
+                _drawCanvas.height = _sh;
+                var tSetting = {
+                    dx: 0,
+                    dy: 0,
+                    dw: 0,
+                    dh: 0,
+                    transX: 0,
+                    transY: 0
+                };
+                tSetting.dw = _sw;
+                tSetting.dh = _sh;
+                tSetting.transY = _sh / 2;
+                tSetting.transX = _sw / 2;
+                _drawContext.translate(tSetting.transX, tSetting.transY);
+                _drawContext.rotate(1 * Math.PI);
+                //_drawContext.scale(scale2,scale2);  
+                _drawContext.drawImage(_sourceCanvas, 0, 0, _sw, _sh, tSetting.dx - tSetting.transX, tSetting.dy - tSetting.transY, tSetting.dw, tSetting.dh);
+                break;
+            default:
+                _drawCanvas.width = _sw;
+                _drawCanvas.height = _sh;
+                var tSetting = {
+                    dx: 0,
+                    dy: 0,
+                    dw: 0,
+                    dh: 0,
+                    transX: 0,
+                    transY: 0
+                };
+                tSetting.dw = _sw;
+                tSetting.dh = _sh;
+                _drawContext.drawImage(_sourceCanvas, 0, 0, _sw, _sh, tSetting.dx, tSetting.dy, tSetting.dw, tSetting.dh);
+                break;
+        }
+    }
+</script>

@@ -1,0 +1,51 @@
+
+    <!--footer start-->
+    <!-- <div class="footer">
+        <b>{$site['site_footer']}</b>
+    </div> -->
+    <nav class="nav_list">
+        <ul>
+            <li>
+                <a href="/">
+                <i class="icon icon-shouye"></i>
+                <p>首页</p>
+                </a>
+            </li>
+            <li>
+                <!--<if condition="IS_CHILDS_HOST"><a href="{:U('school/School/course',array('id'=>$mhm_id))}"><else/><a href="{:U('classroom/Video/index')}"></if>-->
+                <a href="/teacher.html">
+                <i class="icon icon-shu"></i>
+                <p>名师</p>
+                </a>
+            </li>
+            <li>
+                <a href="/course.html?vtype=2">
+                <i class="icon icon-faxian"></i>
+                <p>课程</p>
+                </a>
+            </li>
+            <li>
+                <if condition="$_SESSION['mid']">
+                    <a href="{:U('classroom/User/index')}">
+                        <else/>
+                    <a href="{:U('public/Passport/login_g')}">
+                </if>
+                <i class="icon icon-wode"></i>
+                <p>我的</p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--footer end-->
+    <!--&lt;!&ndash; 统计代码&ndash;&gt;-->
+    <div id="site_analytics_code" style="display:none;">
+    {$site.site_analytics_code|base64_decode}
+    </div>
+    <eq name='site.site_online_count' value='1'>
+    <script src="{:SITE_URL}/online_check.php?uid={$mid}&uname={$user.uname}&mod={:MODULE_NAME}&app={:APP_NAME}&act={:ACTION_NAME}&action=trace"></script>
+    </eq>
+
+    <script src="__THEMEW3G__/js/script.js"></script>
+</div>
+</body>
+</html>

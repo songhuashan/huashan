@@ -1,0 +1,111 @@
+.webuploader-container {
+    position: relative;
+}
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+}
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+.webuploader-pick .selectFile {
+    font-size: 15px;
+    height: 29px;
+    width: 100px;
+    background: #3695ff;
+    border: 0px solid;
+    color: #fff;
+    display:inline-block;
+}
+.webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events: none;
+}
+.progressWrapper {
+    position: relative;
+    height: 25px;
+    overflow: hidden;
+    border-bottom: 1px solid #E8E8E8;
+}
+.progressContainer {
+    background-color: white;
+    overflow: hidden;
+}
+.message {
+    margin: 1em 0;
+    padding: 10px 20px;
+    border: solid 1px #FFDD99;
+    background-color: #FFFFCC;
+    overflow: hidden;
+}
+.progressName {
+    display: inline;
+    position: absolute;
+    left: 12px;
+    z-index: 999;
+    overflow: hidden;
+}
+.progressBarInProgress {
+    border-right: 2px solid #36824B;
+    transition: width .8s ease-in-out;
+    -webkit-transition: width .8s ease-in-out;
+    -moz-transition: width .8s ease-in-out;
+    -o-transition: width .8s ease-in-out;
+}
+.progressBarInProgress, .progressBarComplete, .progressBarError {
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    font-size: 0;
+    width: 0;
+    height: 25px;
+    background-color: #EAFAE6;
+}
+.progressBarComplete {
+    width: 100%;
+    background-color: green;
+}
+.progressBarError {
+    width: 100%;
+    background-color: red;
+}
+.progressBarStatus {
+    font-size: 7pt;
+    font-family: Arial;
+    text-align: left;
+    white-space: nowrap;
+    position: absolute;
+    right: 15px;
+    z-index: 100;
+}
+a.progressCancel {
+    font-size: 0;
+    display: block;
+    height: 14px;
+    width: 14px;
+    margin: 5px 8px 0 0;
+    float: right;
+}
+a.progressCancel:hover {
+    background-position: 0px 0px;
+}
+.progressSize {
+    position: absolute;
+    right: 60px;
+    top: 5px;
+}
+#btnCancel {
+    display: none;
+}
+#fsUploadProgress {
+    width: 400px;
+}
