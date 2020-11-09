@@ -364,7 +364,7 @@ class IndexAction extends CommonAction
         }
         // 获取试卷试题等信息
         $paper_options = D('ExamsPaperOptions', 'exmas')->getPaperOptionsById($paper_id);
-//         dump($paper_options);
+
         $this->assign('paper_options', $paper_options);
         // 查询记录
         $temp_id               = intval($_GET['temp']);
@@ -387,7 +387,7 @@ class IndexAction extends CommonAction
         $wrongList               = D("ExamsLogs", 'exams')->getWrongList($paper_id, $temp_id);
         // dump($wrongList);
         $wrongList && $wrongList = getSubByKey($wrongList, 'exams_question_id');
-//         dump($wrongList);die;
+
         $this->assign('wrongCount', count($wrongList));
         $this->assign('wrongList', $wrongList);
         // 父级错题
