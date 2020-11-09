@@ -104,7 +104,8 @@ function cut_fix($file_url, $new_width, $new_height, $type = 1, $pos = 5, $start
 {
     $pathinfo = pathinfo($file_url);
     $src_file = UPLOAD_PATH . '/' . $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.' . $pathinfo['extension'];
-    $dst_file = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '_' . $new_width . '_' . $new_height . '.' . $pathinfo['extension'];
+    // $dst_file = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '_' . $new_width . '_' . $new_height . '.' . $pathinfo['extension'];
+    $dst_file = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.' . $pathinfo['extension'];
     if (!file_exists(UPLOAD_PATH . '/' . $dst_file)) {
         if ($new_width < 1 || $new_height < 1) {
             return false;
@@ -218,7 +219,8 @@ function cut_auto($file_id, $width, $height)
         $backimg = SITE_URL . '/apps/event/_static/images/zwfm.png';
     }
     $pathinfo = pathinfo($src_file_url);
-    $newsfile = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '_' . $width . '_' . $height . '.' . $pathinfo['extension'];
+    $newsfile = $pathinfo['dirname'] . '/' . $pathinfo['filename'].".".$pathinfo['extension'];
+    // $newsfile = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '_' . $width . '_' . $height . '.' . $pathinfo['extension'];
     if (!file_exists(UPLOAD_PATH . '/' . $newsfile)) {
         list($s_w, $s_h, $exten) = getimagesize($backimg);
         //等比例固定算法

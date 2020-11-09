@@ -696,7 +696,7 @@ class PublicAction extends AdministratorAction {
 
 
     public function addTreeLiveCategory(){
-
+        header('Access-Control-Allow-Origin: *');
         $cid = intval($_GET['cid']);
 
         $this->assign('pid', $cid);

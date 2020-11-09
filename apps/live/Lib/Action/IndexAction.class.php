@@ -1019,7 +1019,10 @@ class IndexAction extends CommonAction {
             $this->assign('signPackage', $signPackage);
         }
 
+        $attach = M("attach")->where("attach_id=".$data['cover'])->find();
 
+        $imageUrl = "\data\upload\\".$attach['save_path'].$attach['save_name'];
+        $this->assign("imageUrl",$imageUrl);        
 
         $this->assign('guess_you_like',$guess_you_like);
         $this->assign ( 'enough', $enough );

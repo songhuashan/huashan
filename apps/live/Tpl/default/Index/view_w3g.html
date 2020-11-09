@@ -21,7 +21,7 @@
                     <volist name = "liveids['live_ids']" id='vo'>
                         <li style="line-height:{$phone_height}px;">
                             <a href="{:U('live/Index/watch',array('id'=>$vo[id],'live_id'=>$vo[live_id]))}"  >
-                                <b><i class="icon-01"></i>进入<{$vo['subject']}>直播间</b>
+                                <b><i class="icon-01"></i>进入<<php>echo mb_substr($vo['subject'],0,5)</php>...>直播间</b>
                             </a>
                         </li>
                     </volist>

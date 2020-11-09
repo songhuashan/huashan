@@ -67,34 +67,39 @@ class UploadWidget extends Widget{
         $data['upload_type'] = $_REQUEST['upload_type']?t($_REQUEST['upload_type']):'file';
 
         $thumb  = intval($_REQUEST['thumb']);
+        // var_dump($thumb);
         $width  = intval($_REQUEST['width']);
+        // var_dump($width);
         $height = intval($_REQUEST['height']);
+        // var_dump($height);
         $cut    = intval($_REQUEST['cut']);
-
+        // die;
         //Addons::hook('widget_upload_before_save', &$data);
         
         $option['attach_type'] = $data['attach_type'];
+        
         if(isset($_REQUEST["chunk"]) && isset($_REQUEST["chunks"])){
             $option['chunk']  = intval($_REQUEST["chunk"]);
             $option['chunks'] = intval($_REQUEST["chunks"]);
         }
         $info = model('Attach')->upload($data, $option);
+        // var_dump($info);die;
         //Addons::hook('widget_upload_after_save', &$info);
-
-    	if($info['status']){
+        if($info['status']){
     		$data = $info['info'][0];
-            if($thumb==1){
-                $data['src'] = getImageUrl($data['save_path'].$data['save_name'],$width,$height,$cut);
-            }else{
+            // if($thumb==1){
+            //     $data['src'] = getImageUrl($data['save_path'].$data['save_name'],$width,$height,$cut);
+            // }else{
                 $data['src'] = $data['save_path'].$data['save_name'];
-            }
+            // }
     		
     		$data['extension']  = strtolower($data['extension']);
 			$data['input_id']   = t($_REQUEST['input_id']);
-    		$return = array('status'=>1,'data'=>$data);
+            $return = array('status'=>1,'data'=>$data);
     	}else{
     		$return = array('status'=>0,'data'=>$info['info']);
     	}
+       
     	echo json_encode($return);exit();
     }
     

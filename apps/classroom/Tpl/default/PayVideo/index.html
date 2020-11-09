@@ -21,10 +21,10 @@
                         </a>
                         <!--<div class="price"><span class="fr">¥{$moner_data['price']}</span>原价：¥{$moner_data['oriPrice']}</div>-->
                         <div class="item">
-                        <span>课时：{$video_section_num|default="0"} 节</span>
-                        <if condition="$type eq 1">
-                        <!--<span>有效期    {$term_num}</span>-->
-                        </if>
+                            <span>课时：{$video_section_num|default="0"} 节</span>
+                            <if condition="$type eq 1">
+                                <!--<span>有效期    {$term_num}</span>-->
+                            </if>
                         </div>
                         <!--<div class="item">服务机构   <a href="{:U('school/School/index',array('id'=>$mhm_id,'doadmin'=>$mhm_info['doadmin']))}">{$mhm_info['title']}</a></div>-->
                     </div>
@@ -208,18 +208,19 @@
                 </dl>
 
                 <div class="class_order_bot">
-                   <!-- <div class="info">
-                        <span>1</span> 门课程
-                        <div class="item">商品总金额：<div class="fr">￥{$moner_data['price']}</div></div>
-                        <if condition="($pay_video_type eq 'zy_video') or ($pay_video_type eq 'zy_live')">
-                            <div class="item">优惠抵扣：<div class="fr" id="cod_money2">￥0.00</div></div>
-                        </if>
-                    </div>-->
+                    <!-- <div class="info">
+                         <span>1</span> 门课程
+                         <div class="item">商品总金额：<div class="fr">￥{$moner_data['price']}</div></div>
+                         <if condition="($pay_video_type eq 'zy_video') or ($pay_video_type eq 'zy_live')">
+                             <div class="item">优惠抵扣：<div class="fr" id="cod_money2">￥0.00</div></div>
+                         </if>
+                     </div>-->
                     <div class="custom-box">
                         <label class="check"><input type="checkbox" id="check_xy" checked >我已阅读并同意<a class="clickTk" href="javascript:;" style="color: #188eee;">《{$site['site_keyword']}购买条款》</a></label>
                         <script>
                             $(".clickTk").click(function(){
                                 layer.open({
+<<<<<<< HEAD
                                   type: 2,
                                   title: "{$site['site_keyword']}购买条款",
                                   shadeClose: true,
@@ -227,6 +228,15 @@
                                   area: ['1300px', '90%'],
                                   content: "https://www.qiluzhibo.com/single/9.html" //iframe的url
                                 }); 
+=======
+                                    type: 2,
+                                    title: "{$site['site_keyword']}购买条款",
+                                    shadeClose: true,
+                                    shade: 0.3,
+                                    area: ['1300px', '90%'],
+                                    content: "https://www.qiluzhibo.com/single/9.html" //iframe的url
+                                });
+>>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
                             })
                         </script>
                         <form action="{:U('classroom/PayVideo/payLibrary')}" method="POST" id="pay_video_form">

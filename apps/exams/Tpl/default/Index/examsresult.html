@@ -47,6 +47,7 @@
                         <dd>
                             <php>$q_count = 1;</php>
                             <volist name="paper_options.options_type" id="options_type">
+
                                 <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
                                     <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
                                     <a href="#ex{$question.exams_question_id}"<php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="on"<php>}</php>>{$q_count}</a>

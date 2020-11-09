@@ -422,7 +422,6 @@ class AdminLiveAction extends AdministratorAction
             $data['video_category']     = $category == '0' ? array_pop($fullcategorypath) : $category;
 
             $video_info = M('zy_video')->where('id ='.intval($_POST['id'])) ->field('teacher_id,live_course_id,live_type') ->find();
-
             //classin
             if($video_info['live_type'] == 7){
                 $time = time();
@@ -563,22 +562,22 @@ class AdminLiveAction extends AdministratorAction
                 $this->error("编辑失败");
             }
         } else {
-        if (t($_GET['id'])) {
-            $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
-            
-            $teacher=explode(',',$data['teacher_id']);
-            $this->assign('teacher', $teacher);
-            $this->assign($data);
-            $this->assign('data', $data);
-            //查询讲师列表
-            $trlist = $this->teacherList($data['mhm_id']);
-            $this->assign('trlist', $trlist);
-        } else {
-            $this->assign("listingtime", time());
-            $this->assign("uctime", time() + 604800);
-            $this->assign("video_intro", "");
-            $this->assign("is_mount", 1);
-        }
+            if (t($_GET['id'])) {
+                $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
+                
+                $teacher=explode(',',$data['teacher_id']);
+                $this->assign('teacher', $teacher);
+                $this->assign($data);
+                $this->assign('data', $data);
+                //查询讲师列表
+                $trlist = $this->teacherList($data['mhm_id']);
+                $this->assign('trlist', $trlist);
+            } else {
+                $this->assign("listingtime", time());
+                $this->assign("uctime", time() + 604800);
+                $this->assign("video_intro", "");
+                $this->assign("is_mount", 1);
+            }
 
         //获取会员等级
         $vip_levels = M('user_vip')->where('is_del=0')->order('sort desc')->getField('id,title');
@@ -797,6 +796,7 @@ class AdminLiveAction extends AdministratorAction
     }
 
     public function ccLiveRoom2(){
+        header('Access-Control-Allow-Origin:*'); 
         $_REQUEST['tabHash'] = 'ccLiveRoom';
 
         $live_id = intval($_GET['id']);
@@ -834,7 +834,7 @@ class AdminLiveAction extends AdministratorAction
 
         $this->searchPostUrl = U('live/AdminLive/ccLiveRoom',['id'=>$live_id]);
 
-        $list = $this->_getCcLiveList('ccLiveRoom',1000,$order,$map,0);
+        $list = $this->_getCcLiveList('ccLiveRoom2',1000,$order,$map,0);
         
         // echo '<pre>';
         // print_r($list['data']);die;
@@ -844,6 +844,48 @@ class AdminLiveAction extends AdministratorAction
         $this->display('ccLiveRoom');
         // $this->displayList($list);
     }
+<<<<<<< HEAD
+=======
+    
+
+    //克隆课程
+    public function addCourse(){
+        $post = $_POST;
+
+        if(!empty($_POST)){
+            $id = $post['categoryid'];
+            $courseid = $post['courseid'];
+            $live_category = M("zy_live_category");
+            $courseInfo = $live_category->where("id=".$id)->find();
+            $categoryid = $courseInfo['videoid'];
+            unset($courseInfo['id']);
+            $courseInfo['videoid'] = $courseid;
+            $getAddId = $live_category->add($courseInfo);
+            $live_thirdparty = M("zy_live_thirdparty");
+            $categoryInfo = $live_thirdparty->where("categoryid=".$id)->select();
+            // dump($categoryInfo);
+            foreach($categoryInfo as $key => $value){
+                unset($categoryInfo[$key]['id']);
+                $categoryInfo[$key]['live_id'] = $courseid;
+                $categoryInfo[$key]['categoryid'] = $getAddId;
+                $insertLiveThtirdparty = M("zy_live_thirdparty")->add($categoryInfo[$key]); 
+            }
+            // dump($categoryInfo);
+            if(!empty($insertLiveThtirdparty)){
+                echo  json_encode(['msg'=>1]); 
+            }else{
+                echo json_encode(['msg'=>3]);
+            }
+        }else{
+            echo json_encode(['msg'=>2]);
+        }
+
+
+    }
+
+
+
+>>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
 
     /*
      * 第三方直播间-微吼
@@ -1714,7 +1756,7 @@ class AdminLiveAction extends AdministratorAction
                 $query_map['foreignpublish']    = urlencode(t($_POST['webJoin']));
             }
             $query_map['userid']            = urlencode($this->cc_config['user_id']);
-            $query_map['openlowdelaymode']  = urlencode(1);
+            // $query_map['openlowdelaymode']  = urlencode();
 
             $url    = $url.createHashedQueryString($query_map)[1].'&time='.time().'&hash='.createHashedQueryString($query_map)[0];
 
@@ -2039,7 +2081,12 @@ class AdminLiveAction extends AdministratorAction
                 //     echo model('Live')->getDbError();die;
                 // }
                 if(!$result){$this->error('编辑失败!');}
-                $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>intval($_REQUEST['live_id']))) );
+                if("ccLiveRoom" == $_REQUEST['url']){
+                    $url = 'live/AdminLive/ccLiveRoom';
+                }else{
+                    $url = 'live/AdminLive/ccLiveRoom2';
+                }
+                $this->assign( 'jumpUrl', U($url,array('id'=>intval($_REQUEST['live_id']))) );
                 $this->success('编辑成功');
 
         } else {
@@ -3621,7 +3668,7 @@ class AdminLiveAction extends AdministratorAction
             $val['startDate']       = date('Y-m-d H:i' , $val['startDate']);
             $val['invalidDate']     = date('Y-m-d H:i' , $val['invalidDate']);
 
-            $val['DOACTION']        = '<a href="'.U('live/AdminLive/editCcLiveRoom',array('tabHash'=>'editCcLiveRoom','id'=>$val['id'],'live_id'=>intval($_GET['id']))).'">编辑</a> | ';
+            $val['DOACTION']        = '<a href="'.U('live/AdminLive/editCcLiveRoom',array('tabHash'=>'editCcLiveRoom','id'=>$val['id'],'live_id'=>intval($_GET['id']),"type"=>$type)).'">编辑</a> | ';
             if ($val['is_del'] == 0) {
                 $val['DOACTION'] .= '<a href="javascript:void(0)" onclick="admin.doaction('.$val['id'].',\'ColseLive\''.',4)">禁用</a> | ';
             } else {

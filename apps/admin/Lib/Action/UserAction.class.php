@@ -1171,7 +1171,10 @@ $this->onload[] = "admin.departDefault('".implode(',', $_POST['_parent_dept_id']
         
         $vmap['uname'] = t($_POST['uname']);
 
-        if ($oldUname != $vmap['uname']) {
+
+        if (trim($oldUname) != trim($vmap['uname'])) {
+
+
             $isExist = $user->where($vmap)->count();
             if ($isExist > 0) {
                 $this->error('用户昵称已存在，请使用其他昵称');

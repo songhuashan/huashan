@@ -29,10 +29,11 @@
     <div class="wrap">
         <div class="livetopbox">
             <div class="left">
-                <img src="{:getCover($data['cover'] ,580 ,320 )}" alt="" class="style-btn">
+                <!-- <img src="" alt="" class="style-btn"> -->
+                <img src="{$imageUrl}" alt="" class="style-btn">
 
                 <php>if($data['is_buy']){</php>
-                <ul class="sign"  style="line-height: 0">
+                <ul class="sign"  style="line-height: 0;width: 0px;">
                     <volist name = "liveids['live_ids']" id='vo'>
                         <li style="background:rgba(0,0,0,.4);line-height: {$line_height}px;">
                             <a href="{:U('live/Index/watch',array('id'=>$vo[id],'live_id'=>$vo[live_id]))}"  >

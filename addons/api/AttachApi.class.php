@@ -12,6 +12,7 @@ class AttachApi extends Api {
 		$data['attach_type'] = t($this->data['attach_type']);
 		//上传方式
         $data['upload_type'] = $this->data['upload_type']?t($this->data['upload_type']):'file';
+        
          //是否启用缩略图
         $thumb  = intval($this->data['thumb']);
         //缩略图宽度
@@ -21,6 +22,7 @@ class AttachApi extends Api {
        //裁剪
         $cut    = intval($this->data['cut']);
         $option['attach_type'] = $data['attach_type'];
+        // var_dump($data);die;
         $info = model('Attach')->upload($data, $option,$thumb);
 		//判断上传状态
     	if($info['status']){

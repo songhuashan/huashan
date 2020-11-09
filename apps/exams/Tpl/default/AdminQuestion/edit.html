@@ -97,7 +97,9 @@
 	                	<case value="multiselect">
 	                		<volist name="question.answer_options" id="op">
 		                		<div <php>if($i !=1 || count($answer_options) == 1){echo 'class="clear"';}</php>>
-					                <p><input <php>if(in_array($key,$question['answer_true_option'])){</php>checked<php>}</php> type="checkbox" name="answer_true_option[]" value="{$key}">{$key}.</p>
+
+					                <p><input <php>if(in_array(strtolower($key),$question['answer_true_option'])){</php>checked<php>}</php> type="checkbox" name="answer_true_option[]" value="{$key}">{$key}.</p>
+
 					                <div>
 					                	{:W('Editor',array('width'=>'99%','height'=>'200','contentName'=>"answer_options_".$key,'value'=>$op,'type'=>'simple','maximumWords'=>'1000'))}
 					                </div>
