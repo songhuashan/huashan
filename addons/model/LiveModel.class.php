@@ -143,7 +143,6 @@ class LiveModel extends Model{
     public function getCcLiveInfo($order,$map,$limit){
         $map['type'] = 4;
         $data = $this->liveRoom->order($order)->where($map)->findPage($limit);
-        // echo $this->liveRoom->getLastSql();
         return($data);
     }
 

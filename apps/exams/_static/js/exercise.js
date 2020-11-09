@@ -124,7 +124,7 @@ $(function(){
     // 下次再做
     $("#progressExams").click(function(){
         
-        if(confirm('本次提交将保存进度,是否确认提交?')){
+        if(confirm('本次提交将保存进度,是否确认提交?1111')){
             $.post(U('exams/Index/doProgressExams'),$("form[name='answers']").serialize(),function(res){
                 if(typeof(res) != 'object'){
                     try{

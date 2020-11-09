@@ -41,7 +41,7 @@
                         </php>
                         <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
                             <php>if(!isset($tempData)){</php>
-                                <dd><php>if(isset($tempData['content'][$question['exams_question_id']])){ echo "class='on'";}</php>><a href="#ex{$question_num}">{$question_num}</a></dd>
+                                <dd <php>if(isset($tempData['content'][$question['exams_question_id']])){ echo "class='on'";}</php>><a href="#ex{$question_num}">{$question_num}</a></dd>
                                 <php>$question_num++;</php>
                             <php>}</php>
                             <php>if(isset($tempData)){</php>
@@ -93,8 +93,7 @@
 
                                             <volist name="question.answer_options" id="answer">
                                                 <php>$key_new = $key;</php>
-                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question['exams_question_id']}]" value="{$key}"
-                                                
+                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question_num}]" value="{$key},{$question_num}"
                                                 <volist name="tempData['content']" id="va">
                                                     <php>if($va[0].$va[1] == $key_new.$question_num){echo "checked='checked'";}</php>
                                                 </volist>>{$key_new}</label></li>
@@ -103,7 +102,7 @@
                                             <php>}</php>
                                             <php>if(!$tempData){</php>
                                             <volist name="question.answer_options" id="answer">
-                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question['exams_question_id']}]" value="{$key}"
+                                                <li><label><input class="anserItem" type="radio" name="user_answer[{$question_num}]" value="{$key},{$question_num}"
                                                         >{$key}</label></li>
                                             </volist>
                                             <php>}</php>
@@ -142,14 +141,14 @@
                                     <div class="choice">
                                         <ul>
                                             <php>
-                                                if($tempData['content'][$question['exams_question_id']]){
-                                                    $content = $tempData['content'][$question['exams_question_id']][0];                                      }else{
+                                                if($tempData){
+                                                    $content = isset($tempData['content'][$question['exams_question_id']]) ? $tempData['content'][$question['exams_question_id']] : [];
+                                                }else{
                                                     $content = [];
                                                 }
                                             </php>
-                                            <volist name="question.answer_options" key="k" id="answer">
-                                                <li><label><input class="anserItem" type="checkbox"  <php>if(!empty($content) && strstr($content,$key)){</php>checked="checked"<php>}</php> name="user_answer[{$question['exams_question_id']}][]" value="{$key}">{$key}</label></li>
-                                                
+                                            <volist name="question.answer_options" id="answer">
+                                                <li><label><input class="anserItem" type="checkbox"  <php>if(in_array($key,$content)){</php>checked="checked"<php>}</php> name="user_answer[{$question.exams_question_id}][]" value="{$key}">{$key}</label></li>
                                             </volist>
                                         </ul>
                                         <div class="collection">

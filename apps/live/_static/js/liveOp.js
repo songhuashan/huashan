@@ -120,7 +120,7 @@ function  shift_live_id(){
     }
     $.post(U('live/AdminLive/associate'),{"now_live_id":now_live_id,"shift_live":shift_live},function(msg){
         alert(msg.msg);
-        window.location.href = 'http://www.qiluzhibo.com/index.php?app=live&mod=AdminLive&act=ccLiveRoom&id='+now_live_id;
+        window.location.href = 'https://www.qiluzhibo.com/index.php?app=live&mod=AdminLive&act=ccLiveRoom&id='+now_live_id;
     },"json");
 
 }

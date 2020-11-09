@@ -723,7 +723,7 @@ class AdminLiveAction extends AdministratorAction
         $this->searchPostUrl = U('live/AdminLive/ccLiveRoom',['id'=>$live_id]);
 
         $list = $this->_getCcLiveList('ccLiveRoom',20,$order,$map,0);
-        // dump($list);
+
         // echo '<pre>';
         // print_r($list['data']);die;
         $this->assign('listdata',$list['data']);
@@ -731,6 +731,38 @@ class AdminLiveAction extends AdministratorAction
         // $this->display();
         $this->displayList($list);
     }
+
+
+    //新增课程
+    public function addCourse(){
+        $post = $_POST;
+        if(!empty($_POST)){
+            $categoryid = $post['categoryid'];
+            $courseid = $post['courseid'];
+            $courseInfo = M("zy_live_thirdparty")->where("id=".$courseid)->find();
+            $categoryInfo = M("zy_live_thirdparty")->where("categoryid=".$categoryid)->find();
+            unset($courseInfo['id']);
+            unset($courseInfo['type']);
+            unset($courseInfo['type']);
+            $courseInfo['type'] = $categoryInfo['type'];
+            $courseInfo['categoryid'] = $categoryid;
+            $courseInfo['live_id'] = $categoryInfo['live_id'];
+            $insertLiveThtirdparty = M("zy_live_thirdparty")->add($courseInfo); 
+            if(!empty($insertLiveThtirdparty)){
+                echo  json_encode(['msg'=>1]); 
+            }else{
+                echo json_encode(['msg'=>3]);
+            }
+        }else{
+            echo json_encode(['msg'=>2]);
+        }
+
+
+    }
+
+
+
+
 
     //转移直播
     public function associate(){
@@ -771,7 +803,6 @@ class AdminLiveAction extends AdministratorAction
         $this->assign('live_id',$live_id);
 
         $category=$this->MakeTree(0,0,0,$live_id);
-        // dump($category);
         $this->assign('category',$category);
 
         $liveInfo = model('Live')->findLiveInfo(array('id'=>$live_id),'id,video_title,live_type');
@@ -813,37 +844,6 @@ class AdminLiveAction extends AdministratorAction
         $this->display('ccLiveRoom');
         // $this->displayList($list);
     }
-    
-
-    //新增课程
-    public function addCourse(){
-        $post = $_POST;
-        if(!empty($_POST)){
-            $categoryid = $post['categoryid'];
-            $courseid = $post['courseid'];
-            $courseInfo = M("zy_live_thirdparty")->where("id=".$courseid)->find();
-            $categoryInfo = M("zy_live_thirdparty")->where("categoryid=".$categoryid)->find();
-            unset($courseInfo['id']);
-            unset($courseInfo['type']);
-            unset($courseInfo['type']);
-            $courseInfo['type'] = $categoryInfo['type'];
-            $courseInfo['categoryid'] = $categoryid;
-            $courseInfo['live_id'] = $categoryInfo['live_id'];
-            $insertLiveThtirdparty = M("zy_live_thirdparty")->add($courseInfo); 
-            if(!empty($insertLiveThtirdparty)){
-                echo  json_encode(['msg'=>1]); 
-            }else{
-                echo json_encode(['msg'=>3]);
-            }
-        }else{
-            echo json_encode(['msg'=>2]);
-        }
-
-
-    }
-
-
-
 
     /*
      * 第三方直播间-微吼
