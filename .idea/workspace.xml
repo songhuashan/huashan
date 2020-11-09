@@ -11,23 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ebee282-5b86-40c6-8e64-1b4a81971bd2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12/toinlog/dog.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12/toinlog/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12/write.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MP_verify_XAr3WffTeEgRiLtM.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/indexold.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/¶=ö¢ÐblñS5òîÝÅʑÙaoÐÀ#Âì]ªùI²QBÍáa¡#ÔÀ¬f£X^O5!íZLۨæìI-JsvM¤ûR¼g´À»O´" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_new.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_w3g.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_w3g.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/exams/Lib/Action/IndexAction.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/apps/exams/Lib/Action/IndexAction.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/exams/Tpl/default/AdminQuestion/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/exams/Tpl/default/AdminQuestion/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/exams/Tpl/default/Index/examsresult.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/exams/Tpl/default/Index/examsresult.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +80,7 @@
       <workItem from="1604728755135" duration="4928000" />
       <workItem from="1604798837262" duration="3967000" />
       <workItem from="1604818872247" duration="7725000" />
-      <workItem from="1604886718712" duration="1091000" />
+      <workItem from="1604886718712" duration="2218000" />
     </task>
     <servers />
   </component>

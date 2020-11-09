@@ -1,4 +1,0 @@
-data
-_runtime
-.idea
-.htaccess
