@@ -111,10 +111,12 @@ class IndexAction extends CommonAction
         }else{
             $selCate = showCatetreeForHtml($selCate, $config, 'id', $cateId);
         }
+            // dump($selCate);
             $this->assign('selcate', $selCate);
         } else {
             $cateData = model('CategoryTree')->setTable('exams_subject')->getNetworkList(0);
             $array_new = array();
+            // dump($cateData);
             $exams_subject_id = "";
             foreach ($cateData as $ke => $ve) {
                     foreach ($string as $ky => $vy) {
@@ -127,11 +129,15 @@ class IndexAction extends CommonAction
                     }
                 }
             }
+            // dump($string);
+            // dump($array_new);
             if(!in_array($mid,[1,4274,9281,9282,9287,9431,9432,9433])){ 
                 $this->assign('cateData', $array_new);
             }else{
                 $this->assign('cateData', $cateData);
             }
+            // dump($array_new);//(($cid !== null) ? $cid:$v['id']) 
+            // dump($cateData);
         }
         // 试题难度
         $level = $_GET['level'] ? ['in', $_GET['level']] : '';
@@ -149,7 +155,10 @@ class IndexAction extends CommonAction
             
         }
         
-        
+        // if(!in_array($mid,[1,4274,9281,9282,9431,9432,9433]) || ){
+            // $where['exams_subject_id'] = ['in', $ids];
+            // $where['exams_subject_id'] = ['in',$ids];
+        // }else if($cateId){
          if(in_array($mid,[1,4274,9281,9282,9287,9431,9432,9433])){
             if(!empty($ids)){
                 $where['exams_subject_id'] = ['in',$ids];
@@ -164,9 +173,10 @@ class IndexAction extends CommonAction
          }
 
             
+        // }
         $level && $where['level']          = $level;
         
-    
+        //$where['_string']                  = '(`start_time` <= ' . time() . ' OR `start_time` = 0) AND (`end_time` >= ' . time() . ' OR `end_time` = 0)';
         
         $list                              = D('ExamsPaper', 'exams')->getPaperPageList($where, 100, $order);
         // echo M()->getLastSql();
@@ -294,7 +304,7 @@ class IndexAction extends CommonAction
     public function doHaddleExams()
     {
 
-        // dump($_POST);die;
+        
         if (isAjax()) {
             if (D("ExamsUser", 'exams')->doExamsPaper($_POST)) {
                 echo json_encode(['status' => 1, 'data' => ['info' => '提交成功,请等待结果', 'jumpurl' => U("classroom/Home/exams", ['tab' => $_POST['exams_mode']])]]);exit;
@@ -307,7 +317,7 @@ class IndexAction extends CommonAction
             if ($result) {
                 $temp_id               = intval($result);
                 $this->assign('isAdmin', 1);
-                $this->jumpUrl = U('exams/Index/examsresult',array('paper_id'=>$_POST['paper_id'],'joinType'=>$_POST['exams_mode'],'temp'=>$temp_id));
+                $this->jumpUrl = U('exams/Index/examsresult',array('paper_id'=>$_POST['paper_id'],'joinType'=>2,'temp'=>$temp_id));
                 $this->success('提交成功,请等待结果');
             } else {
                 $this->error('提交处理失败,请重新尝试');
@@ -339,22 +349,6 @@ class IndexAction extends CommonAction
      */
     public function examsresult()
     {
-        // $res = M("exams_question")->where(["exams_question_type_id"=>"2","is_del"=>0])->select();
-        // // echo M()->getLastSql();
-        // // dump($res);die;
-        // foreach ($res as $key => $value) {
-        //     $unser = unserialize($value['answer_true_option'])[0];
-        //     $first = stripos($unser,"｜");
-        //     if($first){
-        //         $str = serialize(explode("｜", $unser));
-        //         $data = [];
-        //         $data['answer_true_option'] = $str;
-        //         M("exams_question")->where("exams_question_id=".$value['exams_question_id'])->save($data);
-        //     }
-        // }
-        
-        
-        // die;
         // 获取试卷ID
         $paper_id = intval($_GET['paper_id']);
         // 获取试卷信息
@@ -364,7 +358,11 @@ class IndexAction extends CommonAction
         }
         // 获取试卷试题等信息
         $paper_options = D('ExamsPaperOptions', 'exmas')->getPaperOptionsById($paper_id);
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
         $this->assign('paper_options', $paper_options);
         // 查询记录
         $temp_id               = intval($_GET['temp']);
@@ -373,7 +371,7 @@ class IndexAction extends CommonAction
         $map['uid']            = $this->mid;
         //$map['exams_mode'] = $_GET['joinType'] ?: 2;
         $answerData = D('ExamsUser', 'exams')->getExamsInfoByMap($map);
-        // dump($answerData);
+        
         if (!$answerData) {
             $this->error('你未参加该考试');
         }
@@ -381,17 +379,19 @@ class IndexAction extends CommonAction
         //if($answerData['status'] != 1){
         //$this->error('请耐心等待试卷审阅结果');
         //}
-
         $this->assign('answerData', $answerData);
         // 获取错误的答题记录
         $wrongList               = D("ExamsLogs", 'exams')->getWrongList($paper_id, $temp_id);
-        // dump($wrongList);
+        
         $wrongList && $wrongList = getSubByKey($wrongList, 'exams_question_id');
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
         $this->assign('wrongCount', count($wrongList));
         $this->assign('wrongList', $wrongList);
         // 父级错题
-        // dump($answerData['pid']);
         if ($answerData['pid'] > 0) {
 
             $inQuestions                 = D("ExamsLogs", 'exams')->getWrongList($paper_id, $answerData['pid']);
