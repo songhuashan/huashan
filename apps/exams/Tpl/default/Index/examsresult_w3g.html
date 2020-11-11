@@ -79,7 +79,6 @@
             <dt><h6>{$options_type.type_info.question_type_title}</h6></dt>
             <dd>
                 <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
-                    
                     <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
                     <a id="card{$question_num}" href="javascript:;" data-question_num="{$question_num}" class="go_question <php>if(in_array($question['exams_question_id'],$wrongList)){</php>err<php>}</php>">{$question_num}</a>
                     <php>$question_num++;</php>
@@ -113,11 +112,7 @@
                             <div class="operation">
                                 <!--答案解析-->
                                 <php>
-                                    $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : "";
-                                    $postion = strpos($content,",");
-                                    if($postion){
-                                        $content = str_replace(",","",$content);
-                                    }
+                                    $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : [];
                                 </php>
                                 <div class="analysis">
                                     <table class="analysis-pic">
@@ -128,15 +123,7 @@
                                        
                                         <td>
                                             <h6>我的答案</h6>
-                                            <em><php>if(!$content){</php>未作答<php>}</php>
-                                                <php>
-                                                if(is_array($content)){
-                                                        echo implode("",$content);
-                                                    }else{
-                                                        echo $content;
-                                                    }   
-                                                </php>
-                                                </em>
+                                            <em><php>if(!$content){</php>未作答<php>}</php><volist name="content" id="ans">{$ans}</volist></em>
                                         </td>
                                     </table>
                                     <div class="analysis-txt">

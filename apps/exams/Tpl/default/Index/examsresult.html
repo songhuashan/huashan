@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="__APP__/css/public.css">
 <!--<link rel="stylesheet" type="text/css" href="__APP__/css/public_header_footer.css">-->
 <link rel="stylesheet" type="text/css" href="__APP__/css/style.css">
-<script type="text/javascript" src="__THEME__/js/jquery-1.7.1.min.js"></script>
 <style>
     .full-course:hover ul{
         display: block;
@@ -51,7 +50,7 @@
 
                                 <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
                                     <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
-                                    <a href="#ex{$question.exams_question_id}" <php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="on"<php>}</php>>{$q_count}</a>
+                                    <a href="#ex{$question.exams_question_id}"<php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="on"<php>}</php>>{$q_count}</a>
                                     <php>$q_count++;</php>
                                 </volist>
                             </volist>
@@ -110,26 +109,11 @@
                                         </div>
                                         <div class="lu-ms-tim block">
                                             <php>
-                                                $content = $answerData['content'][$question['exams_question_id']];
-                                                $postion = strpos($content,",");
-                                                if($postion){
-                                                    $content = str_replace(",","",$content);
-                                                }
-                                            </php>
-
-                                            <em class="bgco">您的答案<strong><php>if(!$content){</php>未作答<php>}</php>
                                             
-                                                <php>
-                                                    if(is_array($content)){
-                                                        echo implode("",$content);
-                                                    }else{
-                                                        echo $content;
-                                                    }   
-
-                                                </php>
-                                               
-                                                
-                                                </strong></em>
+                                                $content = isset($answerData['content'][$question_num]);
+                                             
+                                            </php>
+                                            <em class="bgco">您的答案<strong><php>if(!$content){</php>未作答<php>}</php><php>echo $answerData['content'][$question_num][0];</php> </strong></em>
                                             <em>正确答案<strong><volist name="question.answer_true_option" id="answer_true">{$answer_true}</volist></strong></strong></em>
                                         </div>
                                         <div class="block"><b>考点：</b>{$question.exams_point_title}</div>
@@ -137,11 +121,7 @@
                                     </li>
                                     <php>$question_num++;</php>
                                 </volist>
-                                
-                                
-
                             </case>
-                            
                             <case value="completion">
                                 <!-- 填空 -->
                                 <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
@@ -159,13 +139,11 @@
                                             </div>
                                         </div>
                                         <div class="lu-ms-tim block">
-                                            <em class="blank-cls bgco">您的答案46565
+                                            <em class="blank-cls bgco">您的答案
                                                 <ul>
                                                     <php>
                                                         $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : [];
-                                                        dump("1231321");
                                                     </php>
-                                                        <php>dump($answerData['content'][$question['exams_question_id']])</php>
                                                     <volist name="question.answer_true_option" id="answer">
                                                         <li <php>if($content[$i-1] != $answer){</php>class="co"<php>}</php>><span><b>{$i}</b>、{$content[$i-1]|default='未作答'}</span></li>
                                                     </volist>

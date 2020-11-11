@@ -395,11 +395,11 @@
                                                     </if>
                                                 </volist>
                                         </volist>
-                                    <php> }else{ </php>
-                                        <php> $ks=0;</php>
+                                    <?php }else{ ?>
+                                        <?php $ks=0;?>
                                         <volist name="live_menu1" id="vo" key="k">
                                             <if condition="$v1['id'] eq $vo['categoryid']"> 
-                                            <php> $ks=$ks+1;</php>
+                                            <?php $ks=$ks+1;?>
                                                 <if condition="$vo.notestate eq 1"> 
                                                 <tr class="san{$v1.id}1 hide classOver"><else /><tr></if>
                                                 <tr class="san{$v1.id}1 hide classOver">
@@ -453,7 +453,7 @@
                                                 </if>
                                             </if>
                                         </volist>
-                                    <php> } </php>
+                                    <?php }?>
                                 </volist>
                                 </tbody></table>
                             </div>
@@ -695,6 +695,11 @@
             return false;
         }
         $.post("{:U('classroom/VideoCart/addVideoMerge')}", {id: $(this).attr('kid'),type:2}, function (txt) {
+//        if (txt.status) {
+////            $("#showStatus").removeClass('text_wrong');
+////            $("#showStatus").addClass('text_true');
+////            //window.href="{:U('classroom/Video/merge')}";
+//        }
         }, 'json');
     });
 

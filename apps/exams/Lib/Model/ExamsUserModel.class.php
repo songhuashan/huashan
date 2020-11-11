@@ -86,14 +86,18 @@ class ExamsUserModel extends Model
         $status          = 1;
         // 是否错题练习
         $is_wrongexams = isset($data['is_wrongexams']);
-        $answer_0 = [];
-        foreach ($questions as $question_id => $answer) {
+        
+        foreach ($questions as $question_id => &$answer) {
             // 统一转换为数组处理
-            
-                $questions[$question_id] = $answer;
-              
+            if (is_string($answer) && stripos($answer, ',') !== false) {
+                $answer = explode(',', $answer);
+            } elseif (is_string($answer)) {
+                $answer = [$answer];
+            }
+
             array_push($question_answer, $question_id);
             // 获取试题信息
+
             $question_info = D("ExamsQuestion", 'exams')->getQuestionById($question_id);
             
             $is_right      = 0;
@@ -104,13 +108,8 @@ class ExamsUserModel extends Model
                 case 'completion':
                     // 检测正误
                     $answer_true_option = $question_info['answer_true_option'];
-                    if(is_array($answer_true_option)){
-                        $answer_true_option =  implode(",", $answer_true_option);
-                    }
-                    if(is_array($answer)){
-                        $answer = implode(",", $answer);
-                    }
-                    if ($answer && $answer_true_option == $answer ) {
+                    
+                    if ($answer && count(array_diff($answer_true_option, $answer)) === 0) {
                         $right_count += 1;
                         // 累计分数
                         $score += $scoreConfig[$question_info['exams_question_type_id']];
@@ -125,6 +124,7 @@ class ExamsUserModel extends Model
                     $wrong_count += 1;
                     break;
             }
+
             array_push($logs, ['exams_paper_id' => $paper_id, 'exams_question_id' => $question_id, 'is_right' => $is_right]);
 
         }
@@ -171,9 +171,7 @@ class ExamsUserModel extends Model
             'exams_mode'      => intval($data['exams_mode']) ?: 2,
             'completion_rate' => $completion_rate . '%',
         ];
-            // echo "-----------------------------------4------------------------------------------";
-        // dump($logs);die;
-        // dump($addData);die;
+        
         // 如果是继续答题,执行修改
         if (!$exams_users_id) {
             $addData['pid'] = isset($data['wrongexams_temp']) ? intval($data['wrongexams_temp']) : 0;
@@ -210,20 +208,12 @@ class ExamsUserModel extends Model
         // 分析试题
         $questions      = $this->filter_array($data['user_answer']);
         $exams_users_id = isset($data['exams_users_id']) ? $data['exams_users_id'] : 0;
-        foreach ($questions as $question_id => $answer) {
+        foreach ($questions as $question_id => &$answer) {
             // 统一转换为数组处理
             if (is_string($answer) && stripos($answer, ',') !== false) {
                 $answer = explode(',', $answer);
-                $questions[$question_id] = $answer;
-            } else {
-                foreach ($answer as $key => $value) {
-                    $questions[$question_id][0] .= $value[0];
-                    $questions[$question_id][1] = $question_id;
-                }
-                asort($questions[$question_id]);
-                
-                $questions[$question_id] = array_slice($questions[$question_id],0,2);
-                
+            } elseif (is_string($answer)) {
+                $answer = [$answer];
             }
         }
         // 判断是否超时
@@ -245,7 +235,6 @@ class ExamsUserModel extends Model
             $questions_count = (int) D('ExamsPaperOptions', 'exmas')->where('exams_paper_id=' . $paper_id)->getField('questions_count');
             $completion_rate      = (round(count($questions) / $questions_count, 2)) * 100;
         }
-        // dump($exams_users_id);die;
         if (!$exams_users_id) {
             $data = [
                 'right_count'     => 0,
@@ -265,7 +254,6 @@ class ExamsUserModel extends Model
                 'pid'             => isset($data['wrongexams_temp']) ? intval($data['wrongexams_temp']) : 0,
             ];
             $res = $this->add($data);
-            // echo M()->getLastSql();die;
             // 记录试题
             D('ExamsLogs', 'exams')->addLog(['data' => $logs, 'exams_users_id' => $res]);
             if ($res && $data['exams_mode'] == 2) {
@@ -273,7 +261,6 @@ class ExamsUserModel extends Model
             }
             return $res;
         } else {
-            // dump($questions);
             $data = [
                 'exams_users_id'  => $exams_users_id,
                 'content'         => serialize($questions),
@@ -282,10 +269,7 @@ class ExamsUserModel extends Model
                 'progress'        => ($progress == 100) ? 99 : $progress,
                 'completion_rate' => $completion_rate . '%',
             ];
-
             return $this->save($data);
-             // $this->save($data);
-             // echo M()->getLastSql();die;
         }
     }
 
