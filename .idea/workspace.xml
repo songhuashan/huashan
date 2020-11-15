@@ -12,13 +12,14 @@
   <component name="ChangeListManager">
     <list default="true" id="6ebee282-5b86-40c6-8e64-1b4a81971bd2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/_static/mobile/img/画板 1 (2).jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/_static/mobile/img/画板 1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/_static/mobile/img/画板 11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/_static/mobile/img/画板 13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/_static/mobile/img/画板 2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/_static/mobile/img/画板 3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_w3g.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_w3g.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/theme/stv1/admin_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/addons/theme/stv1/admin_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/index_new.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/zb.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/classroom/Tpl/default/Index/zb.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/exams/Lib/Action/AdminPaperAction.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/apps/exams/Lib/Action/AdminPaperAction.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/live/Lib/Action/AdminLiveAction.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/apps/live/Lib/Action/AdminLiveAction.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/live/Tpl/default/AdminLive/Type.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/live/Tpl/default/AdminLive/Type.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/live/Tpl/default/AdminLive/ccLiveRoom.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/live/Tpl/default/AdminLive/ccLiveRoom.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/live/Tpl/default/AdminLive/editLive.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/live/Tpl/default/AdminLive/editLive.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,11 +63,6 @@
   </component>
   <component name="RunManager">
     <configuration name="考试" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/apps/exams/Lib/Action/IndexAction.class.php">
-      <CommandLine>
-        <PhpTestInterpreterSettings>
-          <option name="interpreterName" value="PHP" />
-        </PhpTestInterpreterSettings>
-      </CommandLine>
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -90,7 +86,11 @@
       <workItem from="1604886718712" duration="2218000" />
       <workItem from="1604912764883" duration="889000" />
       <workItem from="1604970735042" duration="51000" />
-      <workItem from="1605056930656" duration="3142000" />
+      <workItem from="1605056930656" duration="11783000" />
+      <workItem from="1605145517117" duration="8299000" />
+      <workItem from="1605161054194" duration="7203000" />
+      <workItem from="1605315768312" duration="17164000" />
+      <workItem from="1605400977043" duration="3803000" />
     </task>
     <servers />
   </component>
@@ -114,10 +114,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="540" y="176" key="#CLI_Interpreters/0.0.1920.1040@0.0.1920.1040" timestamp="1604729185252" />
-    <state x="569" y="213" key="#PHP" timestamp="1604729583167">
+    <state x="569" y="213" key="#PHP" timestamp="1605334058451">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="569" y="213" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1604729583167" />
+    <state x="569" y="213" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1605334058451" />
     <state x="529" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604544681010">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -142,9 +142,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="235" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604732955972" />
-    <state x="717" y="264" width="672" height="678" key="search.everywhere.popup" timestamp="1604801298734">
+    <state x="717" y="264" width="672" height="678" key="search.everywhere.popup" timestamp="1605332913408">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="717" y="264" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604801298734" />
+    <state x="717" y="264" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605332913408" />
   </component>
 </project>

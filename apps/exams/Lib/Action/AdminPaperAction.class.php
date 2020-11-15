@@ -60,6 +60,7 @@ class AdminPaperAction extends AdministratorAction
                 $v['DOACTION']    = '<a href="' . U('exams/AdminPaper/examslogs', ['tabHash' => 'examslogs', 'paper_id' => $v['exams_paper_id']]) . '">考试记录</a>';
                 $v['DOACTION'] .= ' - <a href="' . U('exams/AdminPaper/edit', ['tabHash' => 'edit', 'paper_id' => $v['exams_paper_id']]) . '">编辑</a>';
                 $v['DOACTION'] .= ' - <a href="' . U('exams/AdminPaper/assembly', ['tabHash' => 'assembly', 'paper_id' => $v['exams_paper_id']]) . '">组卷</a>';
+                $v['DOACTION'] .= ' - <a href="javascript:;" class="clone_paper" clone_paper = ' . $v['exams_paper_id'] . ">克隆</a>";
                 $v['DOACTION'] .= ' - <a href="javascript:exams.deletePaper(' . $v['exams_paper_id'] . ')">删除</a>';
             }
             unset($v);
@@ -67,8 +68,107 @@ class AdminPaperAction extends AdministratorAction
         $exams_module                 = model('CategoryTree')->setTable('exams_module')->getCategoryList(0);
         $exams_module                 = array_column($exams_module, 'title', 'exams_module_id');
         $this->opt['exams_module_id'] = array_merge([0 => '不限'], $exams_module);
+
         $this->displayList($list);
     }
+    /**
+     * 选择专业
+     */
+
+
+    public function subject()
+    {
+        $subject = M("exams_subject")->where("pid = 0")->order("sort asc")->select();
+//        echo M()->getLastSql();
+//        dump($subject);
+        echo  json_encode($subject);exit;
+    }
+
+    /*
+     * 选择专业下的子集
+     */
+
+    public function child()
+    {
+        $child_id = $_POST['id'];
+
+        if(!empty($child_id) && is_numeric($child_id)){
+            $result = M("exams_subject")->where("pid=".$child_id)->select();
+            if($result){
+                echo json_encode($result);
+            }else{
+                echo json_encode([]);
+            }
+        }else{
+            echo json_encode([]);
+        }
+     }
+
+    /*
+     * 专业选择
+     */
+
+    public function major()
+    {
+        $major_list = M('exams_module')->select();
+
+        if($major_list){
+            echo json_encode($major_list);
+        }else{
+            echo json_encode([]);
+        }
+    }
+
+    /*
+     * 克隆试卷
+     */
+    public function clone_paper()
+    {
+        $paper_info = $_POST;
+
+        $paper_id = $paper_info['id'];
+
+        $exams_paper = M("exams_paper")->where("exams_paper_id=$paper_id")->find();
+
+        foreach($exams_paper as $v){
+            unset($exams_paper['exams_paper_id']);
+            if(!empty($paper_info['child_new'])){
+                $exams_paper['exams_subject_id'] = $paper_info['child_new'];
+            }else{
+                $exams_paper['exams_subject_id'] = $paper_info['subject'];
+            }
+                $exams_paper['exams_module_id'] = $paper_info['major'];
+        }
+        $exams_paper_add = M("exams_paper")->add($exams_paper);
+
+        $paper_options_id = M("exams_paper_options")->where("exams_paper_id=$paper_id")->find();
+        $paper_options_id['exams_paper_id'] = $exams_paper_add;
+        $exams_paper_options_id = $paper_options_id['exams_paper_options_id'];
+        unset($paper_options_id['exams_paper_options_id']);
+
+        $exams_paper_options = M('exams_paper_options')->add($paper_options_id);
+        $exams_question = M("exams_question")->where("exams_point_id=".$exams_paper_options_id)->select();
+//        dump($exams_question);
+        foreach($exams_question as $k => $v){
+            unset($v['exams_question_id']);
+            $exams_question[$k]['exams_point_id'] = $exams_paper_options;
+        }
+//        dump($exams_question);
+        foreach($exams_question as $kk => $vv){
+            unset($vv['exams_question_id']);
+            $exams_question_add = M("exams_question")->add($vv);
+        }
+//        dump($exams_question_add);
+        if($exams_question_add){
+            echo json_encode(["code"=>1]);
+        }else{
+            echo json_encode(["code"=>-1]);
+        }
+
+    }
+
+
+
 
     /**
      * 添加试卷
@@ -249,9 +349,9 @@ class AdminPaperAction extends AdministratorAction
             $this->error("未找到试卷");
         }
         $this->pageTab[] = array('title' => '试题组卷', 'tabHash' => 'assembly', 'url' => U('exams/AdminPaper/assembly', ['paper_id' => $paper_id]));
+
         // 检测试卷数据
         $paper_options = $this->optionsMod->getPaperOptionsById($paper_id);
-
         // 获取当前试卷已经选择的类型
         $selected = getSubByKey($paper_options['options_type'], 'question_type');
 

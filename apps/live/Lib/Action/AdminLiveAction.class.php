@@ -85,11 +85,11 @@ class AdminLiveAction extends AdministratorAction
     }
 
 
-     /**
+    /**
      * 直播课堂列表
      */
     public function type(){
- 
+
 
         /** 获取全部分类 */
 
@@ -113,7 +113,7 @@ class AdminLiveAction extends AdministratorAction
         $order = 'id desc';
         $map['is_del'] = ['neq',2];
         $list = $this->_getLiveList('index',20,$order,$map,0,1);
-        
+
         $this->assign('list',$list);
         $this->assign('lists',$list['data']);
         $this->display();
@@ -313,31 +313,31 @@ class AdminLiveAction extends AdministratorAction
             $data['video_score']     = intval($_POST['video_score'])*20;
             $data['vip_level']       = intval($_POST['vip_level']); //vip等级
             $data['video_order_count_mark'] = intval($_POST['video_order_count_mark']); //学习人数
-			 $data['videofile_ids']    = isset($_POST['attach'][0]) ? intval($_POST['attach'][0]) : 0; //课件id
+            $data['videofile_ids']    = isset($_POST['attach'][0]) ? intval($_POST['attach'][0]) : 0; //课件id
             $data['view_nums_mark']  = intval($post['view_nums_mark']);
 
             if(isset($_POST['crow_id']) && !empty($_POST['crow_id'])){
                 $data['crow_id'] = intval($_POST['crow_id']); //众筹id
             }
 
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
             $res = model('Live')->add($data);
-         /*    dump(M()->getLastSql());
- 
-         echo "<pre>";
-			
-			print_r($data);
-			
-			echo "</pre>";
-			
-			exit();
-			 */
+            /*    dump(M()->getLastSql());
+
+            echo "<pre>";
+
+               print_r($data);
+
+               echo "</pre>";
+
+               exit();
+                */
             $this->assign('jumpUrl',U('live/AdminLive/index'));
 
 //            if(isset($data['crow_id']) && !empty($data['crow_id']) && $res){
@@ -349,56 +349,56 @@ class AdminLiveAction extends AdministratorAction
 
             $this->success("添加成功");
         } else {
-            
-			
-		if (t($_GET['id'])) {
-			
-			
-			echo "909090";
-			
-			exit();
-			
-            $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
 
-            $this->assign($data);
-            $this->assign('data', $data);
-            //查询讲师列表
-            $trlist = $this->teacherList($data['mhm_id']);
-            $this->assign('trlist', $trlist);
-        } else {
-            $this->assign("listingtime", time());
-            $this->assign("uctime", time() + 604800);
-            $this->assign("video_intro", "");
-            $this->assign("is_mount", 1);
-    }
 
-        //获取会员等级
-        $vip_levels = M('user_vip')->where('is_del=0')->order('sort desc')->getField('id,title');
-        $school     = model('School')->where(array('status' => 1, 'is_del' => 0))->field('id,title')->findALL();
-        $this->assign('vip_levels', $vip_levels);
-        //$this->assign('album_list', $album_list);
-        $this->assign('school', $school);
+            if (t($_GET['id'])) {
 
-        $this->display();
+
+                echo "909090";
+
+                exit();
+
+                $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
+
+                $this->assign($data);
+                $this->assign('data', $data);
+                //查询讲师列表
+                $trlist = $this->teacherList($data['mhm_id']);
+                $this->assign('trlist', $trlist);
+            } else {
+                $this->assign("listingtime", time());
+                $this->assign("uctime", time() + 604800);
+                $this->assign("video_intro", "");
+                $this->assign("is_mount", 1);
+            }
+
+            //获取会员等级
+            $vip_levels = M('user_vip')->where('is_del=0')->order('sort desc')->getField('id,title');
+            $school     = model('School')->where(array('status' => 1, 'is_del' => 0))->field('id,title')->findALL();
+            $this->assign('vip_levels', $vip_levels);
+            //$this->assign('album_list', $album_list);
+            $this->assign('school', $school);
+
+            $this->display();
         }
     }
     /**
      * 编辑课堂直播课堂
      */
     public function editLive(){
-		
-		
-		
+
+
+
         if( isset($_POST) ) {
-			
-			
-	
+
+
+
             if(empty($_POST['video_title'])){$this->error("名称不能为空");}
             if(empty($_POST['mzLevelSelect2'])){$this->error("请选择分类");}
-           /*  $t_mhm_id = M('zy_teacher')->where(['id'=>$_POST['teacher_id']])->getField('mhm_id');
-            if($_POST['mhm_id'] != $t_mhm_id){
-                $this->error("讲师所属机构和课程所属机构需保持一致");
-            } */
+            /*  $t_mhm_id = M('zy_teacher')->where(['id'=>$_POST['teacher_id']])->getField('mhm_id');
+             if($_POST['mhm_id'] != $t_mhm_id){
+                 $this->error("讲师所属机构和课程所属机构需保持一致");
+             } */
             if(empty($_POST['cover_ids'])){$this->error("请上传直播课堂封面");}
             if(empty($_POST['video_intro'])){$this->error("直播简介不能为空");}
             if(empty($_POST['maxmannums'])){$this->error("最大并发量不能为空");}
@@ -512,9 +512,9 @@ class AdminLiveAction extends AdministratorAction
             $data['utime']          = time();
             $data['video_title']    = $video_title = t($_POST['video_title']);
             $data['cover']          = intval($_POST['cover_ids']);
-             $data['video_binfo']    = '';
+            $data['video_binfo']    = '';
             $data['video_intro']    = $_POST['video_intro'];
-            
+
             $data['mhm_id']         = $mhm_id = intval($_POST['school']);
             $data['teacher_id']     = $_POST['teacher_id'];
             $data['video_score']    = intval($_POST['video_score'])*20;
@@ -564,7 +564,7 @@ class AdminLiveAction extends AdministratorAction
         } else {
             if (t($_GET['id'])) {
                 $data = D('ZyVideo', 'classroom')->getVideoById(intval($_GET['id']));
-                
+
                 $teacher=explode(',',$data['teacher_id']);
                 $this->assign('teacher', $teacher);
                 $this->assign($data);
@@ -579,18 +579,18 @@ class AdminLiveAction extends AdministratorAction
                 $this->assign("is_mount", 1);
             }
 
-        //获取会员等级
-        $vip_levels = M('user_vip')->where('is_del=0')->order('sort desc')->getField('id,title');
-        $school     = model('School')->where(array('status' => 1, 'is_del' => 0))->field('id,title')->findALL();
-        $this->assign('vip_levels', $vip_levels);
-        //$this->assign('album_list', $album_list);
-        $this->assign('school', $school);
-        $this->display();
+            //获取会员等级
+            $vip_levels = M('user_vip')->where('is_del=0')->order('sort desc')->getField('id,title');
+            $school     = model('School')->where(array('status' => 1, 'is_del' => 0))->field('id,title')->findALL();
+            $this->assign('vip_levels', $vip_levels);
+            //$this->assign('album_list', $album_list);
+            $this->assign('school', $school);
+            $this->display();
         }
     }
 
-	
-	   //讲师列表
+
+    //讲师列表
     private function teacherList($mhm_id)
     {
         $map = array(
@@ -706,7 +706,7 @@ class AdminLiveAction extends AdministratorAction
         $this->pageButton[] = array('title' => "搜索", 'onclick' => "admin.fold('search_form')");
         $this->pageButton[] = array('title' => "新建", 'onclick' => "admin.jump('Cc',{$live_id})");
         $this->pageButton[] = array('title' => "关联课程", 'onclick' => "admin.associate('associate',{$live_id})");
-        
+
 
         $this->opt['clientJoin'] = ['0'=>'不限','1'=>'否','2'=>'是'];
         $this->opt['webJoin']    = ['0'=>'不限','1'=>'否','2'=>'是'];
@@ -715,14 +715,14 @@ class AdminLiveAction extends AdministratorAction
 
         // 数据的格式化
         $order = 'id desc'; //修改修改 20190425
-		$order = 'startDate asc';
-		
+        $order = 'startDate asc';
+
         $map['live_id'] = $live_id;
 
         $this->searchPostUrl = U('live/AdminLive/ccLiveRoom',['id'=>$live_id]);
 
         $list = $this->_getCcLiveList('ccLiveRoom',20,$order,$map,0);
-
+        // dump($list);
         // echo '<pre>';
         // print_r($list['data']);die;
         $this->assign('listdata',$list['data']);
@@ -730,38 +730,6 @@ class AdminLiveAction extends AdministratorAction
         // $this->display();
         $this->displayList($list);
     }
-
-
-    //新增课程
-    public function addCourse(){
-        $post = $_POST;
-        if(!empty($_POST)){
-            $categoryid = $post['categoryid'];
-            $courseid = $post['courseid'];
-            $courseInfo = M("zy_live_thirdparty")->where("id=".$courseid)->find();
-            $categoryInfo = M("zy_live_thirdparty")->where("categoryid=".$categoryid)->find();
-            unset($courseInfo['id']);
-            unset($courseInfo['type']);
-            unset($courseInfo['type']);
-            $courseInfo['type'] = $categoryInfo['type'];
-            $courseInfo['categoryid'] = $categoryid;
-            $courseInfo['live_id'] = $categoryInfo['live_id'];
-            $insertLiveThtirdparty = M("zy_live_thirdparty")->add($courseInfo); 
-            if(!empty($insertLiveThtirdparty)){
-                echo  json_encode(['msg'=>1]); 
-            }else{
-                echo json_encode(['msg'=>3]);
-            }
-        }else{
-            echo json_encode(['msg'=>2]);
-        }
-
-
-    }
-
-
-
-
 
     //转移直播
     public function associate(){
@@ -775,7 +743,7 @@ class AdminLiveAction extends AdministratorAction
         $type = $thirdparty->where("live_id=".$post['now_live_id'])->find();
         unset($shift_live['id']);
         unset($shift_live['type']);
-        
+
         foreach ($shift_live as $key => $value) {
             $shift_live['live_id'] = $post['now_live_id'];
             $shift_live['type'] = $type['type'];
@@ -787,7 +755,7 @@ class AdminLiveAction extends AdministratorAction
         }else{
             echo json_encode(['msg'=>"复制课程失败"]);
         }
-                  
+
 
 
 
@@ -796,13 +764,14 @@ class AdminLiveAction extends AdministratorAction
     }
 
     public function ccLiveRoom2(){
-        header('Access-Control-Allow-Origin:*'); 
+        header('Access-Control-Allow-Origin:*');
         $_REQUEST['tabHash'] = 'ccLiveRoom';
 
         $live_id = intval($_GET['id']);
         $this->assign('live_id',$live_id);
 
         $category=$this->MakeTree(0,0,0,$live_id);
+        // dump($category);
         $this->assign('category',$category);
 
         $liveInfo = model('Live')->findLiveInfo(array('id'=>$live_id),'id,video_title,live_type');
@@ -819,7 +788,7 @@ class AdminLiveAction extends AdministratorAction
 
         $this->pageButton[] = array('title' => "搜索", 'onclick' => "admin.fold('search_form')");
         $this->pageButton[] = array('title' => "新建", 'onclick' => "admin.jump('Cc',{$live_id})");
-        
+
 
         $this->opt['clientJoin'] = ['0'=>'不限','1'=>'否','2'=>'是'];
         $this->opt['webJoin']    = ['0'=>'不限','1'=>'否','2'=>'是'];
@@ -829,13 +798,13 @@ class AdminLiveAction extends AdministratorAction
         // 数据的格式化
         $order = 'id desc'; //修改修改 20190425
         $order = 'startDate asc';
-        
+
         $map['live_id'] = $live_id;
 
         $this->searchPostUrl = U('live/AdminLive/ccLiveRoom',['id'=>$live_id]);
 
         $list = $this->_getCcLiveList('ccLiveRoom2',1000,$order,$map,0);
-        
+
         // echo '<pre>';
         // print_r($list['data']);die;
         $this->assign('listdata',$list['data']);
@@ -844,9 +813,7 @@ class AdminLiveAction extends AdministratorAction
         $this->display('ccLiveRoom');
         // $this->displayList($list);
     }
-<<<<<<< HEAD
-=======
-    
+
 
     //克隆课程
     public function addCourse(){
@@ -868,11 +835,11 @@ class AdminLiveAction extends AdministratorAction
                 unset($categoryInfo[$key]['id']);
                 $categoryInfo[$key]['live_id'] = $courseid;
                 $categoryInfo[$key]['categoryid'] = $getAddId;
-                $insertLiveThtirdparty = M("zy_live_thirdparty")->add($categoryInfo[$key]); 
+                $insertLiveThtirdparty = M("zy_live_thirdparty")->add($categoryInfo[$key]);
             }
             // dump($categoryInfo);
             if(!empty($insertLiveThtirdparty)){
-                echo  json_encode(['msg'=>1]); 
+                echo  json_encode(['msg'=>1]);
             }else{
                 echo json_encode(['msg'=>3]);
             }
@@ -885,7 +852,6 @@ class AdminLiveAction extends AdministratorAction
 
 
 
->>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
 
     /*
      * 第三方直播间-微吼
@@ -900,7 +866,7 @@ class AdminLiveAction extends AdministratorAction
         }
         $this->pageTitle['whLiveRoom'] = $liveInfo['video_title'].' 直播课堂—直播间列表';
 
-    //        'teacherToken','assistantToken', 'studentClientToken',
+        //        'teacherToken','assistantToken', 'studentClientToken',
         $this->pageKeyList = array('id','uname', 'subject', 'roomid','startDate', 'invalidDate', 'clientJoin', 'is_active','is_open', 'DOACTION');
         //搜索字段
         $this->searchKey = array('id','uname', 'subject',  ['startDate','invalidDate'], 'clientJoin', 'is_active','is_del');
@@ -1058,7 +1024,7 @@ class AdminLiveAction extends AdministratorAction
                 if(empty($invalidDate)){$this->error('结束时间不能为空');}
                 if($invalidDate < $startDate){$this->error('结束时间不能小于开始时间');}
             }
-            
+
             $live_time = model('Live')->liveRoom->where(['live_id'=>$live_id])->order('startDate asc')->field('startDate,invalidDate')->findAll();
 
             $live_time_res = false;
@@ -1068,7 +1034,7 @@ class AdminLiveAction extends AdministratorAction
                     break;
                 }
             }
-  
+
             // if($live_time_res) $this->error('当前课堂该时段已有直播');
             if($status==0)
             {
@@ -1088,7 +1054,7 @@ class AdminLiveAction extends AdministratorAction
                     || $_POST['assistantToken'] == $_POST['studentToken'] || $_POST['studentClientToken'] == $_POST['studentToken']){
                     $this->error('四个口令的值不能相同');
                 }
-                
+
             }
             if(empty($_POST['description'])){$this->error('直播课时信息不能为空');}
             if(empty($_POST['scheduleInfo'])){$this->error('直播课时安排信息不能为空');}
@@ -1119,116 +1085,116 @@ class AdminLiveAction extends AdministratorAction
             $url   = $url.$hash;
             if($status==0){
 
-            $addLive = getDataByUrl($url);
-            if($addLive['code'] == 0) {
-                if(empty($addLive["number"])){$this->error('服务器创建失败');}
-                //查此次插入数据库的课堂名称
-                $url   = $this->zshd_config['api_url'].'/room/info?';
-                $param = 'roomId='.$addLive["id"];
-                $hash  = $param.'&loginName='.$this->zshd_config['api_key'].'&password='.md5($this->zshd_config['api_pwd']).'&sec=true';
-                $url   = $url.$hash;
-                $live = getDataByUrl($url);
-                if(empty($live["number"])){$this->error('服务器查询失败');}
+                $addLive = getDataByUrl($url);
+                if($addLive['code'] == 0) {
+                    if(empty($addLive["number"])){$this->error('服务器创建失败');}
+                    //查此次插入数据库的课堂名称
+                    $url   = $this->zshd_config['api_url'].'/room/info?';
+                    $param = 'roomId='.$addLive["id"];
+                    $hash  = $param.'&loginName='.$this->zshd_config['api_key'].'&password='.md5($this->zshd_config['api_pwd']).'&sec=true';
+                    $url   = $url.$hash;
+                    $live = getDataByUrl($url);
+                    if(empty($live["number"])){$this->error('服务器查询失败');}
 
-                if($addLive["clientJoin"]){$liveClientJoin = 1;}else{$liveClientJoin = 0;}
-                if($addLive["webJoin"]){$liveWebJoin = 1;}else{$liveWebJoin = 0;}
+                    if($addLive["clientJoin"]){$liveClientJoin = 1;}else{$liveClientJoin = 0;}
+                    if($addLive["webJoin"]){$liveWebJoin = 1;}else{$liveWebJoin = 0;}
 
-                $data["uid"]            = $this->mid;
-                $data["number"]         = $addLive["number"];
-                $data["subject"]        = $live['subject'];
-                $data["startDate"]      = $addLive["startDate"]/1000;
-                $data["invalidDate"]    = $addLive["invalidDate"]/1000;
-                $data["teacherJoinUrl"] = $addLive["teacherJoinUrl"];
-                $data["studentJoinUrl"] = $addLive["studentJoinUrl"];
-                $data["teacherToken"]   = $addLive["teacherToken"];
-                $data["assistantToken"] = $addLive["assistantToken"];
-                $data["studentClientToken"] = $addLive["studentClientToken"];
-                $data["studentToken"]   = $addLive["studentToken"];
-                $data["maxAttendees"]   = t($_POST['maxAttendees']);
-                $data['scene']          = intval($_POST['scene']);
-                $data['uiMode']         = intval($_POST['uiMode']);
-                $data["clientJoin"]     = $liveClientJoin;
-                $data["webJoin"]        = $liveWebJoin;
-                $data["roomid"]         = $addLive["id"];
-                $data["is_active"]      = 1;
-                $data["live_id"]        = $live_id;
-                $data["type"]           = 1;
-                $data['attach_id']     = t($_POST['attach_ids']);
-
-                $result = model('Live')->liveRoom->add($data);
-                $this->assign( 'jumpUrl',U('live/AdminLive/zshdLiveRoom',array('id'=>$live_id)));
-                if(!$result){$this->error('创建失败!');}
-                $this->success('创建成功');
-            } else {
-                $this->error('服务器出错啦');
-            }
-        }
-        if($status==1) {
-            $data['uid']            = $this->mid;
-            $data['roomid']         = $live_room_data['roomid'];
-            $data['subject']        = $_POST['subject'];
-            $data['startDate']      = $live_room_data['startDate'];
-            $data['invalidDate']    = $live_room_data['invalidDate'];
-            $data['maxAttendees']   = intval($live_room_data['maxAttendees']);
-            $data['uiMode']         = $live_room_data['uiMode'];
-            $data['clientJoin']     = $live_room_data['clientJoin'];
-            $data['webJoin']        = $live_room_data['webJoin'];
-            $data['teacherToken']   = $live_room_data['teacherToken'];
-            $data['assistantToken'] = $live_room_data['assistantToken'];
-            $data['studentClientToken'] = $live_room_data['studentClientToken'];
-            $data['studentToken']   = $live_room_data['studentToken'];
-            $data["scheduleInfo"]   = t($_POST['scheduleInfo']);
-            $data["description"]    = t($_POST['description']);
-            $data['teacherJoinUrl'] = $live_room_data['teacherJoinUrl'];
-            $data['assistantJoinUrl'] = $live_room_data['assistantJoinUrl'];;
-            $data['studentJoinUrl'] = $live_room_data['studentJoinUrl'];
-            $data['is_del']         = 0;
-            $data['is_active']      = 1;
-            $data['live_id']        = $live_id;
-            $data['type']           = 1;
-            $data['status']         = 1;
-            $data['types']          = $status;
-            $data['categoryid']     = end($categoryid);
-            $data['thirdpartyid']   = $_POST['thirdpartyid'];
-            $data['attach_id']     = t($_POST['attach_ids']);
-            $result = M('zy_live_thirdparty')->add($data);        
-            
-            if(!$result){$this->error('创建失败!');}
-            $this->success('创建成功');
-        }
-            if($status==2) {
-                    $data['uid']            = $this->mid;
-                    $data['roomid']         = 0;
-                    $data['subject']        = $_POST['subject'];
-                    $data['startDate']      = $startDate;
-                    $data['invalidDate']    = $invalidDate;
-                    $data['maxAttendees']   = 200;
-                    $data['uiMode']         = 0;
-                    $data['clientJoin']     = 1;
-                    $data['webJoin']        = 1;
-                    $data['teacherToken']   = $_REQUEST['teacherToken'];
-                    $data['assistantToken'] = $_REQUEST['assistantToken'];
-                    $data['studentClientToken'] = $_REQUEST['studentClientToken'];
-                    $data['studentToken']   = $_REQUEST['studentToken'];
-                    $data['scheduleInfo']   =  $_REQUEST['scheduleInfo'];
-                    $data['description']    =  $_REQUEST['description'];
-                    $data['teacherJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['assistantJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['studentJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['playback_url']   =  $_REQUEST['studentJoinUrl'];
-                    
-                    $data['is_del']         = 0;
-                    $data['is_active']      = 1;
-                    $data['live_id']        = $live_id;
-                    $data['type']           = 1;
-                    $data['types']          = $status;
-
-                    $data['categoryid']     = end($categoryid);
-                    $data['thirdpartyid']   = $_POST['thirdpartyid'];
+                    $data["uid"]            = $this->mid;
+                    $data["number"]         = $addLive["number"];
+                    $data["subject"]        = $live['subject'];
+                    $data["startDate"]      = $addLive["startDate"]/1000;
+                    $data["invalidDate"]    = $addLive["invalidDate"]/1000;
+                    $data["teacherJoinUrl"] = $addLive["teacherJoinUrl"];
+                    $data["studentJoinUrl"] = $addLive["studentJoinUrl"];
+                    $data["teacherToken"]   = $addLive["teacherToken"];
+                    $data["assistantToken"] = $addLive["assistantToken"];
+                    $data["studentClientToken"] = $addLive["studentClientToken"];
+                    $data["studentToken"]   = $addLive["studentToken"];
+                    $data["maxAttendees"]   = t($_POST['maxAttendees']);
+                    $data['scene']          = intval($_POST['scene']);
+                    $data['uiMode']         = intval($_POST['uiMode']);
+                    $data["clientJoin"]     = $liveClientJoin;
+                    $data["webJoin"]        = $liveWebJoin;
+                    $data["roomid"]         = $addLive["id"];
+                    $data["is_active"]      = 1;
+                    $data["live_id"]        = $live_id;
+                    $data["type"]           = 1;
                     $data['attach_id']     = t($_POST['attach_ids']);
-                    $result = M('zy_live_thirdparty')->add($data);
+
+                    $result = model('Live')->liveRoom->add($data);
+                    $this->assign( 'jumpUrl',U('live/AdminLive/zshdLiveRoom',array('id'=>$live_id)));
                     if(!$result){$this->error('创建失败!');}
                     $this->success('创建成功');
+                } else {
+                    $this->error('服务器出错啦');
+                }
+            }
+            if($status==1) {
+                $data['uid']            = $this->mid;
+                $data['roomid']         = $live_room_data['roomid'];
+                $data['subject']        = $_POST['subject'];
+                $data['startDate']      = $live_room_data['startDate'];
+                $data['invalidDate']    = $live_room_data['invalidDate'];
+                $data['maxAttendees']   = intval($live_room_data['maxAttendees']);
+                $data['uiMode']         = $live_room_data['uiMode'];
+                $data['clientJoin']     = $live_room_data['clientJoin'];
+                $data['webJoin']        = $live_room_data['webJoin'];
+                $data['teacherToken']   = $live_room_data['teacherToken'];
+                $data['assistantToken'] = $live_room_data['assistantToken'];
+                $data['studentClientToken'] = $live_room_data['studentClientToken'];
+                $data['studentToken']   = $live_room_data['studentToken'];
+                $data["scheduleInfo"]   = t($_POST['scheduleInfo']);
+                $data["description"]    = t($_POST['description']);
+                $data['teacherJoinUrl'] = $live_room_data['teacherJoinUrl'];
+                $data['assistantJoinUrl'] = $live_room_data['assistantJoinUrl'];;
+                $data['studentJoinUrl'] = $live_room_data['studentJoinUrl'];
+                $data['is_del']         = 0;
+                $data['is_active']      = 1;
+                $data['live_id']        = $live_id;
+                $data['type']           = 1;
+                $data['status']         = 1;
+                $data['types']          = $status;
+                $data['categoryid']     = end($categoryid);
+                $data['thirdpartyid']   = $_POST['thirdpartyid'];
+                $data['attach_id']     = t($_POST['attach_ids']);
+                $result = M('zy_live_thirdparty')->add($data);
+
+                if(!$result){$this->error('创建失败!');}
+                $this->success('创建成功');
+            }
+            if($status==2) {
+                $data['uid']            = $this->mid;
+                $data['roomid']         = 0;
+                $data['subject']        = $_POST['subject'];
+                $data['startDate']      = $startDate;
+                $data['invalidDate']    = $invalidDate;
+                $data['maxAttendees']   = 200;
+                $data['uiMode']         = 0;
+                $data['clientJoin']     = 1;
+                $data['webJoin']        = 1;
+                $data['teacherToken']   = $_REQUEST['teacherToken'];
+                $data['assistantToken'] = $_REQUEST['assistantToken'];
+                $data['studentClientToken'] = $_REQUEST['studentClientToken'];
+                $data['studentToken']   = $_REQUEST['studentToken'];
+                $data['scheduleInfo']   =  $_REQUEST['scheduleInfo'];
+                $data['description']    =  $_REQUEST['description'];
+                $data['teacherJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['assistantJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['studentJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['playback_url']   =  $_REQUEST['studentJoinUrl'];
+
+                $data['is_del']         = 0;
+                $data['is_active']      = 1;
+                $data['live_id']        = $live_id;
+                $data['type']           = 1;
+                $data['types']          = $status;
+
+                $data['categoryid']     = end($categoryid);
+                $data['thirdpartyid']   = $_POST['thirdpartyid'];
+                $data['attach_id']     = t($_POST['attach_ids']);
+                $result = M('zy_live_thirdparty')->add($data);
+                if(!$result){$this->error('创建失败!');}
+                $this->success('创建成功');
             }
         }else{
             $_REQUEST['tabHash'] = 'addZshdLiveRoom';
@@ -1336,7 +1302,7 @@ class AdminLiveAction extends AdministratorAction
             if($status==0)
             {
                 $upLive = getDataByUrl($url);
-         
+
                 if($upLive['code'] == 0){
                     //查此次插入数据库的课堂名称
                     $url   = $this->zshd_config['api_url'].'/room/info?';
@@ -1406,7 +1372,7 @@ class AdminLiveAction extends AdministratorAction
                 $map = array('roomid'=>$live_room_data['roomid']);
                 $result = model('Live')->updateZshdLiveInfo($map,$data);
                 if( $result !== false) {
-                        // $this->assign( 'jumpUrl', U('live/AdminLive/zshdLiveRoom',array('id'=>intval($_GET['live_id']))) );
+                    // $this->assign( 'jumpUrl', U('live/AdminLive/zshdLiveRoom',array('id'=>intval($_GET['live_id']))) );
                     $this->success('修改成功');
                 } else {
                     $this->error('修改失败!');
@@ -1414,43 +1380,43 @@ class AdminLiveAction extends AdministratorAction
             }
             if($status==2)
             {
-                
-                    $data['subject']        = $_POST['subject'];
-                    $data['startDate']      = $startDate;
-                    $data['invalidDate']    = $invalidDate;
-                    $data['teacherToken']   = $_REQUEST['teacherToken'];
-                    $data['assistantToken'] = $_REQUEST['assistantToken'];
-                    $data['studentClientToken'] = $_REQUEST['studentClientToken'];
-                    $data['studentToken']   = $_REQUEST['studentToken'];
-                    $data['description']    =  $_REQUEST['description'];
-                    $data['teacherJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['assistantJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['studentJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['scheduleInfo'] =  $_REQUEST['scheduleInfo'];
-                    $data['playback_url']   =  $_REQUEST['playback_url'];
-                    $data['live_id']        = $live_id;
-                    $data['types']          = $status;
-                    $data['categoryid']     = end($categoryid);
-                    $data['thirdpartyid']   = $_POST['thirdpartyid'];
-                    $data['attach_id']     = t($_POST['attach_ids']);
-                    $map = array('id'=>$_REQUEST['id']);
-                    $result = model('Live')->updateZshdLiveInfo($map,$data);
-                    if( $result !== false) {
-                            // $this->assign( 'jumpUrl', U('live/AdminLive/zshdLiveRoom',array('id'=>intval($_GET['live_id']))) );
-                        $this->success('修改成功');
-                    } else {
-                        $this->error('修改失败!');
-                    }
+
+                $data['subject']        = $_POST['subject'];
+                $data['startDate']      = $startDate;
+                $data['invalidDate']    = $invalidDate;
+                $data['teacherToken']   = $_REQUEST['teacherToken'];
+                $data['assistantToken'] = $_REQUEST['assistantToken'];
+                $data['studentClientToken'] = $_REQUEST['studentClientToken'];
+                $data['studentToken']   = $_REQUEST['studentToken'];
+                $data['description']    =  $_REQUEST['description'];
+                $data['teacherJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['assistantJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['studentJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['scheduleInfo'] =  $_REQUEST['scheduleInfo'];
+                $data['playback_url']   =  $_REQUEST['playback_url'];
+                $data['live_id']        = $live_id;
+                $data['types']          = $status;
+                $data['categoryid']     = end($categoryid);
+                $data['thirdpartyid']   = $_POST['thirdpartyid'];
+                $data['attach_id']     = t($_POST['attach_ids']);
+                $map = array('id'=>$_REQUEST['id']);
+                $result = model('Live')->updateZshdLiveInfo($map,$data);
+                if( $result !== false) {
+                    // $this->assign( 'jumpUrl', U('live/AdminLive/zshdLiveRoom',array('id'=>intval($_GET['live_id']))) );
+                    $this->success('修改成功');
+                } else {
+                    $this->error('修改失败!');
+                }
             }
         }else{
             $_REQUEST['tabHash'] = 'editZshdLiveRoom';
 
             // 数据的格式化
             $data = model('Live')->liveRoom->where('id='.intval($_GET['id']) )->find();
-  // echo '<pre>';
-  //           print_r($data);die;
+            // echo '<pre>';
+            //           print_r($data);die;
             $live_info = model('Live')->findLiveInfo(array('id'=>$data['live_id']));
-    
+
             $this->pageTitle['editZshdLiveRoom'] = $live_info['video_title'].' 直播课堂—修改直播课时:'.$data['subject'];
 
             $data['startDate'] = date('Y-m-d H:i:s',$data["startDate"]);
@@ -1470,7 +1436,7 @@ class AdminLiveAction extends AdministratorAction
             $this->opt['webJoin']      = array('1'=>'开启','0'=>'不开启');
 
             $ss=explode('|',$data['attach_id']);
-          
+
             $data['attach_id']=$ss[1];
             $this->savePostUrl = U('live/AdminLive/editZshdLiveRoom',['id'=>$_REQUEST['id'],'live_id'=>$live_id]);
             // $this->displayConfig($data);
@@ -1695,18 +1661,18 @@ class AdminLiveAction extends AdministratorAction
                     }
                 }
             }
-        
+
             $live_time = model('Live')->liveRoom->where(['live_id'=>$live_id])->order('startDate asc')->field('startDate,invalidDate')->findAll();
 
-          /*   $live_time_res = false;
-            foreach($live_time as $key => $val){
-                if(($val['startDate'] < $startDate && $startDate < $val['invalidDate']) or ($val['startDate'] < $invalidDate && $invalidDate < $val['invalidDate'])){
-                    $live_time_res = true;
-                    break;
-                }
-            }
-           
-            if($live_time_res) $this->error('当前课堂该时段已有直播'); */
+            /*   $live_time_res = false;
+              foreach($live_time as $key => $val){
+                  if(($val['startDate'] < $startDate && $startDate < $val['invalidDate']) or ($val['startDate'] < $invalidDate && $invalidDate < $val['invalidDate'])){
+                      $live_time_res = true;
+                      break;
+                  }
+              }
+
+              if($live_time_res) $this->error('当前课堂该时段已有直播'); */
             if(empty($_POST['teacherToken'])){$this->error('老师口令不能为空');}
             if(empty($_POST['maxAttendees'])){$this->error('最大并发不能为空');}
             if(!is_numeric($_POST['maxAttendees'])){$this->error('最大并发必须为数字');}
@@ -1742,7 +1708,7 @@ class AdminLiveAction extends AdministratorAction
                 }
             }
             $url  = $this->cc_config['api_url'].'/room/create?';
-            
+
             $query_map['name']              = urlencode(t($_POST['subject']));
             $query_map['desc']              = urlencode(t($_POST['description']));
             $query_map['templatetype']      = urlencode(t($_POST['uiMode']));
@@ -1761,7 +1727,7 @@ class AdminLiveAction extends AdministratorAction
             $url    = $url.createHashedQueryString($query_map)[1].'&time='.time().'&hash='.createHashedQueryString($query_map)[0];
 
             if($status==0){
-				$res   = getDataByUrl($url);
+                $res   = getDataByUrl($url);
 
                 if($res['result'] == 'OK'){
                     if(empty($res['room']['id'])){$this->error('服务器创建失败');}
@@ -1778,7 +1744,7 @@ class AdminLiveAction extends AdministratorAction
 
                     $live_info_res   = getDataByUrl($live_info_url);
                     $live_url_info_res   = getDataByUrl($live_url_info_url);
-         
+
                     if($live_info_res['result'] != 'OK' || $live_url_info_res['result'] != 'OK'){$this->error('服务器查询失败');}
 
                     $live_info_res          = $live_info_res['room'];
@@ -1802,7 +1768,7 @@ class AdminLiveAction extends AdministratorAction
                     $data['is_active']      = 1;
                     $data['live_id']        = $live_id;
                     $data['type']           = 4;
-                     $data['types']          = $status;
+                    $data['types']          = $status;
                     $data['categoryid']     = end($categoryid);
                     $data['attach_id']     = t($_POST['attach_ids']);
                     $result = M('zy_live_thirdparty')->add($data);
@@ -1814,90 +1780,90 @@ class AdminLiveAction extends AdministratorAction
                     }else{
                         $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>$live_id)) );
                     }
-                    
+
                     $this->success('创建成功');
                 }else{
                     $this->error('服务器出错啦');
                 }
             }
             if($status==1) {
-                    $data['uid']            = $this->mid;
-                    $data['roomid']         = $live_room_data['roomid'];
-                    $data['subject']        = $_POST['subject'];
-                    $data['startDate']      = $live_room_data['startDate'];
-                    $data['invalidDate']    = $live_room_data['invalidDate'];
-                    $data['maxAttendees']   = intval($live_room_data['maxAttendees']);
-                    $data['uiMode']         = $live_room_data['uiMode'];
-                    $data['clientJoin']     = $live_room_data['clientJoin'];
-                    $data['webJoin']        = $live_room_data['webJoin'];
-                    $data['teacherToken']   = $live_room_data['teacherToken'];
-                    $data['assistantToken'] = $live_room_data['assistantToken'];
-                    $data['studentClientToken'] = $live_room_data['studentClientToken'];
-                    $data['description']    = $live_room_data['desc'];
-                    $data['teacherJoinUrl'] = $live_room_data['teacherJoinUrl'];
-                    $data['assistantJoinUrl'] = $live_room_data['assistantJoinUrl'];;
-                    $data['studentJoinUrl'] = $live_room_data['studentJoinUrl'];
-                    $data['is_del']         = 0;
-                    $data['is_active']      = 1;
-                    $data['live_id']        = $live_id;
-                    $data['type']           = 4;
-                    $data['status']         = 1;
-                    $data['types']          = $status;
-                    $data['categoryid']     = end($categoryid);
-                    $data['thirdpartyid']   = $_POST['thirdpartyid'];
-                    $data['attach_id']     = t($_POST['attach_ids']);
-                    $result = M('zy_live_thirdparty')->add($data);
-                    
-           
-                    if(!$result){$this->error('创建失败!');}
-                    if($sssy==1)
-                    {
-                        $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom2',array('id'=>$live_id)) );
-                    }else{
-                        $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>$live_id)) );
-                    }
-                    $this->success('创建成功');
+                $data['uid']            = $this->mid;
+                $data['roomid']         = $live_room_data['roomid'];
+                $data['subject']        = $_POST['subject'];
+                $data['startDate']      = $live_room_data['startDate'];
+                $data['invalidDate']    = $live_room_data['invalidDate'];
+                $data['maxAttendees']   = intval($live_room_data['maxAttendees']);
+                $data['uiMode']         = $live_room_data['uiMode'];
+                $data['clientJoin']     = $live_room_data['clientJoin'];
+                $data['webJoin']        = $live_room_data['webJoin'];
+                $data['teacherToken']   = $live_room_data['teacherToken'];
+                $data['assistantToken'] = $live_room_data['assistantToken'];
+                $data['studentClientToken'] = $live_room_data['studentClientToken'];
+                $data['description']    = $live_room_data['desc'];
+                $data['teacherJoinUrl'] = $live_room_data['teacherJoinUrl'];
+                $data['assistantJoinUrl'] = $live_room_data['assistantJoinUrl'];;
+                $data['studentJoinUrl'] = $live_room_data['studentJoinUrl'];
+                $data['is_del']         = 0;
+                $data['is_active']      = 1;
+                $data['live_id']        = $live_id;
+                $data['type']           = 4;
+                $data['status']         = 1;
+                $data['types']          = $status;
+                $data['categoryid']     = end($categoryid);
+                $data['thirdpartyid']   = $_POST['thirdpartyid'];
+                $data['attach_id']     = t($_POST['attach_ids']);
+                $result = M('zy_live_thirdparty')->add($data);
+
+
+                if(!$result){$this->error('创建失败!');}
+                if($sssy==1)
+                {
+                    $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom2',array('id'=>$live_id)) );
+                }else{
+                    $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>$live_id)) );
+                }
+                $this->success('创建成功');
             }
             if($status==2) {
-                    $data['uid']            = $this->mid;
-                    $data['roomid']         = 0;
-                    $data['subject']        = $_POST['subject'];
-                    $data['startDate']      = $startDate;
-                    $data['invalidDate']    = $invalidDate;
-                    $data['maxAttendees']   = 200;
-                    $data['uiMode']         = 0;
-                    $data['clientJoin']     = 1;
-                    $data['webJoin']        = 0;
-                    $data['teacherToken']   = $_REQUEST['teacherToken'];
-                    $data['assistantToken'] = $_REQUEST['assistantToken'];
-                    $data['studentClientToken'] = $_REQUEST['studentClientToken'];
-                    $data['description']    =  $_REQUEST['description'];
-                    $data['teacherJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['assistantJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['studentJoinUrl'] =  $_REQUEST['teacherurl'];
-                    $data['is_del']         = 0;
-                    $data['is_active']      = 1;
-                    $data['live_id']        = $live_id;
-                    $data['type']           = 4;
-                    $data['types']          = $status;
+                $data['uid']            = $this->mid;
+                $data['roomid']         = 0;
+                $data['subject']        = $_POST['subject'];
+                $data['startDate']      = $startDate;
+                $data['invalidDate']    = $invalidDate;
+                $data['maxAttendees']   = 200;
+                $data['uiMode']         = 0;
+                $data['clientJoin']     = 1;
+                $data['webJoin']        = 0;
+                $data['teacherToken']   = $_REQUEST['teacherToken'];
+                $data['assistantToken'] = $_REQUEST['assistantToken'];
+                $data['studentClientToken'] = $_REQUEST['studentClientToken'];
+                $data['description']    =  $_REQUEST['description'];
+                $data['teacherJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['assistantJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['studentJoinUrl'] =  $_REQUEST['teacherurl'];
+                $data['is_del']         = 0;
+                $data['is_active']      = 1;
+                $data['live_id']        = $live_id;
+                $data['type']           = 4;
+                $data['types']          = $status;
 
-                    $data['categoryid']     = end($categoryid);
-                    $data['thirdpartyid']   = $_POST['thirdpartyid'];
-                    $data['attach_id']     = t($_POST['attach_ids']);
-                    $result = M('zy_live_thirdparty')->add($data);
-                    
-           
-                    if(!$result){$this->error('创建失败!');}
-                    if($sssy==1)
-                    {
-                        $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom2',array('id'=>$live_id)) );
-                    }else{
-                        $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>$live_id)) );
-                    }
-                    $this->success('创建成功');
+                $data['categoryid']     = end($categoryid);
+                $data['thirdpartyid']   = $_POST['thirdpartyid'];
+                $data['attach_id']     = t($_POST['attach_ids']);
+                $result = M('zy_live_thirdparty')->add($data);
+
+
+                if(!$result){$this->error('创建失败!');}
+                if($sssy==1)
+                {
+                    $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom2',array('id'=>$live_id)) );
+                }else{
+                    $this->assign( 'jumpUrl', U('live/AdminLive/ccLiveRoom',array('id'=>$live_id)) );
+                }
+                $this->success('创建成功');
             }
 
-            
+
         } else {
             $_REQUEST['tabHash'] = 'addCcLiveRoom';
 //            $this->onsubmit = 'admin.checkAddCc(this)';
@@ -1922,7 +1888,7 @@ class AdminLiveAction extends AdministratorAction
 
             $this->savePostUrl = U('live/AdminLive/addCcLiveRoom',['id'=>$live_id]);
             /** 获取我的第一层 */
-        
+
             $plevel = M('zy_live_category')->where('pid = 0 and videoid='.$live_id)->order('`sort` DESC')->select();
 
             $this->assign('plevel',$plevel);
@@ -1945,15 +1911,15 @@ class AdminLiveAction extends AdministratorAction
             $op.="<select name='categoryid[] lastid' id='ceng".$ceng."'  onchange='haizi(".$ceng.")'>";
             $op.="<option value='0' >请选择</option>";
             foreach ($plevel as $k => $v) {
-               
+
                 $op.="<option value='".$v['id']."'>".$v['title']."</option>";
-                
+
             }
             $op.="</select>";
             $data['con']=$op;
             $data['msg']=1;
         }
-       
+
         exit(json_encode($data));
 
     }
@@ -1978,19 +1944,19 @@ class AdminLiveAction extends AdministratorAction
             if(empty($startDate)){$this->error('开始时间不能为空');}
             if(empty($invalidDate)){$this->error('结束时间不能为空');}
             if($invalidDate < $startDate){$this->error('结束时间不能小于开始时间');}
-            
-          /*   $live_time = model('Live')->liveRoom->where(['live_id'=>$live_id])->order('startDate asc')->field('startDate,invalidDate')->findAll();
 
-            $live_time_res = false;
-            foreach($live_time as $key => $val){
-                if(($val['startDate'] < $startDate && $startDate < $val['invalidDate']) or ($val['startDate'] < $invalidDate && $invalidDate < $val['invalidDate'])){
-                    $live_time_res = true;
-                    break;
-                }
-            }
-            
+            /*   $live_time = model('Live')->liveRoom->where(['live_id'=>$live_id])->order('startDate asc')->field('startDate,invalidDate')->findAll();
 
-            if($live_time_res) $this->error('当前课堂该时段已有直播'); */
+              $live_time_res = false;
+              foreach($live_time as $key => $val){
+                  if(($val['startDate'] < $startDate && $startDate < $val['invalidDate']) or ($val['startDate'] < $invalidDate && $invalidDate < $val['invalidDate'])){
+                      $live_time_res = true;
+                      break;
+                  }
+              }
+
+
+              if($live_time_res) $this->error('当前课堂该时段已有直播'); */
             if($status==0)
             {
                 if(empty($_POST['maxAttendees'])){$this->error('最大并发不能为空');}
@@ -2007,9 +1973,9 @@ class AdminLiveAction extends AdministratorAction
             }
             $categoryid=$_REQUEST['categoryid'];
             $list=M('zy_live_category')->where('pid=0 and videoid='.$live_id)->select();
-            
+
             if(!empty($list))
-            {   
+            {
                 if(!empty($categoryid))
                 {
                     foreach ($categoryid as $k => $v) {
@@ -2021,73 +1987,73 @@ class AdminLiveAction extends AdministratorAction
                 }else{
                     $this->error('请选择直播标题');
                 }
-                
+
             }
             if($status==1)
             {
                 $live_room_data = model('Live')->liveRoom->where('id='.$thirdpartyid )->find();
-                
+
                 if(empty($live_room_data))
                 {
                     $this->error('没有获取到关联直播间');
                 }
             }
-       
+
             if(empty($_POST['description'])){$this->error('直播课时信息不能为空');}
-                // $live = M('zy_live_thirdparty');
-                $data['id']             = intval($_REQUEST['id']);
+            // $live = M('zy_live_thirdparty');
+            $data['id']             = intval($_REQUEST['id']);
 
-                $data['uid']            = $this->mid;
-                $data['subject']        = $_POST['subject'];
-               // if($status==0)
-                //{
-                    $data['thirdpartyid']   = $_POST['thirdpartyid'];
-                    //$data['roomid']         = $live_room_data['roomid'];
-                    //$data['startDate']      = $live_room_data['startDate'];
-                    //$data['invalidDate']    = $live_room_data['invalidDate'];
-                   // $data['maxAttendees']   = intval($live_room_data['maxAttendees']);
-                    $data['uiMode']         = $live_room_data['uiMode'];
-                    //$data['clientJoin']     = $live_room_data['clientJoin'];
-                    $data['clientJoin']     = $_REQUEST['clientJoin'];
-                    $data['webJoin']        = $live_room_data['webJoin'];
-                    //$data['teacherToken']   = $live_room_data['teacherToken'];
-                    //$data['assistantToken'] = $live_room_data['assistantToken'];
-                    //$data['studentClientToken'] = $live_room_data['studentClientToken'];
-                    //$data['teacherJoinUrl'] = $live_room_data['teacherJoinUrl'];
-                    //$data['assistantJoinUrl'] = $live_room_data['assistantJoinUrl'];;
-                   // $data['studentJoinUrl'] = $live_room_data['studentJoinUrl'];
-                //}else{
-                    $data['maxAttendees']   = $_REQUEST['maxAttendees'];
-                    $data['startDate']      = $startDate;
-                    $data['invalidDate']    = $invalidDate;
-                    $data['teacherToken']   = $_REQUEST['teacherToken'];
-                    $data['assistantToken'] = $_REQUEST['assistantToken'];
-                    $data['studentClientToken'] = $_REQUEST['studentClientToken'];
-               // }
+            $data['uid']            = $this->mid;
+            $data['subject']        = $_POST['subject'];
+            // if($status==0)
+            //{
+            $data['thirdpartyid']   = $_POST['thirdpartyid'];
+            //$data['roomid']         = $live_room_data['roomid'];
+            //$data['startDate']      = $live_room_data['startDate'];
+            //$data['invalidDate']    = $live_room_data['invalidDate'];
+            // $data['maxAttendees']   = intval($live_room_data['maxAttendees']);
+            $data['uiMode']         = $live_room_data['uiMode'];
+            //$data['clientJoin']     = $live_room_data['clientJoin'];
+            $data['clientJoin']     = $_REQUEST['clientJoin'];
+            $data['webJoin']        = $live_room_data['webJoin'];
+            //$data['teacherToken']   = $live_room_data['teacherToken'];
+            //$data['assistantToken'] = $live_room_data['assistantToken'];
+            //$data['studentClientToken'] = $live_room_data['studentClientToken'];
+            //$data['teacherJoinUrl'] = $live_room_data['teacherJoinUrl'];
+            //$data['assistantJoinUrl'] = $live_room_data['assistantJoinUrl'];;
+            // $data['studentJoinUrl'] = $live_room_data['studentJoinUrl'];
+            //}else{
+            $data['maxAttendees']   = $_REQUEST['maxAttendees'];
+            $data['startDate']      = $startDate;
+            $data['invalidDate']    = $invalidDate;
+            $data['teacherToken']   = $_REQUEST['teacherToken'];
+            $data['assistantToken'] = $_REQUEST['assistantToken'];
+            $data['studentClientToken'] = $_REQUEST['studentClientToken'];
+            // }
 
-                $data['description']    = $_REQUEST['description'];
-                $data['is_del']         = 0;
-                $data['is_active']      = 1;
-                $data['live_id']        = $live_id;
-                $data['type']           = 4;
-                $data['status']         = $status;
-                $data['attach_id']     = t($_POST['attach_ids']);
-                $data['categoryid']     = implode(',',$categoryid);
-                // $result = $live->data($data)->save();
-                $result = model('Live')->liveRoom->save($data);
-                
-                //die;
-                // if(false === $result){
-                //     echo model('Live')->getDbError();die;
-                // }
-                if(!$result){$this->error('编辑失败!');}
-                if("ccLiveRoom" == $_REQUEST['url']){
-                    $url = 'live/AdminLive/ccLiveRoom';
-                }else{
-                    $url = 'live/AdminLive/ccLiveRoom2';
-                }
-                $this->assign( 'jumpUrl', U($url,array('id'=>intval($_REQUEST['live_id']))) );
-                $this->success('编辑成功');
+            $data['description']    = $_REQUEST['description'];
+            $data['is_del']         = 0;
+            $data['is_active']      = 1;
+            $data['live_id']        = $live_id;
+            $data['type']           = 4;
+            $data['status']         = $status;
+            $data['attach_id']     = t($_POST['attach_ids']);
+            $data['categoryid']     = implode(',',$categoryid);
+            // $result = $live->data($data)->save();
+            $result = model('Live')->liveRoom->save($data);
+
+            //die;
+            // if(false === $result){
+            //     echo model('Live')->getDbError();die;
+            // }
+            if(!$result){$this->error('编辑失败!');}
+            if("ccLiveRoom" == $_REQUEST['url']){
+                $url = 'live/AdminLive/ccLiveRoom';
+            }else{
+                $url = 'live/AdminLive/ccLiveRoom2';
+            }
+            $this->assign( 'jumpUrl', U($url,array('id'=>intval($_REQUEST['live_id']))) );
+            $this->success('编辑成功');
 
         } else {
             $_REQUEST['tabHash'] = 'editCcLiveRoom';
@@ -2097,10 +2063,10 @@ class AdminLiveAction extends AdministratorAction
             if(!$liveInfo){
                 $this->error("直播课堂未通过审核或已下架");
             }
-        
+
             // 数据的格式化
             $live_room_data = model('Live')->liveRoom->where('id='.intval($_GET['id']) )->find();
-  
+
             $this->pageTitle['editCcLiveRoom'] = $liveInfo['video_title'].' 直播课堂—修改直播课时:'.$live_room_data['subject'];
 
             $live_room_data['startDate'] = date('Y-m-d H:i:s',$live_room_data["startDate"]);
@@ -2420,7 +2386,7 @@ class AdminLiveAction extends AdministratorAction
             $query_map['classtype']         = intval(t($_POST['webJoin']));//连麦模式
             $query_map['userid'] = $info_map['userid'] = urlencode($this->cc_config['user_id']);
             $query_map['livestarttime']      = urlencode(t($_POST['startDate']));
-            
+
             $url = $url.createHashedQueryString($query_map)[1].'&time='.time().'&hash='.createHashedQueryString($query_map)[0];
             $res = getDataByUrl($url);
 
@@ -3408,7 +3374,7 @@ class AdminLiveAction extends AdministratorAction
                 }
 
                 $liveInfo['data'][$key]['DOACTION'] .= '<a href="'.U('live/AdminLive/editLive',array('id'=>$val['id'])).'">编辑</a> | ';
-				$liveInfo['data'][$key]['DOACTION'] .= '<a href="' . U('classroom/AdminCourseOrder/addCourseOrder', array('id' => $val['id'], 'tabHash' => 'editVideo')) . '">赠送</a> | ';
+                $liveInfo['data'][$key]['DOACTION'] .= '<a href="' . U('classroom/AdminCourseOrder/addCourseOrder', array('id' => $val['id'], 'tabHash' => 'editVideo')) . '">赠送</a> | ';
 
                 if ($val['is_del'] == 0) {
                     $liveInfo['data'][$key]['DOACTION'] .= '<a href="javascript:void(0)" onclick="admin.doaction('.$val['id'].',\'ColseLive\''.',9)">禁用</a> | ';
@@ -3435,14 +3401,14 @@ class AdminLiveAction extends AdministratorAction
      * @return array 解析后的直播列表数据
      */
     private function _gettypeList($limit,$order,$map,$activity) {
-        
+
 
 
         $liveInfo = model('Live')->getAllTypeInfo($limit,$order,$map);
 
         foreach($liveInfo['data'] as $key => $val){
-                $liveInfo['data'][$key]['DOACTION'] .= '<a href="javascript:admin.upTreeCategory('.$val['id'].');" >编辑</a> | ';
-                $liveInfo['data'][$key]['DOACTION'] .= '<a href="javascript:void(0)" onclick="admin.doaction('.$val['id'].',\'ColseLive\''.',9)">删除</a>  ';
+            $liveInfo['data'][$key]['DOACTION'] .= '<a href="javascript:admin.upTreeCategory('.$val['id'].');" >编辑</a> | ';
+            $liveInfo['data'][$key]['DOACTION'] .= '<a href="javascript:void(0)" onclick="admin.doaction('.$val['id'].',\'ColseLive\''.',9)">删除</a>  ';
         }
         return $liveInfo;
     }
@@ -3650,7 +3616,7 @@ class AdminLiveAction extends AdministratorAction
 
         foreach($list['data'] as &$val){
 
-        
+
             if ($val['is_del'] == 0) {
                 $val['is_open'] = "<p style='color: green;'>开启</p>";
             } else {
@@ -3679,14 +3645,14 @@ class AdminLiveAction extends AdministratorAction
                 $val['DOACTION'] .= "<a target='_blank' href='{$val['studentJoinUrl']}' >学生观看</a> | ";
                 $val['DOACTION'] .= "<a target='_blank' href='{$val['teacherJoinUrl']}' >老师讲课</a> | ";
                 $val['DOACTION'] .= "<a target='_blank' href='{$val['assistantJoinUrl']}' >助教讲课</a> | ";//
-  
+
             }else{
                 $val['DOACTION'] .= "<a target='_blank' href='{$val['studentJoinUrl']}&autoLogin=true&viewername={$nickname}&viewertoken={$val['studentClientToken']}' >学生观看</a> | ";
                 $val['DOACTION'] .= "<a target='_blank' href='{$val['teacherJoinUrl']}&publishname={$teacher_info['name']}&publishpassword={$val['teacherToken']}' >老师讲课</a> | ";
                 $val['DOACTION'] .= "<a target='_blank' href='{$val['assistantJoinUrl']}&viewername={$nickname}&viewertoken={$val['assistantToken']}' >助教讲课</a> | ";//
-             
+
             }
-               $val['DOACTION'] .= "<a target='_blank' href='".U('live/Index/getLivePlayback',['id'=>$val['id'],'type'=>4])."'>回放观看</a>";
+            $val['DOACTION'] .= "<a target='_blank' href='".U('live/Index/getLivePlayback',['id'=>$val['id'],'type'=>4])."'>回放观看</a>";
 
             if ($val['is_del'] == 1){
                 $val['DOACTION'] .= ' | <a title="此操作会彻底删除数据" href="javascript:void(0)"  onclick="admin.doaction('.$val['id'].',\'DelLiveRoom\''.',4)">彻底关闭</a>  ';
@@ -4158,7 +4124,7 @@ class AdminLiveAction extends AdministratorAction
         $map = array('id' => $id);
 
         $info = $table->where($map)->find();
-        
+
         if($type == 1){
             if($info['types']==0||$info['types']==1)
             {
@@ -4172,12 +4138,12 @@ class AdminLiveAction extends AdministratorAction
                 $url   = $url.$hash;
                 $delzshdLive = getDataByUrl($url);
                 if($delzshdLive['code'] == 0) {
-                $result = $table->where($map)->delete();
-                if($result){
-                    $this->ajaxReturn(null,'彻底关闭成功',1);
-                } else {
-                    $this->ajaxReturn(null,'彻底关闭失败',0);
-                }
+                    $result = $table->where($map)->delete();
+                    if($result){
+                        $this->ajaxReturn(null,'彻底关闭成功',1);
+                    } else {
+                        $this->ajaxReturn(null,'彻底关闭失败',0);
+                    }
                 }else{
                     $this->ajaxReturn(null,'彻底关闭失败',0);
                 }
@@ -4190,7 +4156,7 @@ class AdminLiveAction extends AdministratorAction
                 }
 
             }
-            
+
         }else if($type == 3){
             if($info['types']==0||$info['types']==1)
             {
@@ -4211,11 +4177,11 @@ class AdminLiveAction extends AdministratorAction
                 }
             }else{
                 $result = $table->where($map)->delete();
-                    if($result){
-                        $this->ajaxReturn(null,'彻底关闭成功',1);
-                    } else {
-                        $this->ajaxReturn(null,'彻底关闭失败',0);
-                    }
+                if($result){
+                    $this->ajaxReturn(null,'彻底关闭成功',1);
+                } else {
+                    $this->ajaxReturn(null,'彻底关闭失败',0);
+                }
             }
         }else if($type == 4){
             if($info['types']==0||$info['types']==1)
@@ -4242,11 +4208,11 @@ class AdminLiveAction extends AdministratorAction
                 }
             }else{
                 $result = $table->where($map)->delete();
-                    if($result){
-                        $this->ajaxReturn(null,'彻底关闭成功',1);
-                    } else {
-                        $this->ajaxReturn(null,'彻底关闭失败',0);
-                    }
+                if($result){
+                    $this->ajaxReturn(null,'彻底关闭成功',1);
+                } else {
+                    $this->ajaxReturn(null,'彻底关闭失败',0);
+                }
             }
         }else if($type == 5){
             if($info['types']==0||$info['types']==1)
@@ -4275,11 +4241,11 @@ class AdminLiveAction extends AdministratorAction
                 }
             }else{
                 $result = $table->where($map)->delete();
-                    if($result){
-                        $this->ajaxReturn(null,'彻底关闭成功',1);
-                    } else {
-                        $this->ajaxReturn(null,'彻底关闭失败',0);
-                    }
+                if($result){
+                    $this->ajaxReturn(null,'彻底关闭成功',1);
+                } else {
+                    $this->ajaxReturn(null,'彻底关闭失败',0);
+                }
             }
         }else if($type == 6){
             if($info['types']==0||$info['types']==1)
@@ -4306,11 +4272,11 @@ class AdminLiveAction extends AdministratorAction
                 }
             }else{
                 $result = $table->where($map)->delete();
-                    if($result){
-                        $this->ajaxReturn(null,'彻底关闭成功',1);
-                    } else {
-                        $this->ajaxReturn(null,'彻底关闭失败',0);
-                    }
+                if($result){
+                    $this->ajaxReturn(null,'彻底关闭成功',1);
+                } else {
+                    $this->ajaxReturn(null,'彻底关闭失败',0);
+                }
             }
         }else if($type == 7){
             if($info['types']==0||$info['types']==1)
@@ -4341,11 +4307,11 @@ class AdminLiveAction extends AdministratorAction
                 }
             }else{
                 $result = $table->where($map)->delete();
-                    if($result){
-                        $this->ajaxReturn(null,'彻底关闭成功',1);
-                    } else {
-                        $this->ajaxReturn(null,'彻底关闭失败',0);
-                    }
+                if($result){
+                    $this->ajaxReturn(null,'彻底关闭成功',1);
+                } else {
+                    $this->ajaxReturn(null,'彻底关闭失败',0);
+                }
             }
         }else if($type == 8){
             if($info['types']==0||$info['types']==1)
@@ -4373,11 +4339,11 @@ class AdminLiveAction extends AdministratorAction
                 }
             }else{
                 $result = $table->where($map)->delete();
-                    if($result){
-                        $this->ajaxReturn(null,'彻底关闭成功',1);
-                    } else {
-                        $this->ajaxReturn(null,'彻底关闭失败',0);
-                    }
+                if($result){
+                    $this->ajaxReturn(null,'彻底关闭成功',1);
+                } else {
+                    $this->ajaxReturn(null,'彻底关闭失败',0);
+                }
             }
         }
     }

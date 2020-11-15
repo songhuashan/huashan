@@ -36,7 +36,14 @@ svg path, svg rect {
 	fill: #17a085;
 }
 
+
 </style>
+
+<!--<link href="__THEME__/../layui/css/layui.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="__THEME__/../layui/css/layui.mobile.css" rel="stylesheet" type="text/css" />-->
+
+<script type="text/javascript" src="__THEME__/../layui/layui.js"></script>
+<!--<script type="text/javascript" src="__THEME__/../layui/lay/modules/layer.js"></script>-->
 <include file="admin_header" />
 <div id="container" class="so_main">
 	<!-- START TAB框 -->
@@ -142,11 +149,11 @@ svg path, svg rect {
 	</div>
 	<!-- END 搜索配置 -->
 
-	<!-- START 搜索框 -->
+<!-- START 搜索框 -->
 	<div class="form2" id='search_form' <php> echo $_REQUEST['dosearch'] =='1'? "style='display:block;'":'';</php>>
 	<form action="{$searchPostUrl}&dosearch=1" method="post">
 		<volist name='searchKeyList' id='pk'>
-			<php>
+	<php>
 				$_pk = $pk;
 				is_array($pk) && $pk = $pk[0];
 				$key = is_array($pk) ? $pk[0] : $pk;
@@ -352,6 +359,20 @@ svg path, svg rect {
 		<div class="load-msg"> 正在处理,请稍后....</div>
 	</div>
 </div>
+<div class="clone_paper">
+
+</div>
+<style type="text/css">
+	.layui-table td{
+		padding: 10px 20px;
+	}
+	.layer-btn{
+		padding-top: 0px;
+	}
+	.layui-table select{
+		width: 120%;
+	}
+</style>
 
 
 <script>
@@ -362,5 +383,149 @@ svg path, svg rect {
 	function associate(){
 		$("#associate").hide();
 	}
+	// function major(){
+	// 	$.post(U("/AdminPaper/subject"),{},function(data){
+
+	// 		var html_new = " ";
+	// 		// data_new += data;
+	// 		// console.log(data_new);
+	// 		$.each(JSON.parse(data), function(value, item){
+	// 			// console.log("2223");
+	// 			html_new += "<option value='"+ item['exams_subject_id'] +"'>"+ item['title'] +"</option>";
+	// 			// console.log(html_new);
+	// 		});
+
+	// 	});
+		
+	// 		console.log(html_new);
+	// 		return html_new;	
+		
+	
+	// }
+
+	$(function(){
+		$(".clone_paper").each(function(i, v){
+			var this_ = $(this);
+			this_.click(function(){
+				var id = this_.attr("clone_paper");
+				console.log(id);
+				clone_paper(id);
+			});
+		});
+	});
+
+	function getSelectValue(id)
+	{
+		$("#child_new").empty();
+		$.ajax({
+			url : U("/AdminPaper/child"),
+			type : "post",
+			data : {id : id},
+			dataType : "json",
+			success : function(data){
+				var	child = "<option>请选择</option>";
+				$.each(data, function(i, v){
+					child += "<option value='" + v['exams_subject_id'] + "' >" + v['title'] + "</option>";
+				});
+				$("#child_new").append(child);
+			}
+		})
+	}
+
+
+
+	function clone_paper(id){
+		var html_ = "<div style=\"padding: 20px 10px;\">";
+		    html_+='<table class="layui-table" >';
+			html_+='<tr>';
+			html_+='<td>选择专业</td>';
+			html_+='<td>';
+			html_+='<select name="modules" id="subject" onChange="getSelectValue(this.value)"  lay-verify="required" lay-search="">';
+          	html_+='<option value="" >请选择</option>';
+   			
+   			$.ajax({
+   				url:U("/AdminPaper/subject"),
+   				type:"post",
+   				async: false,
+   				data:{},
+   				dataType:"json",
+   				success:function(data){
+   					$.each(data, function(i, v){
+	   					html_+= '<option  value="'+ v['exams_subject_id'] +'">'+ v['title'] + "</option>";
+	   				})
+   				}
+   			});
+    		html_+='</select>';
+			html_+='</td>';
+			html_+='<td>';
+			html_+='<select name="modules" id="child_new" >';
+          	html_+='<option value="">请选择</option>';
+
+
+
+          	html_+='</select>';
+			html_+='</td>';
+			html_+='</tr>';
+			html_+='<tr>';
+			html_+='<td>选择板块</td>';
+			html_+='<td>';
+			html_+='<select name="modules" id="major" lay-verify="required" lay-search="">';
+          	html_+='<option value="">请选择</option>';
+			$.ajax({
+				url : U("/AdminPaper/major"),
+				type : "post",
+				async: false,
+				data:{},
+				dataType:"json",
+				success:function(data){
+					$.each(data, function(i, v){
+						html_ += '<option value="'+ v['exams_module_id'] +'">' + v['title'] + "</option>";
+					});
+				}
+			});
+    		html_+='</select>';
+			html_+='</td>';
+			html_+='</tr>';
+			html_+='</table>';
+			html_+="</div>";
+			
+		layui.use('layer', function(){
+			layer.open({
+				 type: 1
+				,id: 'layerDemo' //防止重复弹出
+				,content: html_
+				,btn: '提交'
+				,btnAlign: 'c' //按钮居中
+				,area:["700px","auto"]
+				,area:["700px","auto"]
+				,shade: 0 //不显示遮罩
+				,yes: function(){
+				 	let data_json = {"id":id,"subject":$("#subject").val(),"child_new":$("#child_new").val(),"major":$("#major").val()};
+					$.ajax({
+						url : U("/AdminPaper/clone_paper"),
+						type:"POST",
+						data:data_json,
+						dataType:"json",
+						// async:false,
+						success:function(data){
+							if(1 == data.code){
+								layer.msg('克隆成功', {
+									time: 500, //20s后自动关闭
+								})
+							}else{
+								layer.msg('克隆失败', {
+									time: 500, //20s后自动关闭
+								})
+							}
+						}
+					});
+					layer.closeAll();
+				}
+			});
+
+		})
+	}
 </script>
+
+
 <include file="admin_footer" />

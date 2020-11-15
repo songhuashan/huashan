@@ -113,7 +113,6 @@ $("#associate").css("display","none");
 
 //转移live_id
 function  shift_live_id(){
-<<<<<<< HEAD
     var now_live_id = $("#associate").attr("data-live");
     var shift_live = $("#shift_live").val();
     if(shift_live.lenght == 0){
@@ -123,17 +122,6 @@ function  shift_live_id(){
         alert(msg.msg);
         window.location.href = 'https://www.qiluzhibo.com/index.php?app=live&mod=AdminLive&act=ccLiveRoom&id='+now_live_id;
     },"json");
-=======
-var now_live_id = $("#associate").attr("data-live");
-var shift_live = $("#shift_live").val();
-if(shift_live.lenght == 0){
-alert("请填写要复制的直播ID");
-}
-$.post(U('live/AdminLive/associate'),{"now_live_id":now_live_id,"shift_live":shift_live},function(msg){
-alert(msg.msg);
-window.location.href = 'https://www.qiluzhibo.com/index.php?app=live&mod=AdminLive&act=ccLiveRoom&id='+now_live_id;
-},"json");
->>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
 
 }
 
