@@ -844,8 +844,7 @@ class AdminLiveAction extends AdministratorAction
         $this->display('ccLiveRoom');
         // $this->displayList($list);
     }
-<<<<<<< HEAD
-=======
+
     
 
     //克隆课程
@@ -885,7 +884,7 @@ class AdminLiveAction extends AdministratorAction
 
 
 
->>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
+
 
     /*
      * 第三方直播间-微吼

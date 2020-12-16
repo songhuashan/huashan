@@ -285,8 +285,7 @@ class IndexAction extends CommonAction
                 $paper_options['options_type'] = $options_type;
             }
         }
-        // dump($tempData);
-       // dump($paper_options);
+
         $this->assign('paper_options', $paper_options);
         $this->assign('tempData', $tempData);
         
@@ -304,7 +303,7 @@ class IndexAction extends CommonAction
     public function doHaddleExams()
     {
 
-        
+        //正常提交试卷
         if (isAjax()) {
             if (D("ExamsUser", 'exams')->doExamsPaper($_POST)) {
                 echo json_encode(['status' => 1, 'data' => ['info' => '提交成功,请等待结果', 'jumpurl' => U("classroom/Home/exams", ['tab' => $_POST['exams_mode']])]]);exit;
@@ -312,7 +311,7 @@ class IndexAction extends CommonAction
                 echo json_encode(['status' => 0, 'message' => '提交处理失败,请重新尝试']);exit;
             }
         } else {
-          
+            //临时提交试卷
             $result= D("ExamsUser", 'exams')->doExamsPaper($_POST);
             if ($result) {
                 $temp_id               = intval($result);
@@ -358,11 +357,6 @@ class IndexAction extends CommonAction
         }
         // 获取试卷试题等信息
         $paper_options = D('ExamsPaperOptions', 'exmas')->getPaperOptionsById($paper_id);
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
         $this->assign('paper_options', $paper_options);
         // 查询记录
         $temp_id               = intval($_GET['temp']);
@@ -382,13 +376,9 @@ class IndexAction extends CommonAction
         $this->assign('answerData', $answerData);
         // 获取错误的答题记录
         $wrongList               = D("ExamsLogs", 'exams')->getWrongList($paper_id, $temp_id);
-        
+//        dump($wrongList);
         $wrongList && $wrongList = getSubByKey($wrongList, 'exams_question_id');
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 9009f2582a667d9db8e9a29f86fbee99cbeb82ae
+//        dump($wrongList);
         $this->assign('wrongCount', count($wrongList));
         $this->assign('wrongList', $wrongList);
         // 父级错题

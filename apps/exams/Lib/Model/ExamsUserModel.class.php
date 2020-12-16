@@ -67,10 +67,10 @@ class ExamsUserModel extends Model
      */
     public function doExamsPaper($data)
     {
-        
+
         // 获取试卷ID
         $paper_id = intval($data['paper_id']);
-        
+
         // 分析试题
         $questions      = $this->filter_array($data['user_answer']);
         $exams_users_id = isset($data['exams_users_id']) ? $data['exams_users_id'] : 0;
@@ -86,7 +86,7 @@ class ExamsUserModel extends Model
         $status          = 1;
         // 是否错题练习
         $is_wrongexams = isset($data['is_wrongexams']);
-        
+
         foreach ($questions as $question_id => &$answer) {
             // 统一转换为数组处理
             if (is_string($answer) && stripos($answer, ',') !== false) {
@@ -99,7 +99,7 @@ class ExamsUserModel extends Model
             // 获取试题信息
 
             $question_info = D("ExamsQuestion", 'exams')->getQuestionById($question_id);
-            
+
             $is_right      = 0;
             switch ($question_info['type_info']['question_type_key']) {
                 case 'radio':
@@ -108,7 +108,7 @@ class ExamsUserModel extends Model
                 case 'completion':
                     // 检测正误
                     $answer_true_option = $question_info['answer_true_option'];
-                    
+
                     if ($answer && count(array_diff($answer_true_option, $answer)) === 0) {
                         $right_count += 1;
                         // 累计分数
@@ -171,7 +171,7 @@ class ExamsUserModel extends Model
             'exams_mode'      => intval($data['exams_mode']) ?: 2,
             'completion_rate' => $completion_rate . '%',
         ];
-        
+
         // 如果是继续答题,执行修改
         if (!$exams_users_id) {
             $addData['pid'] = isset($data['wrongexams_temp']) ? intval($data['wrongexams_temp']) : 0;

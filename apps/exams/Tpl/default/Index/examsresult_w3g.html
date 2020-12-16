@@ -16,9 +16,9 @@
         <div class="cstlayer-content">{$answerData.score|default='0'}</div>
         <p class="cstlayer-txt"></p><!--本卷平均分{$avg.avg|default='0'}分，超过{$avg.transcend_rate}的人-->
         <php>if($answerData['exams_mode'] != 3){</php>
-            <a href="{:U('exams/index/examsroom',['paper_id'=>$paper['exams_paper_id'],'joinType'=>$answerData['exams_mode']])}" class="add-eaxm">再次挑战</a>
+        <a href="{:U('exams/index/examsroom',['paper_id'=>$paper['exams_paper_id'],'joinType'=>$answerData['exams_mode']])}" class="add-eaxm">再次挑战</a>
         <php>}else{</php>
-            <a href="{:U('exams/Index/wrongExamsroom',['joinType'=>1,'paper_id'=>$paper['exams_paper_id'],'temp'=>$answerData['pid']])}" class="add-eaxm">再次挑战</a>
+        <a href="{:U('exams/Index/wrongExamsroom',['joinType'=>1,'paper_id'=>$paper['exams_paper_id'],'temp'=>$answerData['pid']])}" class="add-eaxm">再次挑战</a>
         <php>}</php>
         <dl class="business-card">
             <!-- <dt>排名<h1>{$rank.now.rank|default='1'}</h1></dt> -->
@@ -41,12 +41,12 @@
             <th>得分</th>
         </tr>
         <volist name="rank.list" id="item">
-        <tr>
-            <td><h6>{$i}</h6></td>
-            <td><a href="{:U('classroom/UserShow/index',['uid'=>$item['uid']])}"><img src="{:getUserFace($item['uid'])}"></a><small>{:getUsername($item['uid'])}</small></td>
-            <td><em>{:floor($item['anser_time']/60)}'{:$item['anser_time'] % 60}</em></td>
-            <td><h6>{$item.score|default="0"}</h6></td>
-        </tr>
+            <tr>
+                <td><h6>{$i}</h6></td>
+                <td><a href="{:U('classroom/UserShow/index',['uid'=>$item['uid']])}"><img src="{:getUserFace($item['uid'])}"></a><small>{:getUsername($item['uid'])}</small></td>
+                <td><em>{:floor($item['anser_time']/60)}'{:$item['anser_time'] % 60}</em></td>
+                <td><h6>{$item.score|default="0"}</h6></td>
+            </tr>
         </volist>
     </table>
 
@@ -61,7 +61,7 @@
             <i class="icon icon-fanhui1" style="display: none;"></i>
         </div>
         <div class="view-stop">
-            
+
             <a href="javascript:;" id="show-answer-card"><i class="icon icon-datiqia"></i></a>
         </div>
     </div>
@@ -70,21 +70,21 @@
     <div class="answer-card" style="display: none;">
         <php>$question_num = 1;</php>
         <volist name="paper_options.options_type" id="options_type">
-        <php>
-            if(!$paper_options['options_questions_data'][$options_type['question_type']]){
+            <php>
+                if(!$paper_options['options_questions_data'][$options_type['question_type']]){
                 break;
-            }
-        </php>
-        <dl>
-            <dt><h6>{$options_type.type_info.question_type_title}</h6></dt>
-            <dd>
-                <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
-                    <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
-                    <a id="card{$question_num}" href="javascript:;" data-question_num="{$question_num}" class="go_question <php>if(in_array($question['exams_question_id'],$wrongList)){</php>err<php>}</php>">{$question_num}</a>
-                    <php>$question_num++;</php>
-                </volist>
-            </dd>
-        </dl>
+                }
+            </php>
+            <dl>
+                <dt><h6>{$options_type.type_info.question_type_title}</h6></dt>
+                <dd>
+                    <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
+                        <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
+                        <a id="card{$question_num}" href="javascript:;" data-question_num="{$question_num}" class="go_question <php>if(in_array($question['exams_question_id'],$wrongList)){</php>err<php>}</php>">{$question_num}</a>
+                        <php>$question_num++;</php>
+                    </volist>
+                </dd>
+            </dl>
         </volist>
     </div>
 
@@ -97,48 +97,48 @@
                     <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
                         <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
                         <dl <php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="wrong"<php>}</php> id="ex{$question_num}" data-type="{$options_type.question_type_key}" data-question_num="{$question_num}">
-                            <dt>
-                                <h5><small>{$question_num}</small>/{$paper_options.questions_count}<strong>{$options_type.type_info.question_type_title}</strong></h5>
-                                <h3>{$question.content}</h3>
-                            </dt>
-                            <dd>
-                                <volist name="question.answer_options" id="answer">
+                        <dt>
+                            <h5><small>{$question_num}</small>/{$paper_options.questions_count}<strong>{$options_type.type_info.question_type_title}</strong></h5>
+                            <h3>{$question.content}</h3>
+                        </dt>
+                        <dd>
+                            <volist name="question.answer_options" id="answer">
                                 <div class="answer_box">
                                     <p data-answer="{$key}"><em>{$key}</em>{$answer}</p>
                                 </div>
-                                </volist>
-                            </dd>
-                            <a href="javascript:;" data-question_num="{$question_num}" class="next next_question">下一题</a>
-                            <div class="operation">
-                                <!--答案解析-->
-                                <php>
-                                    $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : [];
-                                </php>
-                                <div class="analysis">
-                                    <table class="analysis-pic">
-                                        <td>
-                                            <h6>正确答案</h6>
-                                            <abbr><volist name="question.answer_true_option" id="answer_true">{$answer_true}</volist></abbr>
-                                        </td>
-                                       
-                                        <td>
-                                            <h6>我的答案</h6>
-                                            <em><php>if(!$content){</php>未作答<php>}</php><volist name="content" id="ans">{$ans}</volist></em>
-                                        </td>
-                                    </table>
-                                    <div class="analysis-txt">
-                                        <h6>解析</h6>
-                                        <p>{$question.analyze}</p>
-                                    </div>
+                            </volist>
+                        </dd>
+                        <a href="javascript:;" data-question_num="{$question_num}" class="next next_question">下一题</a>
+                        <div class="operation">
+                            <!--答案解析-->
+                            <php>
+                                $content = isset($answerData['content'][$question['exams_question_id']]) ? $answerData['content'][$question['exams_question_id']] : [];
+                            </php>
+                            <div class="analysis">
+                                <table class="analysis-pic">
+                                    <td>
+                                        <h6>正确答案</h6>
+                                        <abbr><volist name="question.answer_true_option" id="answer_true">{$answer_true}</volist></abbr>
+                                    </td>
+
+                                    <td>
+                                        <h6>我的答案</h6>
+                                        <em><php>if(!$content){</php>未作答<php>}</php><volist name="content" id="ans">{$ans}</volist></em>
+                                    </td>
+                                </table>
+                                <div class="analysis-txt">
+                                    <h6>解析</h6>
+                                    <p>{$question.analyze}</p>
                                 </div>
                             </div>
-                            <div class="collect_hidden">
-                                <php>if($question['is_collect'] == 1){</php>
-                                    <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="0" class="icon icon-shoucang2" style="color:#F7B659;"></i>
-                                <php>}else{</php>
-                                    <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="1" class="icon icon-shoucang2"></i>
-                                <php>}</php>
-                            </div>
+                        </div>
+                        <div class="collect_hidden">
+                            <php>if($question['is_collect'] == 1){</php>
+                            <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="0" class="icon icon-shoucang2" style="color:#F7B659;"></i>
+                            <php>}else{</php>
+                            <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="1" class="icon icon-shoucang2"></i>
+                            <php>}</php>
+                        </div>
                         </dl>
                         <php>$question_num++;</php>
                     </volist>
@@ -146,8 +146,8 @@
                 <case value="completion">
                     <!-- 填空题 -->
                     <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
-                    <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
-                    <dl <php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="wrong"<php>}</php> id="ex{$question_num}" data-type="{$options_type.question_type_key}" data-question_num="{$question_num}">
+                        <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
+                        <dl <php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="wrong"<php>}</php> id="ex{$question_num}" data-type="{$options_type.question_type_key}" data-question_num="{$question_num}">
                         <dt>
                             <h5><small>{$question_num}</small>/{$paper_options.questions_count}<strong>{$options_type.type_info.question_type_title}</strong></h5>
                             <h3>{$question.content}</h3>
@@ -181,20 +181,20 @@
                         </div>
                         <div class="collect_hidden">
                             <php>if($question['is_collect'] == 1){</php>
-                                <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="0" class="icon icon-shoucang2" style="color:#F7B659;"></i>
+                            <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="0" class="icon icon-shoucang2" style="color:#F7B659;"></i>
                             <php>}else{</php>
-                                <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="1" class="icon icon-shoucang2"></i>
+                            <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="1" class="icon icon-shoucang2"></i>
                             <php>}</php>
                         </div>
-                    </dl>
-                    <php>$question_num++;</php>
+                        </dl>
+                        <php>$question_num++;</php>
                     </volist>
                 </case>
                 <case value="essays">
                     <!-- 简述题-->
                     <volist name="paper_options['options_questions_data'][$options_type['question_type']]" id="question">
-                    <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
-                    <dl <php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="wrong"<php>}</php> id="ex{$question_num}" data-type="{$options_type.question_type_key}" data-question_num="{$question_num}">
+                        <php>if($_GET['joinType'] == 3 && !in_array($question['exams_question_id'],$inQuestions)) continue;</php>
+                        <dl <php>if(in_array($question['exams_question_id'],$wrongList)){</php>class="wrong"<php>}</php> id="ex{$question_num}" data-type="{$options_type.question_type_key}" data-question_num="{$question_num}">
                         <dt>
                             <h5><small>{$question_num}</small>/{$paper_options.questions_count}<strong>{$options_type.type_info.question_type_title}</strong></h5>
                             <h3>{$question.content}</h3>
@@ -217,30 +217,30 @@
                         </div>
                         <div class="collect_hidden">
                             <php>if($question['is_collect'] == 1){</php>
-                                <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="0" class="icon icon-shoucang2" style="color:#F7B659;"></i>
+                            <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="0" class="icon icon-shoucang2" style="color:#F7B659;"></i>
                             <php>}else{</php>
-                                <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="1" class="icon icon-shoucang2"></i>
+                            <i data-question_num="{$question_num}" data-question_id="{$question.exams_question_id}" data-action="1" class="icon icon-shoucang2"></i>
                             <php>}</php>
                         </div>
-                    </dl>
-                    <php>$question_num++;</php>
+                        </dl>
+                        <php>$question_num++;</php>
                     </volist>
                 </case>
             </switch>
-        </dl>
+            </dl>
         </volist>
     </div>
 </div>
 
 <!--&lt;!&ndash; 统计代码&ndash;&gt;-->
-    <div id="site_analytics_code" style="display:none;">
+<div id="site_analytics_code" style="display:none;">
     {$site.site_analytics_code|base64_decode}
-    </div>
-    <eq name='site.site_online_count' value='1'>
+</div>
+<eq name='site.site_online_count' value='1'>
     <script src="{:SITE_URL}/online_check.php?uid={$mid}&uname={$user.uname}&mod={:MODULE_NAME}&app={:APP_NAME}&act={:ACTION_NAME}&action=trace"></script>
-    </eq>
+</eq>
 
-    <script src="__THEMEW3G__/js/script.js"></script>
+<script src="__THEMEW3G__/js/script.js"></script>
 </div>
 </body>
 </html>
@@ -263,11 +263,11 @@
             $(".answer-card").hide();
             if($("#ex"+question_num).length > 0){
                 $("#ex"+question_num).show().siblings().hide();
-                
+
             }else{
                 if(confirm("已经是最后一题了,是否返回第一题?")){
-                   if(window.type == 2){
-                    $(".static-exam .wrong").first().show().siblings().hide();
+                    if(window.type == 2){
+                        $(".static-exam .wrong").first().show().siblings().hide();
                     }else{
                         $("#ex1").show().siblings().hide();
                     }
@@ -294,19 +294,19 @@
                 window.type = 2;
                 // 添加搜藏标识
                 var html = $(".static-exam .wrong").first().find(".collect_hidden").html();
-                
+
             }else{
                 $(".static-exam dl").first().show();
                 window.type = 1;
                 // 添加搜藏标识
                 var html = $(".static-exam dl").first().find(".collect_hidden").html();
-                
+
             }
             $(".exam-header .view-stop>i").remove();
             $(".exam-header .view-stop a").before(html);
             $(".exams_questions").show();
             $(".exams_top").hide();
-            
+
         });
 
         // 显示答题面板
@@ -328,7 +328,7 @@
             }else{
                 var question_num = $(".static-exam dl:visible").data("question_num") - 1;
             }
-            
+
             if(question_num <= 1){
                 if(window.type == 2){
                     $(".static-exam .wrong").first().show().siblings().hide();

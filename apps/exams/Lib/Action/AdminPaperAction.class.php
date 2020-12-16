@@ -158,8 +158,11 @@ class AdminPaperAction extends AdministratorAction
             unset($vv['exams_question_id']);
             $exams_question_add = M("exams_question")->add($vv);
         }
-//        dump($exams_question_add);
-        if($exams_question_add){
+
+
+        if($exams_paper){
+
+
             echo json_encode(["code"=>1]);
         }else{
             echo json_encode(["code"=>-1]);

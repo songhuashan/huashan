@@ -966,6 +966,7 @@ admin.closeMount= function(id,property) {
 	return true;
 };
 
+
 admin.gotoarrcourse = function () {
 	window.open(U('school/User/addArrCourse'));
 }
